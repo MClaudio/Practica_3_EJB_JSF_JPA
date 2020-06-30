@@ -10,7 +10,7 @@
     <h:body>
         <h:form id="cabecera">
             <h:outputText value="Cedula cliente:" />
-            <h:inputText value="#{tags.myClass.name}" />
+            <h:inputText value="#{cliente.cedula}" />
             <p>
                 <h:commandButton value="Buscar"></h:commandButton>
             </p>
@@ -21,26 +21,26 @@
         <h:form>
             <ul>
                
-                <p>Producto:<h:inputText size="10" value="#{collectionBean.name}" /></p>
+                <p>Producto:<h:inputText size="10" value="#{producto.nombre}" /></p>
               
             </ul>
             <h:commandButton value="Agregar" action="#{collectionBean.add}" />
-            <h:dataTable value="#{collectionBean.list}" var="o" styleClass="tabla"
+            <h:dataTable value="#{collectionBean.list}" var="producto" styleClass="tabla"
                          headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
                 <h:column>
                     <f:facet name="header">Producto</f:facet>
-                     <h:inputText value="#{o.name}" size="10" rendered="#{o.editable}" />
-                    <h:outputText value="#{o.name}" rendered="#{not o.editable}" />
+                     <h:inputText value="#{producto.nombre}" size="10" rendered="#{o.editable}" />
+                    <h:outputText value="#{producto.nombre}" rendered="#{not o.editable}" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">Cantidad</f:facet>
-                    <h:inputText value="#{o.name}" size="10" rendered="#{o.editable}" />
-                    <h:outputText value="#{o.name}" rendered="#{not o.editable}" />
+                    <h:inputText value="#{producto.cantidad}" size="10" rendered="#{o.editable}" />
+                    <h:outputText value="#{producto.cantidad}" rendered="#{not o.editable}" />
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Subtotal</f:facet>
-                    <h:inputText value="#{o.quantity}" size="10"
-                                 rendered="#{o.editable}" />
+                    <f:facet name="header">valor</f:facet>
+                    <h:inputText value="#{producto.precio}" size="10"
+                                 rendered="#{producto.precio}" />
                     <h:outputText value="#{o.quantity}" rendered="#{not o.editable}" />
                 </h:column>
               
