@@ -31,18 +31,14 @@
         </style>
     </h:head>
     <h:body>
-        <h3>Bodega</h3>
+
         <h:form>
             <h:dataTable value="#{collectionBean.list}" var="o" styleClass="tabla"
                          headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+
                 <h:column>
-                    <f:facet name="header">Id</f:facet>#{o.id}</h:column>
-                <h:column>
-                    <f:facet name="header">Codigo</f:facet>
-                    <h:inputText value="#{o.name}" size="10" rendered="#{o.editable}" />
-                    <h:outputText value="#{o.name}" rendered="#{not o.editable}" />
-                </h:column>
-                
+                    <f:facet name="header">Codigo</f:facet>#{o.id}</h:column>
+                    
                 <h:column>
                     <f:facet name="header">Ciudad</f:facet>
                     <h:inputText value="#{o.name}" size="10" rendered="#{o.editable}" />
@@ -80,25 +76,15 @@
                 </h:column>
                 
                 <h:column>
-                    <f:facet name="header">Codigo</f:facet>
+                    <f:facet name="header">Total Productos</f:facet>
                     <h:inputText value="#{o.name}" size="10" rendered="#{o.editable}" />
                     <h:outputText value="#{o.name}" rendered="#{not o.editable}" />
                 </h:column>
-                
-                <h:column>
-                    <f:facet name="header">Total Producto</f:facet>
-                    <h:inputText value="#{o.name}" size="10" rendered="#{o.editable}" />
-                    <h:outputText value="#{o.name}" rendered="#{not o.editable}" />
-                </h:column>
-                
-            </h:dataTable>
-            <br></br>
-            <br></br>
 
+            </h:dataTable>
             <ul>
 
             </ul>
-
             <h:commandButton value="Editar" action="#{collectionBean.add}" />
             <h:commandButton value="Eliminar" action="#{collectionBean.add}" />
         </h:form>
