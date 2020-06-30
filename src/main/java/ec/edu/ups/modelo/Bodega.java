@@ -6,6 +6,7 @@
 package ec.edu.ups.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,13 +32,14 @@ public class Bodega extends Localidad implements Serializable{
     private List<Inventario> inventarios;
 
     public Bodega() {
+        this.inventarios = new ArrayList<>();
     }
     
-    public Bodega(int codigo, String nombre, String telefono, List<Inventario> inventarios) {
+    public Bodega(int codigo, String nombre, String telefono) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.telefono = telefono;
-        this.inventarios = inventarios;
+        this.inventarios = new ArrayList<>();
     }
 
     public int getCodigo() {

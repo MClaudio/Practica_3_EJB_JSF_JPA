@@ -8,10 +8,12 @@ package ec.edu.ups.controlador;
 import ec.edu.ups.ejb.BodegaFacade;
 import ec.edu.ups.ejb.CategoriaFacade;
 import ec.edu.ups.ejb.ProductoFacade;
+import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.modelo.Bodega;
 import ec.edu.ups.modelo.Categoria;
 import ec.edu.ups.modelo.Inventario;
 import ec.edu.ups.modelo.Producto;
+import ec.edu.ups.modelo.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -32,6 +34,7 @@ public class ProductoBean implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @EJB
+    private UsuarioFacade uf;
     private CategoriaFacade categoriaFacade;
     private BodegaFacade bodegaFacade;
     private ProductoFacade productoFacade;
@@ -53,7 +56,7 @@ public class ProductoBean implements Serializable {
     public void init(){
         this.categorias = categoriaFacade.findAll();
         this.cantidad = 1;
-        //this.bodegas = bodegaFacade.findAll();
+        this.bodegas = bodegaFacade.findAll();
     }
 
     public String getNombre() {
@@ -102,9 +105,7 @@ public class ProductoBean implements Serializable {
     }
 
     public void setCategoria(Categoria categoria) {
-        System.out.println("Metodo categoria ");
-        //System.out.println("Categoia seleccionada "+categoria.getNombre());
-        this.categoria = (Categoria) categoria;
+        this.categoria = categoria;
     }
 
     public Bodega getBodega() {
@@ -117,14 +118,16 @@ public class ProductoBean implements Serializable {
     
     
     public void guardarDatos(){
-        System.out.println("Guardandooo");
+        
         System.out.println("Categoria: "+this.categoria.getNombre());
-        //Producto producto = new Producto();
-        //producto.setNombre(this.nombre);
-        //producto.setPrecio(this.precio);
-        //producto.setCategoria(this.categoria);
-        //producto.addInventario(new Inventario(this.cantidad));
-        //productoFacade.create(producto);    
+        Producto producto = new Producto();
+        producto.setNombre(this.nombre);
+        producto.setPrecio(this.precio);
+        producto.setImagen("/imagen.gpg");
+        producto.setCategoria(this.categoria);
+        producto.addInventario(new Inventario(this.cantidad));
+        productoFacade.create(producto);    
+        System.out.println("Guardadooo");
     }
     
     

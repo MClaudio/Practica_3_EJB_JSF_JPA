@@ -6,6 +6,7 @@
 package ec.edu.ups.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -29,23 +30,21 @@ public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
-
     private String nombre;
-
     private String imagen;
-
     private double precio;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaDetalle> facturasDetalles;
-
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Inventario> inventarios;
-    
+    private List<Inventario> inventarios; 
     @ManyToOne
     private Categoria categoria;
 
     public Producto() {
+        this.facturasDetalles = new ArrayList<>();
+        this.inventarios = new ArrayList<>();
+        
     }
 
     public Producto(int codigo, String nombre, String imagen, double precio, List<FacturaDetalle> facturasDetalles, List<Inventario> inventarios, Categoria catorias) {
@@ -56,6 +55,9 @@ public class Producto implements Serializable {
         this.facturasDetalles = facturasDetalles;
         this.inventarios = inventarios;
         this.categoria = catorias;
+        
+        this.facturasDetalles = new ArrayList<>();
+        this.inventarios = new ArrayList<>();
     }
 
     public int getCodigo() {

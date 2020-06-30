@@ -15,6 +15,7 @@ public abstract class AbstractFacade<T> {
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
+        System.out.println("Metodo Crear Entidad...");
 	getEntityManager().persist(entity);
     }
 
