@@ -34,11 +34,8 @@ public class Inventario implements Serializable{
     public Inventario() {
     }
 
-    public Inventario(int codigo, int cantidad, Producto producto) {
-        
-        this.codigo = codigo;
+    public Inventario(int cantidad) {
         this.cantidad = cantidad;
-        this.producto = producto;
     }
 
     public int getCodigo() {

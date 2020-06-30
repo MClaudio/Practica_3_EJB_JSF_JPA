@@ -11,20 +11,27 @@
             <fieldset>
                 <legend>Agregar Producto</legend>
                 <label>Nombre:</label>
-                <h:inputText id="user" value="" required="true"
+                <h:inputText id="categoria-nombre" value="#{productoBean.nombre}" required="true"
                              requiredMessage="Campo Obligatorio"/>
-                <h:message for="user" style="color:red" />
+                <h:message for="categoria-nombre" style="color:red" />
 
                 <label>Categoria:</label>
-                <h:selectOneMenu >
-                    <f:selectItems  />
+                <h:selectOneMenu value="#{productoBean.categoria}">
+                    <f:selectItem  itemLabel="Seleccione..." itemValue="0" noSelectionOption="true"  />
+                    <f:selectItems  value="#{productoBean.categorias}" var="categoriaItem" 
+                                   itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
                 </h:selectOneMenu>
 
                 <label>Precio unitario:</label>
-                <h:inputText id="precio" value="" converter="javax.faces.Double" />
+                <h:inputText id="precio" value="#{productoBean.precio}" converter="javax.faces.Double" />
                 <h:message for="precio" style="color:red" />
+                
+                <label>Cantidad:</label>
+                <h:inputText id="cantidad" value="#{productoBean.cantidad}" converter="javax.faces.Integer" />
+                <h:message for="cantidad" style="color:red" />
+                
 
-                <h:commandButton value="Continuar"></h:commandButton>
+                <h:commandButton value="Crear Producto" action="#{productoBean.guardarDatos}"></h:commandButton>
 
             </fieldset>
         </h:form>

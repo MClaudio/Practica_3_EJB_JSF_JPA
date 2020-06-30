@@ -113,6 +113,21 @@ public class Producto implements Serializable {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+    
+    public void addInventario(Inventario inventario){
+        if(!this.inventarios.contains(inventario)){
+            this.inventarios.add(inventario);
+            inventario.setProducto(this);
+        }
+    }
+    
+     public void deleteInventario(Inventario inventario) {
+        if (this.inventarios.contains(inventario)) {
+            this.inventarios.remove(inventario);
+            inventario.setProducto(null);
+        }
+    }
+
 
     @Override
     public int hashCode() {
