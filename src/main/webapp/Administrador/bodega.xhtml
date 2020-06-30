@@ -12,39 +12,39 @@
                 <legend>Agregar Bodega</legend>
 
                 <label>Ciudad</label>
-                <h:inputText id="" value="" required="true"
+                <h:inputText id="ciudad" value="#{bodegaBean.ciudad}" required="true"
                              requiredMessage="Campo Obligatorio"/>
                 <h:message for="" style="color:red" />
 
 
                 <label>Direccion</label>
-                <h:inputText id="" value="" required="true"
+                <h:inputText id="direccion" value="#{bodegaBean.direccion}" required="true"
                              requiredMessage="Campo Obligatorio"/>
                 <h:message for="" style="color:red" />
 
                 <label>Nombre</label>
-                <h:inputText id="" value="" required="true"
+                <h:inputText id="nombre" value="#{bodegaBean.nombre}" required="true"
                              requiredMessage="Campo Obligatorio"/>
                 <h:message for="" style="color:red" />
 
                 <label>Pais</label>
-                <h:inputText id="" value="" required="true"
+                <h:inputText id="pais" value="#{bodegaBean.pais}" required="true"
                              requiredMessage="Campo Obligatorio"/>
                 <h:message for="" style="color:red" />
 
                 <label>Provincia</label>
-                <h:inputText id="" value="" required="true"
+                <h:inputText id="provincia" value="#{bodegaBean.provincia}" required="true"
                              requiredMessage="Campo Obligatorio"/>
                 <h:message for="" style="color:red" />
 
                 <label>Telefono</label>
-                <h:inputText id="" value="" required="true"
+                <h:inputText id="telefono" value="#{bodegaBean.telefono}" required="true"
                              requiredMessage="Campo Obligatorio"/>
                 <h:message for="" style="color:red" />
 
                 <br></br>
 
-                <h:commandButton value="Continuar"></h:commandButton>
+                <h:commandButton value="Continuar" action="#{bodegaBean.guardarDatos}"></h:commandButton>
 
             </fieldset>
         </h:form>
