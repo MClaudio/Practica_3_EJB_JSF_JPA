@@ -7,45 +7,78 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form id="form" >
+        <h:form >
             <fieldset>
-                <legend>Registro</legend>	
-                <p>
-                    Nombre:
-                    <h:inputText id="nombre" value="" required="true"> </h:inputText>
-                </p>
+                <legend>Registro</legend>
 
-                <p>
-                    Apellido:
-                    <h:inputText id="apellido" value="" required="true"> </h:inputText>
-                </p>
+                <label>Nombre:</label>
+                <h:inputText id="nombre" value="#{clienteBean.nombre}" required="true"
+                             requiredMessage="Campo Obligatorio"/>
                 
-                <p>
-                    Cedula:
-                    <h:inputText id="cedula" value="" required="true"> </h:inputText>
-                </p>
-                <p>
-                    Telefono:
-                    <h:inputText id="telefono" value="" required="true"> </h:inputText>
-                </p>
-                
-                <p>
-                    Correo:
-                    <h:inputText id="correo" value="" required="true"> </h:inputText>
-                </p>
-                
-                <p>
-			<h:commandButton value="Continuar"></h:commandButton>
-                   
-                        <h:commandButton value="Iniciar Sesion"></h:commandButton>
-		</p>
-                
-       
+                <h:message for="nombre" style="color:red"/>
 
 
-              
+
+                <label>Apellido:</label>
+
+                <h:inputText id="apellido" value="#{clienteBean.apellido}" required="true"
+                             requiredMessage="Campo Obligatorio"/> 
+                <h:message for="apellido" style="color:red"/>
                 
-               
+
+
+
+                
+
+
+                <label>Telefono:</label>
+                <h:inputText id="telefono" value="#{clienteBean.telefono}" required="true"
+                             requiredMessage="Campo Obligatorio"/> 
+                <h:message for="telefono" style="color:red"/>
+
+
+
+                <label>Correo:</label>
+                <h:inputText id="correo" value="#{clienteBean.correo}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="correo" style="color:red"/>
+                
+                <label>Ciudad:</label>
+                <h:inputText id="ciudad" value="#{clienteBean.ciudad}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="ciudad" style="color:red"/>
+                
+                <label>Direccion:</label>
+                <h:inputText id="direccion" value="#{clienteBean.direccion}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="direccion" style="color:red"/>
+                
+                <label>Pais:</label>
+                <h:inputText id="pais" value="#{clienteBean.pais}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="pais" style="color:red"/>
+                
+                <label>Contrasena:</label>
+                <h:inputText id="password" value="#{clienteBean.password}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="password" style="color:red"/>
+                
+                <label>Provincia:</label>
+                <h:inputText id="provincia" value="#{clienteBean.provincia}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="provincia" style="color:red"/>
+                
+                <label>Rol:</label>
+                <h:inputText id="rol" value="#{clienteBean.rol}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="rol" style="color:red"/>
+
+
+
+                <h:commandButton value="Guardar" action="#{clienteBean.guardarDatos()}"></h:commandButton>
+
+                <h:commandButton value="Iniciar Sesion"></h:commandButton>
+
 
             </fieldset>
         </h:form>
