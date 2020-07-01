@@ -7,13 +7,14 @@ package ec.edu.ups.controlador;
 
 import ec.edu.ups.ejb.BodegaFacade;
 import ec.edu.ups.ejb.CategoriaFacade;
+import ec.edu.ups.ejb.InventarioFacade;
+import ec.edu.ups.ejb.LocalidadFacade;
 import ec.edu.ups.ejb.ProductoFacade;
-import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.modelo.Bodega;
 import ec.edu.ups.modelo.Categoria;
 import ec.edu.ups.modelo.Inventario;
+import ec.edu.ups.modelo.Localidad;
 import ec.edu.ups.modelo.Producto;
-import ec.edu.ups.modelo.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -34,7 +35,8 @@ public class ProductoBean implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @EJB
-    private UsuarioFacade uf;
+    private LocalidadFacade lf;
+    private InventarioFacade inf;
     private CategoriaFacade categoriaFacade;
     private BodegaFacade bodegaFacade;
     private ProductoFacade productoFacade;
@@ -54,9 +56,26 @@ public class ProductoBean implements Serializable {
     
     @PostConstruct
     public void init(){
-        this.categorias = categoriaFacade.findAll();
-        this.cantidad = 1;
-        this.bodegas = bodegaFacade.findAll();
+        //Categoria cat = new Categoria("Limpieza", "Articulos");
+        //categoriaFacade.create(cat);
+        //Producto prod = new Producto("jabon", "klg", "/img", 0.90);
+        //productoFacade.create(prod);
+        
+        //Bodega bodega = new Bodega("Bodega Sur");
+        Localidad loc = new Localidad("Ecuador", "Azuay", "Cuenca", "Av 12");
+        bodega.setLocalidad(loc);
+        //bodegaFacade.create(bodega);
+        
+        //Inventario inv = new Inventario(5);
+        //inf.create(inv);
+        
+        //Localidad loc = new Localidad("Ecuador", "Azuay", "Cuenca", "Av 12");
+        //lf.create(loc);
+        
+        //this.categorias = categoriaFacade.findAll();
+        //this.cantidad = 1;
+        //System.out.println("Bodegas: "+bodegaFacade.findAll());
+        //this.bodegas = bodegaFacade.findAll();
     }
 
     public String getNombre() {
@@ -118,7 +137,7 @@ public class ProductoBean implements Serializable {
     
     
     public void guardarDatos(){
-        
+        /*
         System.out.println("Categoria: "+this.categoria.getNombre());
         Producto producto = new Producto();
         producto.setNombre(this.nombre);
@@ -128,6 +147,16 @@ public class ProductoBean implements Serializable {
         producto.addInventario(new Inventario(this.cantidad));
         productoFacade.create(producto);    
         System.out.println("Guardadooo");
+*/
+        //Bodega bd = new Bodega();
+        //bd.setNombre("Bodega sur");
+        
+        //bd.setLocalidad(loc);
+        //bodegaFacade.create(bd);
+       
+        
+        //Categoria cat = new Categoria("Lacteos", "Productos lacteos");
+        //categoriaFacade.create(cat);
     }
     
     

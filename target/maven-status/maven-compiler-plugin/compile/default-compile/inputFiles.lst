@@ -1,7 +1,11 @@
+E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\utilities\SelectOneMenuConverter.java
+E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\ProductoBean.java
+E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\LocalidadFacade.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\ProductoFacade.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\FacturaCabeceraFacade.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Bodega.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\AbstractFacade.java
+E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\ClienteBean.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\InventarioFacade.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Inventario.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\FacturaCabecera.java
@@ -9,6 +13,7 @@ E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\mode
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\CategoriaFacade.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\FacturaDetalleFacade.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Producto.java
+E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\BodegaBean.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Localidad.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\UsuarioFacade.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Categoria.java

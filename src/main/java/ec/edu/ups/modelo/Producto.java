@@ -31,6 +31,7 @@ public class Producto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
     private String nombre;
+    private String unidadMedida;
     private String imagen;
     private double precio;
 
@@ -47,18 +48,14 @@ public class Producto implements Serializable {
         
     }
 
-    public Producto(int codigo, String nombre, String imagen, double precio, List<FacturaDetalle> facturasDetalles, List<Inventario> inventarios, Categoria catorias) {
-        this.codigo = codigo;
+    public Producto(String nombre, String unidadMedida, String imagen, double precio) {
         this.nombre = nombre;
+        this.unidadMedida = unidadMedida;
         this.imagen = imagen;
         this.precio = precio;
-        this.facturasDetalles = facturasDetalles;
-        this.inventarios = inventarios;
-        this.categoria = catorias;
-        
-        this.facturasDetalles = new ArrayList<>();
-        this.inventarios = new ArrayList<>();
     }
+
+   
 
     public int getCodigo() {
         return codigo;
@@ -114,6 +111,14 @@ public class Producto implements Serializable {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public String getUnidadMedida() {
+        return unidadMedida;
+    }
+
+    public void setUnidadMedida(String unidadMedida) {
+        this.unidadMedida = unidadMedida;
     }
     
     public void addInventario(Inventario inventario){

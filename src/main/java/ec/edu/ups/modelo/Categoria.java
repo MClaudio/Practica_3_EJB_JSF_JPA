@@ -37,8 +37,7 @@ public class Categoria implements Serializable {
     public Categoria() {
     }
 
-    public Categoria(int codigo, String nombre, String descripcion) {
-        this.codigo = codigo;
+    public Categoria(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }

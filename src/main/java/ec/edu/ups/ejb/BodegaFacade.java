@@ -16,7 +16,6 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class BodegaFacade extends AbstractFacade<Bodega>{
-    
     @PersistenceContext(unitName = "persistencia")
     private EntityManager em;
 
@@ -28,5 +27,4 @@ public class BodegaFacade extends AbstractFacade<Bodega>{
     protected EntityManager getEntityManager() {
         return em;
     }
-    
 }

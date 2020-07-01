@@ -19,34 +19,33 @@ import javax.persistence.OneToMany;
  * @author Diego Duchimaza
  */
 @Entity
-public class Usuario extends Localidad implements  Serializable{
+public class Usuario implements  Serializable{
     
     @Id
     private int cedula;
     private String nombre;
     private String apellido;
-    private String telefono;
     @Column(unique = true, nullable = false)
     private String correo;
     @Column(nullable = false)
     private String password;
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FacturaCabecera> facturas;
     @Column(columnDefinition = "VARCHAR(255) DEFAULT 'cliente'")
     private String rol;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FacturaCabecera> facturas;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Localidad> localidad;
     
     public Usuario(){
         
     }
 
-    public Usuario(int cedula, String nombre, String apellido, String telefono, String correo, String password, List<FacturaCabecera> facturas, String rol) {
+    public Usuario(int cedula, String nombre, String apellido, String correo, String password, String rol) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.telefono = telefono;
         this.correo = correo;
         this.password = password;
-        this.facturas = facturas;
         this.rol = rol;
     }
 
@@ -72,14 +71,6 @@ public class Usuario extends Localidad implements  Serializable{
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
     }
 
     public String getCorreo() {
@@ -114,6 +105,14 @@ public class Usuario extends Localidad implements  Serializable{
         this.rol = rol;
     }
 
+    public List<Localidad> getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(List<Localidad> localidad) {
+        this.localidad = localidad;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -141,15 +140,7 @@ public class Usuario extends Localidad implements  Serializable{
 
     @Override
     public String toString() {
-        return "Usuario{" + "cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", correo=" + correo + ", password=" + password + ", facturas=" + facturas + ", rol=" + rol + '}';
-    }
-
-   
-
-
-    
-    
-    
-    
+        return "Usuario{" + "cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo + ", password=" + password + ", facturas=" + facturas + ", rol=" + rol + '}';
+    }  
     
 }

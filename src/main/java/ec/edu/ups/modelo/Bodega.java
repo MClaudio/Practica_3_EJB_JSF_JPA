@@ -6,7 +6,6 @@
 package ec.edu.ups.modelo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,34 +13,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author claum
  */
 @Entity
-public class Bodega extends Localidad implements Serializable{
+public class Bodega implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
     private String nombre;
-    private String telefono;
+    @OneToOne(mappedBy = "bodega", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Localidad localidad;
     
     @OneToMany(mappedBy = "bodega", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inventario> inventarios;
 
     public Bodega() {
-        this.inventarios = new ArrayList<>();
-    }
-    
-    public Bodega(int codigo, String nombre, String telefono) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.inventarios = new ArrayList<>();
     }
 
+    public Bodega(String nombre) {
+        this.nombre = nombre;
+    }
+    
     public int getCodigo() {
         return codigo;
     }
@@ -58,12 +55,12 @@ public class Bodega extends Localidad implements Serializable{
         this.nombre = nombre;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public Localidad getLocalidad() {
+        return localidad;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
     }
 
     public List<Inventario> getInventarios() {
@@ -77,7 +74,7 @@ public class Bodega extends Localidad implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + this.codigo;
+        hash = 53 * hash + this.codigo;
         return hash;
     }
 
@@ -98,9 +95,6 @@ public class Bodega extends Localidad implements Serializable{
         }
         return true;
     }
-
-    
-    
     
     
 }

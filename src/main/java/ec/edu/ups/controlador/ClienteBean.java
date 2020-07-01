@@ -155,13 +155,13 @@ public class ClienteBean implements Serializable{
         usuario.setNombre(this.nombre);
         usuario.setApellido(this.apellido);
         //usuario.setCedula(this.cedula);
-        usuario.setTelefono(this.telefono);
-        usuario.setCorreo(this.correo);
-        usuario.setCiudad(this.ciudad);
-        usuario.setDireccion(this.direccion);
-        usuario.setPais(this.pais);
-        usuario.setPassword(this.password);
-        usuario.setProvincia(this.provincia);
+        //usuario.setTelefono(this.telefono);
+        //usuario.setCorreo(this.correo);
+        //usuario.setCiudad(this.ciudad);
+        //usuario.setDireccion(this.direccion);
+        //usuario.setPais(this.pais);
+        //usuario.setPassword(this.password);
+        //usuario.setProvincia(this.provincia);
         usuario.setRol(this.rol);
         ejbUsuarioFacade.create(usuario);
         

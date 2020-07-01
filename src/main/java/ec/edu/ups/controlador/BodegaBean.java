@@ -90,12 +90,12 @@ public class BodegaBean implements Serializable  {
     public void guardarDatos(){
         Bodega bodega =new Bodega();
         
-        bodega.setCiudad(this.Ciudad);
-        bodega.setDireccion(this.direccion);
-        bodega.setNombre(this.nombre);
-        bodega.setPais(this.pais);
-        bodega.setProvincia(this.provincia);
-        bodega.setTelefono(this.telefono);
+        //bodega.setCiudad(this.Ciudad);
+        //bodega.setDireccion(this.direccion);
+        //bodega.setNombre(this.nombre);
+        //bodega.setPais(this.pais);
+        //bodega.setProvincia(this.provincia);
+        //bodega.setTelefono(this.telefono);
         System.out.println("Bodega " + bodega );
         ejbBodFaced.create(bodega);
         
