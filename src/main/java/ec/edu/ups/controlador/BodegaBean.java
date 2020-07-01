@@ -2,10 +2,10 @@ package ec.edu.ups.controlador;
 
 import ec.edu.ups.ejb.BodegaFacade;
 import ec.edu.ups.modelo.Bodega;
-import ec.edu.ups.modelo.Inventario;
 import ec.edu.ups.modelo.Localidad;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
@@ -27,15 +27,27 @@ import javax.inject.Named;
 public class BodegaBean implements Serializable  {
     private static final long serialVersionUID = 1L;
     
+    @EJB
+    private BodegaFacade bodegaFacade;
     private String Ciudad;
     private String direccion;
     private String nombre;
     private String pais;
     private String provincia;
     private String telefono;
-    private BodegaFacade ejbBodFaced;
+    private List<Bodega> bodegas;
+    
 
     public BodegaBean() {
+    }
+    
+    @PostConstruct
+    public void init() {
+        try {
+            this.bodegas = bodegaFacade.findAll();
+        } catch (Exception e) {
+            System.out.println("Error---"+e);
+        }
     }
 
     public String getCiudad() {
@@ -86,16 +98,14 @@ public class BodegaBean implements Serializable  {
         this.telefono = telefono;
     }
 
-    public BodegaFacade getEjbBodFaced() {
-        return ejbBodFaced;
+    public List<Bodega> getBodegas() {
+        return bodegas;
     }
 
-    public void setEjbBodFaced(BodegaFacade ejbBodFaced) {
-        this.ejbBodFaced = ejbBodFaced;
+    public void setBodegas(List<Bodega> bodegas) {
+        this.bodegas = bodegas;
     }
-
     
-      
     public void guardarDatos(){
         Bodega bodega =new Bodega();
         
@@ -103,14 +113,8 @@ public class BodegaBean implements Serializable  {
         Localidad localidad = new Localidad(this.Ciudad, this.direccion, this.pais, this.provincia, this.telefono);
         bodega.setLocalidad(localidad);
  
-        //bodega.setCiudad(this.Ciudad);
-        //bodega.setDireccion(this.direccion);
-        //bodega.setNombre(this.nombre);
-        //bodega.setPais(this.pais);
-        //bodega.setProvincia(this.provincia);
-        //bodega.setTelefono(this.telefono);
         System.out.println("Bodegaaaaaaaaa " + bodega.toString());
-        ejbBodFaced.create(bodega);
+        bodegaFacade.create(bodega);
         
     }
     

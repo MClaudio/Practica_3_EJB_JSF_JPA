@@ -111,4 +111,9 @@ public class Bodega implements Serializable {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Bodega{" + "codigo=" + codigo + ", nombre=" + nombre + '}';
+    }
+    
 }
