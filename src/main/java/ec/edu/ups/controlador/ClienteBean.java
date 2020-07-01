@@ -5,6 +5,7 @@
  */
 package ec.edu.ups.controlador;
 
+import ec.edu.ups.ejb.LocalidadFacade;
 import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.modelo.FacturaCabecera;
 import ec.edu.ups.modelo.Localidad;
@@ -40,6 +41,8 @@ public class ClienteBean implements Serializable {
     private String pais;
     private String provincia;
     private List<Usuario> usuarios;
+   
+    
 
     public ClienteBean() {
     }
@@ -49,10 +52,11 @@ public class ClienteBean implements Serializable {
         try {
             this.usuarios = usuarioFacade.findAll();
             System.out.println("Lista usuarios"+ this.usuarios);
+            
         } catch (Exception e) {
             System.out.println("Error---"+e);
         }
-    }
+    }  
 
     public String getCedula() {
         return cedula;
@@ -148,8 +152,20 @@ public class ClienteBean implements Serializable {
         System.out.println("Usuario: "+usuario.toString());
 
         usuarioFacade.create(usuario);
+        
+        this.usuarios = usuarioFacade.findAll();
         return null;
 
+    }
+    
+     public String delete(Usuario usuario) {
+        this.usuarioFacade.remove(usuario);
+        return null;
+    }
+     
+     public String edit(Usuario usuario) {
+       usuario.setEditable(true);
+        return null;
     }
 
 }
