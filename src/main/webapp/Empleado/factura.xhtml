@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Agregar Factura</title>
     </h:head>
@@ -16,20 +17,36 @@
             </p>
         </h:form>
         <h:outputText value="#{facturaBean.usuario.cedula}"/>
+        <h:outputText value="#{facturaBean.usuario.nombre}"/>
+        <h:outputText value="#{facturaBean.usuario.apellido}"/>
+        <h:outputText value="#{facturaBean.usuario.correo}"/>
 
         <br />
         <h:form>
             <label>Buscar producto</label>
-            <h:inputText id="producto" value="#{facturaBean.productoNombre}" required="true"/>
-            <p>
-                <h:commandButton value="Buscar" action="#{facturaBean.buscarProducto}" />
-            </p>
-        </h:form>
-
-        <h:form>
+            <h:inputText id="producto" value="#{facturaBean.productoNombre}" required="true" />
             <h:outputText value="#{facturaBean.producto.nombre}"/>
             <h:commandButton value="AgregarProducto" action="#{facturaBean.addProducto}" />
         </h:form>
+        <br />
+
+        <div>
+            <h:form>
+                <h:inputText  id="name" size="50" value="#{facturaBean.productoNombre}"
+                              required="true" onkeypress="#{facturaBean.changeTotal1(event)}">    
+                </h:inputText>
+            </h:form>
+            <ul>
+                <ul>
+                    <ui:repeat id="out1" value="#{myBean.items}" var="item">
+                        <li><h:outputText value="#{item.name}"/></li>
+                    </ui:repeat>
+                </ul>
+            </ul>
+        </div>
+
+
+
         <br />
         <h3>JSF 2.3: dataTable</h3>
         <h:form>

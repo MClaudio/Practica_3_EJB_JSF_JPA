@@ -23,6 +23,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
+import javax.faces.event.AjaxBehaviorEvent;
 
 /**
  *
@@ -118,7 +119,8 @@ public class FacturaBean implements Serializable {
 
     public void buscarProducto() {
         try {
-            this.producto = productoFacade.findForName(this.productoNombre);
+            //this.producto = productoFacade.findForName(this.productoNombre);
+            System.out.println("EVENTOOOO ON KEY PRESSS");
         } catch (Exception e) {
         }
     }
@@ -165,15 +167,19 @@ public class FacturaBean implements Serializable {
         this.facturaCabecera.setUsuario(this.usuario);
         this.facturaCabecera.setFecha(new Date());
         facturaCabeceraFacade.create(this.facturaCabecera);
-        
+
         for (FacturaDetalle fd : this.facturaCabecera.getFacturaDetalles()) {
             for (Inventario inv : fd.getProducto().getInventarios()) {
-                inv.setCantidad(inv.getCantidad()-fd.getCantidad());
+                inv.setCantidad(inv.getCantidad() - fd.getCantidad());
                 inventarioFacade.edit(inv);
             }
         }
 
         return null;
+    }
+
+    public void changeTotal1(AjaxBehaviorEvent event) {
+        System.out.println("EVENTOOOO ON KEY PRESSS");
     }
 
 }

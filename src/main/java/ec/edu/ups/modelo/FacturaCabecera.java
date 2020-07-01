@@ -6,6 +6,7 @@
 package ec.edu.ups.modelo;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,7 +77,7 @@ public class FacturaCabecera implements  Serializable{
     }
 
     public double getTotal() {
-        this.total = (this.subTotal*this.iva)+this.subTotal;
+        this.total = Math.round(((this.subTotal*this.iva)+this.subTotal) * 100.0) / 100.0;
         return this.total;
     }
 

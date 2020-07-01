@@ -30,6 +30,7 @@ public class ProductoFacade extends AbstractFacade<Producto>{
     }
     
     public Producto findForName(String name){
+        //String jpql = "FROM PRODUCTO p INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO WHERE p.nombre LIKE '"+name+"%' AND i.CANTIDAD > 0";
         String jpql = "FROM Producto p WHERE p.nombre LIKE '" + name+ "%'";
         return (Producto) em.createQuery(jpql).getSingleResult();
     }
