@@ -6,6 +6,7 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.modelo.Producto;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,6 +34,16 @@ public class ProductoFacade extends AbstractFacade<Producto>{
         //String jpql = "FROM PRODUCTO p INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO WHERE p.nombre LIKE '"+name+"%' AND i.CANTIDAD > 0";
         String jpql = "FROM Producto p WHERE p.nombre LIKE '" + name+ "%'";
         return (Producto) em.createQuery(jpql).getSingleResult();
+    }
+    
+    public List findForBodega(int codigo){
+        
+        String jpql = "SELECT * FROM PRODUCTO p \n" +
+"INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO \n" +
+"INNER JOIN BODEGA b ON i.BODEGA_CODIGO = b.CODIGO\n" +
+"WHERE b.CODIGO = "+codigo+";";
+        Producto productos = (Producto) em.createQuery(jpql).getResultList();
+        return (List) productos;
     }
     
 }

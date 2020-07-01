@@ -173,6 +173,16 @@ public class ProductoBean implements Serializable {
         return null;
     }
     
+      public void buscarPorBodega() {
+        
+        try {
+              System.out.println("hola");
+            this.productos = productoFacade.findForBodega(this.bodega.getCodigo());
+            System.out.println(productos);
+        } catch (Exception e) {
+        }
+    }
+    
 
     public String edit(Producto producto) {
         producto.setEditable(true);

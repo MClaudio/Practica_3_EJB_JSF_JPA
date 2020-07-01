@@ -52,6 +52,14 @@
         <h:form>
             <fieldset>
                 <legend>Lista de productos</legend>
+                 <label>Bodega:</label>
+                 <h:selectOneMenu id="bodega-productos" converter="selectOneMenuConverter" value="#{productoBean.bodega.codigo}"                onchange = "submit()"
+                                 valueChangeListener = "#{productoBean.buscarPorBodega }"  >
+                    <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  />
+                    <f:selectItems  value="#{productoBean.bodegas}" var="bodegaItem" 
+                                   itemLabel="#{bodegaItem.nombre}" itemValue="#{bodegaItem}"/>
+                </h:selectOneMenu>
+              
                 <h:dataTable value="#{productoBean.productos}" var="p" styleClass="tabla"
                              headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 
