@@ -106,6 +106,17 @@ public class BodegaBean implements Serializable {
         this.bodegas = bodegas;
     }
 
+
+
+    public void TotalProductos(Bodega b) {
+        
+       
+        System.out.println("codigoooooo : " + b);
+        
+        bodegaFacade.totalProductos(b.getCodigo());
+
+    }
+
     public void guardarDatos() {
         Bodega bodega = new Bodega();
 
@@ -120,7 +131,7 @@ public class BodegaBean implements Serializable {
     }
 
     public String delete(Bodega b) {
-        System.out.println("esta entrando al metodo eliminar.......");
+        System.out.println("esta entrando al metodo eliminar......." + b);
         this.bodegaFacade.remove(b);
         this.bodegas = bodegaFacade.findAll();
         return null;
