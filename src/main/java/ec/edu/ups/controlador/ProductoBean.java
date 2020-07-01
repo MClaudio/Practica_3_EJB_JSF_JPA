@@ -10,11 +10,13 @@ import ec.edu.ups.ejb.CategoriaFacade;
 import ec.edu.ups.ejb.InventarioFacade;
 import ec.edu.ups.ejb.LocalidadFacade;
 import ec.edu.ups.ejb.ProductoFacade;
+import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.modelo.Bodega;
 import ec.edu.ups.modelo.Categoria;
 import ec.edu.ups.modelo.Inventario;
 import ec.edu.ups.modelo.Localidad;
 import ec.edu.ups.modelo.Producto;
+import ec.edu.ups.modelo.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -35,6 +37,7 @@ public class ProductoBean implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @EJB
+    private UsuarioFacade usuf;
     private LocalidadFacade lf;
     private InventarioFacade inf;
     private CategoriaFacade categoriaFacade;
@@ -56,14 +59,23 @@ public class ProductoBean implements Serializable {
     
     @PostConstruct
     public void init(){
+        /*
+        Usuario usu= new Usuario();
+        usu.setNombre("clauks");
+        usu.setApellido("kjhsad");
+        usu.setCedula("010236223");
+        usu.setCorreo("claudio@mail.com");
+        usuf.create(usu);
+        */
+        
         //Categoria cat = new Categoria("Limpieza", "Articulos");
         //categoriaFacade.create(cat);
         //Producto prod = new Producto("jabon", "klg", "/img", 0.90);
         //productoFacade.create(prod);
         
         //Bodega bodega = new Bodega("Bodega Sur");
-        Localidad loc = new Localidad("Ecuador", "Azuay", "Cuenca", "Av 12");
-        bodega.setLocalidad(loc);
+        //Localidad loc = new Localidad("Ecuador", "Azuay", "Cuenca", "Av 12");
+        //bodega.setLocalidad(loc);
         //bodegaFacade.create(bodega);
         
         //Inventario inv = new Inventario(5);
@@ -72,10 +84,10 @@ public class ProductoBean implements Serializable {
         //Localidad loc = new Localidad("Ecuador", "Azuay", "Cuenca", "Av 12");
         //lf.create(loc);
         
-        //this.categorias = categoriaFacade.findAll();
-        //this.cantidad = 1;
+        this.categorias = categoriaFacade.findAll();
+        this.cantidad = 1;
         //System.out.println("Bodegas: "+bodegaFacade.findAll());
-        //this.bodegas = bodegaFacade.findAll();
+        this.bodegas = bodegaFacade.findAll();
     }
 
     public String getNombre() {

@@ -22,14 +22,12 @@ import javax.persistence.OneToMany;
 public class Usuario implements  Serializable{
     
     @Id
-    private int cedula;
+    private String cedula;
     private String nombre;
     private String apellido;
     @Column(unique = true, nullable = false)
     private String correo;
-    @Column(nullable = false)
     private String password;
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'cliente'")
     private String rol;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaCabecera> facturas;
@@ -37,23 +35,23 @@ public class Usuario implements  Serializable{
     private List<Localidad> localidad;
     
     public Usuario(){
-        
+        this.rol = "cliente";
     }
 
-    public Usuario(int cedula, String nombre, String apellido, String correo, String password, String rol) {
+    public Usuario(String cedula, String nombre, String apellido, String correo, String password) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.password = password;
-        this.rol = rol;
+        this.rol = "cliente";
     }
 
-    public int getCedula() {
+    public String getCedula() {
         return cedula;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
     }
 
@@ -112,11 +110,11 @@ public class Usuario implements  Serializable{
     public void setLocalidad(List<Localidad> localidad) {
         this.localidad = localidad;
     }
-    
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 19 * hash + this.cedula;
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.cedula);
         return hash;
     }
 
@@ -132,11 +130,13 @@ public class Usuario implements  Serializable{
             return false;
         }
         final Usuario other = (Usuario) obj;
-        if (this.cedula != other.cedula) {
+        if (!Objects.equals(this.cedula, other.cedula)) {
             return false;
         }
         return true;
     }
+    
+    
 
     @Override
     public String toString() {
