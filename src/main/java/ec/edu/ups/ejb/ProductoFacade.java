@@ -29,4 +29,9 @@ public class ProductoFacade extends AbstractFacade<Producto>{
         return em;
     }
     
+    public Producto findForName(String name){
+        String jpql = "FROM Producto p WHERE p.nombre = '" + name+ "'";
+        return (Producto) em.createQuery(jpql).getSingleResult();
+    }
+    
 }

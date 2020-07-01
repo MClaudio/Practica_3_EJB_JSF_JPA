@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -36,11 +35,8 @@ public class FacturaDetalle implements Serializable{
     public FacturaDetalle() {
     }
 
-    public FacturaDetalle(int codigo, double subtotal, int cantidad, FacturaCabecera facturaCabecera, Producto producto) {
-        this.codigo = codigo;
-        this.subtotal = subtotal;
+    public FacturaDetalle(int cantidad, Producto producto) {
         this.cantidad = cantidad;
-        this.facturaCabecera = facturaCabecera;
         this.producto = producto;
     }
 
@@ -54,8 +50,6 @@ public class FacturaDetalle implements Serializable{
         this.producto = producto;
     }
     
-    
-
     public int getCodigo() {
         return codigo;
     }
@@ -65,11 +59,7 @@ public class FacturaDetalle implements Serializable{
     }
 
     public double getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
+        return this.cantidad*this.producto.getPrecio();
     }
 
     public int getCantidad() {
@@ -90,7 +80,10 @@ public class FacturaDetalle implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 5;
+        hash = 43 * hash + this.codigo;
+        hash = 43 * hash + Objects.hashCode(this.facturaCabecera);
+        hash = 43 * hash + Objects.hashCode(this.producto);
         return hash;
     }
 
@@ -109,12 +102,6 @@ public class FacturaDetalle implements Serializable{
         if (this.codigo != other.codigo) {
             return false;
         }
-        if (Double.doubleToLongBits(this.subtotal) != Double.doubleToLongBits(other.subtotal)) {
-            return false;
-        }
-        if (this.cantidad != other.cantidad) {
-            return false;
-        }
         if (!Objects.equals(this.facturaCabecera, other.facturaCabecera)) {
             return false;
         }
@@ -124,9 +111,13 @@ public class FacturaDetalle implements Serializable{
         return true;
     }
 
+    
+
+    
+
     @Override
     public String toString() {
-        return "FacturaDetalle{" + "codigo=" + codigo + ", subtotal=" + subtotal + ", cantidad=" + cantidad + ", facturaCabecera=" + facturaCabecera + ", producto=" + producto + '}';
+        return "FacturaDetalle{" + "codigo=" + codigo + ", subtotal=" + subtotal + ", cantidad=" + cantidad +'}';
     }
 
     

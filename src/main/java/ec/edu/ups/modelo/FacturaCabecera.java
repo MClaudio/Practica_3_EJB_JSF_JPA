@@ -6,6 +6,7 @@
 package ec.edu.ups.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -13,7 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 /**
@@ -22,11 +22,14 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class FacturaCabecera implements  Serializable{
+    private static final long serialVersionUID = 1;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
     private Date fecha;
     private double iva;
+    private double subTotal;
     private double total;
    
     @ManyToOne
@@ -36,15 +39,16 @@ public class FacturaCabecera implements  Serializable{
     private List<FacturaDetalle> facturaDetalles;
 
     public FacturaCabecera() {
+        this.facturaDetalles = new ArrayList<>();
+        this.iva = 0.12;
     }
 
-    public FacturaCabecera(int codigo, Date fecha, double iva, double total, Usuario usuario, List<FacturaDetalle> facturaDetalles) {
-        this.codigo = codigo;
+    public FacturaCabecera(Date fecha,double total, Usuario usuario, List<FacturaDetalle> facturaDetalles) {
         this.fecha = fecha;
-        this.iva = iva;
         this.total = total;
         this.usuario = usuario;
         this.facturaDetalles = facturaDetalles;
+        this.iva = 0.12;
     }
 
     public int getCodigo() {
@@ -72,8 +76,14 @@ public class FacturaCabecera implements  Serializable{
     }
 
     public double getTotal() {
-        return total;
+        this.total = this.subTotal*this.iva;
+        return this.total;
     }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+    
 
     public void setTotal(double total) {
         this.total = total;
@@ -94,12 +104,16 @@ public class FacturaCabecera implements  Serializable{
     public void setFacturaDetalles(List<FacturaDetalle> facturaDetalles) {
         this.facturaDetalles = facturaDetalles;
     }
-
-    @Override
-    public String toString() {
-        return "FacturaCabecera{" + "codigo=" + codigo + ", fecha=" + fecha + ", iva=" + iva + ", total=" + total + ", usuario=" + usuario + ", facturaDetalles=" + facturaDetalles + '}';
+    
+    public double getSubTotal() {
+        double sum = 0;
+        for(FacturaDetalle fd : this.facturaDetalles)
+                sum += fd.getSubtotal();
+        this.subTotal = sum;
+        
+        return this.subTotal;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -126,6 +140,18 @@ public class FacturaCabecera implements  Serializable{
         return true;
     }
     
-    
-    
+    public void addFacturaDetalle(FacturaDetalle facturaDetalle) {
+        if (!this.facturaDetalles.contains(facturaDetalle)) {
+            this.facturaDetalles.add(facturaDetalle);
+            facturaDetalle.setFacturaCabecera(this);
+        }
+    }
+
+    public void deleteFacturaDetalle(FacturaDetalle facturaDetalle) {
+        if (this.facturaDetalles.contains(facturaDetalle)) {
+            this.facturaDetalles.remove(facturaDetalle);
+            facturaDetalle.setFacturaCabecera(null);
+        }
+    }
+       
 }

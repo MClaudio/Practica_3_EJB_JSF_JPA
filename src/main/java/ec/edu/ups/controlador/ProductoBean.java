@@ -143,12 +143,8 @@ public class ProductoBean implements Serializable {
         this.medida = medida;
     }
     
-    
-
     public String add() {
-
         if (this.categoria != null && this.bodega != null) {
-            //System.out.println("Categoria: "+this.categoria.getNombre());
             Inventario inventario = new Inventario(this.cantidad);
             inventario.setBodega(this.bodega);
 

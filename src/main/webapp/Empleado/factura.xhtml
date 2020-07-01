@@ -5,69 +5,74 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>JSF 2.3</title>
+        <title>Agregar Factura</title>
     </h:head>
     <h:body>
         <h:form id="cabecera">
-            <h:outputText value="Cedula cliente: hola" />
-            <h:inputText id="cedula" value="#{facturaBean.usuario}" required="true"/>
+            <label>Buscar usuario</label>
+            <h:inputText id="cedula" value="#{facturaBean.cedula}" required="true"/>
             <p>
-                <h:commandButton value="Buscar" action="#{usuarioBean.init()}" ></h:commandButton>
+                <h:commandButton value="Buscar" action="#{facturaBean.buscarUsuario}" />
             </p>
-            
-
         </h:form>
-       
+        <h:outputText value="#{facturaBean.usuario.cedula}"/>
+
+        <br />
+        <h:form>
+            <label>Buscar producto</label>
+            <h:inputText id="producto" value="#{facturaBean.productoNombre}" required="true"/>
+            <p>
+                <h:commandButton value="Buscar" action="#{facturaBean.buscarProducto}" />
+            </p>
+        </h:form>
+
+        <h:form>
+            <h:outputText value="#{facturaBean.producto.nombre}"/>
+            <h:commandButton value="AgregarProducto" action="#{facturaBean.addProducto}" />
+        </h:form>
+        <br />
         <h3>JSF 2.3: dataTable</h3>
         <h:form>
-       
-               
-                <p>Producto:<h:inputText size="10" value="#{producto.nombre}" /></p>
-              
-          
-            <h:commandButton value="Agregar" action="#{collectionBean.add}" />
-            <h:dataTable value="#{collectionBean.list}" var="producto" styleClass="tabla"
+            <h:dataTable value="#{facturaBean.facturaDetalles}" var="detalle" styleClass="tabla"
                          headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
                 <h:column>
-                    <f:facet name="header">Producto</f:facet>
-                     <h:inputText value="#{producto.nombre}" size="10" rendered="#{o.editable}" />
-                    <h:outputText value="#{producto.nombre}" rendered="#{not o.editable}" />
+                    <f:facet name="header">Nombre</f:facet>
+                    <h:outputText value="#{detalle.producto.nombre}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Precio unitario</f:facet>
+                    <h:outputText value="#{detalle.producto.precio}" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">Cantidad</f:facet>
-                    <h:inputText value="#{producto.cantidad}" size="10" rendered="#{o.editable}" />
-                    <h:outputText value="#{producto.cantidad}" rendered="#{not o.editable}" />
-                </h:column>
+                    <h:commandButton value="-" action="#{facturaBean.deleteCantidad(detalle)}" />
+                    <h:outputText value="#{detalle.cantidad}" />
+                    <h:commandButton value="+" action="#{facturaBean.addCantidad(detalle)}" />
+                </h:column>               
                 <h:column>
-                    <f:facet name="header">valor</f:facet>
-                    <h:inputText value="#{producto.precio}" size="10"
-                                 rendered="#{producto.precio}" />
-                    <h:outputText value="#{o.quantity}" rendered="#{not o.editable}" />
+                    <f:facet name="header">Sub Total</f:facet>
+                    <h:outputText value="#{detalle.subtotal}" />
                 </h:column>
-              
+
             </h:dataTable>
-            
-
         </h:form>
-         <h:form>
 
-      <h:panelGrid columns="2">
-         <!-- primera fila -->
-         
-         <h:outputText value="Subtotal:"></h:outputText>
-         <h:inputText id="subtotal" value="#{100}"></h:inputText>
 
-         <!-- segunda fila -->
-         <h:outputText value="Iva:"></h:outputText>
-         <h:inputText id="iva" value="#{12}"></h:inputText>
-         
-        <h:outputText value="Total:"></h:outputText>
-         <h:inputText id="total" value="#{120}"></h:inputText>
+        <br />
 
-         <!-- tercera fila. el outputLabel esta vacio y es para hacer
-              que el boton quede en la segunda columna -->
-   
-      </h:panelGrid>
-   </h:form>
+        <!-- primera fila -->
+        <h:outputText value="Sub Total:"/>
+        <h:outputText id="subTotal" value="#{facturaBean.facturaCabecera.subTotal}"/>
+        <br />
+        <!-- segunda fila -->
+        <h:outputText value="Iva:"/>
+        <h:outputText id="iva" value="#{facturaBean.facturaCabecera.iva*100} %"/>
+        <br />
+        <h:outputText value="Total:"/>
+        <h:outputText id="total" value="#{facturaBean.facturaCabecera.total}"/>
+        <br />
+        <h:form>
+            <h:commandButton id="guardar" value="Generar factura" action="#{facturaBean.generarFactura}" />
+        </h:form>
     </h:body>
 </html>
