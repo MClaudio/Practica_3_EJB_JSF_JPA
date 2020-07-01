@@ -40,7 +40,7 @@ public class Localidad implements Serializable{
               
     }
 
-    public Localidad(String pais, String provincia, String ciudad, String direccion) {
+    public Localidad(String pais, String provincia, String ciudad, String direccion, String telefono) {
         this.pais = pais;
         this.provincia = provincia;
         this.ciudad = ciudad;

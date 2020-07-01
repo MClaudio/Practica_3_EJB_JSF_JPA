@@ -141,8 +141,8 @@ public class ClienteBean implements Serializable {
         usuario.setCedula(this.cedula);
         usuario.setCorreo(this.correo);
 
-        Localidad localidad = new Localidad(this.pais, this.provincia, this.ciudad, this.direccion);
-        localidad.setTelefono(this.telefono);
+        Localidad localidad = new Localidad(this.pais, this.provincia, this.ciudad, this.direccion, this.telefono);
+        //localidad.setTelefono(this.telefono);
         usuario.addLocalidad(localidad);
         
         System.out.println("Usuario: "+usuario.toString());

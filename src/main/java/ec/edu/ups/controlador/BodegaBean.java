@@ -85,18 +85,31 @@ public class BodegaBean implements Serializable  {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    public BodegaFacade getEjbBodFaced() {
+        return ejbBodFaced;
+    }
+
+    public void setEjbBodFaced(BodegaFacade ejbBodFaced) {
+        this.ejbBodFaced = ejbBodFaced;
+    }
+
     
       
     public void guardarDatos(){
         Bodega bodega =new Bodega();
         
+        bodega.setNombre(this.nombre);
+        Localidad localidad = new Localidad(this.Ciudad, this.direccion, this.pais, this.provincia, this.telefono);
+        bodega.setLocalidad(localidad);
+ 
         //bodega.setCiudad(this.Ciudad);
         //bodega.setDireccion(this.direccion);
         //bodega.setNombre(this.nombre);
         //bodega.setPais(this.pais);
         //bodega.setProvincia(this.provincia);
         //bodega.setTelefono(this.telefono);
-        System.out.println("Bodega " + bodega );
+        System.out.println("Bodegaaaaaaaaa " + bodega.toString());
         ejbBodFaced.create(bodega);
         
     }
