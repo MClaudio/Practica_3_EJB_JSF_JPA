@@ -70,28 +70,48 @@
                     <h:outputText value="#{b.nombre}" rendered="#{not b.editable}" />
                 </h:column> 
 
+                <c:forEach items="${b.localidad}" var="l">
+                    <h:outputText value="${l.localidad.ciudad}"/><br/>
+ 
+                </c:forEach>
 
 
+                
                 <h:column>
-                    <f:facet name="header">Ciudad</f:facet>   #{l.localidad.ciudad}   
+                    <f:facet name="header">Ciudad</f:facet>  
+                    <h:inputText value="#{b.localidad.ciudad} " size="10"
+                                 rendered="#{b.editable}" />
+                    <h:outputText value="#{b.localidad.ciudad} " rendered="#{not b.editable}" />
                 </h:column>
 
                 <h:column>
-                    <f:facet name="header">Direccion</f:facet>#{b.localidad.direccion}
+                    <f:facet name="header">Direccion</f:facet>
+                    <h:inputText value="#{b.localidad.direccion} " size="10"
+                                 rendered="#{b.editable}" />
+                    <h:outputText value="#{b.localidad.direccion}" rendered="#{not b.editable}" />
                 </h:column>
 
                 <h:column>
-                    <f:facet name="header">Pais</f:facet>#{b.localidad.pais}
+                    <f:facet name="header">Pais</f:facet>
+                    <h:inputText value="#{b.localidad.pais} " size="10"
+                                 rendered="#{b.editable}" />
+                    <h:outputText value="#{b.localidad.pais}" rendered="#{not b.editable}" />
                 </h:column> 
                 <h:column>
-                    <f:facet name="header">Provincia</f:facet>#{b.localidad.provincia}
-                </h:column> 
-                <h:column>
-                    <f:facet name="header">Telefono</f:facet>#{b.localidad.telefono}
+                    <f:facet name="header">Provincia</f:facet>
+                    <h:inputText value="#{b.localidad.provincia}" size="10"
+                                 rendered="#{b.editable}" />
+                    <h:outputText value="#{b.localidad.provincia}" rendered="#{not b.editable}" />
                 </h:column> 
                 <h:column>
                     <f:facet name="header">Telefono</f:facet>
+                    <h:inputText value="#{b.localidad.telefono}" size="10"
+                                 rendered="#{b.editable}" />
+                    <h:outputText value="#{b.localidad.telefono}" rendered="#{not b.editable}" />
                 </h:column> 
+
+                
+                
                 <h:column>
                     <f:facet name="header">Total Producto</f:facet>
                 </h:column> 

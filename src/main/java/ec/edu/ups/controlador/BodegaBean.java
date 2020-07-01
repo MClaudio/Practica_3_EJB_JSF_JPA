@@ -115,6 +115,7 @@ public class BodegaBean implements Serializable {
 
         System.out.println("Bodegaaaaaaaaa " + bodega.toString());
         bodegaFacade.create(bodega);
+        this.bodegas = bodegaFacade.findAll();
 
     }
 
