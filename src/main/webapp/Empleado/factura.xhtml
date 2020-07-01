@@ -34,9 +34,7 @@
             <h:form>
                 <h:selectOneMenu id="selone_menu_colors" value="red" styleClass="selectOneMenu">
                     <f:selectItems value="#{carconf.colors}" />
-                    <t:jsValueChangeListener for="selone_menu_subcolors" 
-                                             expressionValue="($srcElem.options[$srcElem.selectedIndex].value=='black')?
-                                             $destElem.style.display='inline':$destElem.style.display='none';"/>
+                    
                 </h:selectOneMenu>
                 <h:inputText id="selone_menu_subcolors"/>
             </h:form>
