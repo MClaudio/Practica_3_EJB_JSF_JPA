@@ -33,12 +33,8 @@ public class Bodega implements Serializable {
 
     @OneToMany(mappedBy = "bodega", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inventario> inventarios;
-    
-<<<<<<< HEAD
+
     @Transient
-=======
-     @Transient
->>>>>>> 78757581cbec1eabf8bc944606593ae6524f3e43
     private boolean editable;
 
     public Bodega() {
