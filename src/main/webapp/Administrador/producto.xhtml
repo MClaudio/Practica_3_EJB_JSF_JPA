@@ -75,7 +75,13 @@
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Categoria</f:facet>#{p.categoria.nombre}
+                        <f:facet name="header">Categoria</f:facet>
+                          <h:selectOneMenu id="categoria-seleccion" converter="selectOneMenuConverter" value="#{productoBean.categoria}" rendered="#{p.editable}">
+                    <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  rendered="#{p.editable}"/>
+                    <f:selectItems  value="#{productoBean.categorias}" var="categoriaItem"  rendered="#{p.editable}"
+                                   itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
+                </h:selectOneMenu>
+                        <h:outputText value="#{p.categoria.nombre}" rendered="#{not p.editable}" />
                     </h:column>
 
 
