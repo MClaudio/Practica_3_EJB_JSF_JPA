@@ -25,7 +25,7 @@ public class Usuario implements  Serializable{
     private String cedula;
     private String nombre;
     private String apellido;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String correo;
     private String password;
     private String rol;

@@ -33,9 +33,9 @@ import javax.faces.annotation.FacesConfig;
 @Named(value = "productoBean")
 @SessionScoped
 public class ProductoBean implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @EJB
     private UsuarioFacade usuf;
     private LocalidadFacade lf;
@@ -56,9 +56,9 @@ public class ProductoBean implements Serializable {
      */
     public ProductoBean() {
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         /*
         Usuario usu= new Usuario();
         usu.setNombre("clauks");
@@ -66,28 +66,29 @@ public class ProductoBean implements Serializable {
         usu.setCedula("010236223");
         usu.setCorreo("claudio@mail.com");
         usuf.create(usu);
-        */
-        
+         */
+
         //Categoria cat = new Categoria("Limpieza", "Articulos");
         //categoriaFacade.create(cat);
         //Producto prod = new Producto("jabon", "klg", "/img", 0.90);
         //productoFacade.create(prod);
-        
         //Bodega bodega = new Bodega("Bodega Sur");
         //Localidad loc = new Localidad("Ecuador", "Azuay", "Cuenca", "Av 12");
         //bodega.setLocalidad(loc);
         //bodegaFacade.create(bodega);
-        
         //Inventario inv = new Inventario(5);
         //inf.create(inv);
-        
         //Localidad loc = new Localidad("Ecuador", "Azuay", "Cuenca", "Av 12");
         //lf.create(loc);
-        
-        this.categorias = categoriaFacade.findAll();
-        this.cantidad = 1;
-        //System.out.println("Bodegas: "+bodegaFacade.findAll());
-        this.bodegas = bodegaFacade.findAll();
+        try {
+            this.categorias = categoriaFacade.findAll();
+            this.cantidad = 1;
+            //System.out.println("Bodegas: "+bodegaFacade.findAll());
+            //this.bodegas = bodegaFacade.findAll();
+        } catch (Exception e) {
+            System.out.println("Error --- " + e);
+        }
+
     }
 
     public String getNombre() {
@@ -97,7 +98,7 @@ public class ProductoBean implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
     public List<Categoria> getCategorias() {
         return categorias;
     }
@@ -146,9 +147,8 @@ public class ProductoBean implements Serializable {
     public void setBodega(Bodega bodega) {
         this.bodega = bodega;
     }
-    
-    
-    public void guardarDatos(){
+
+    public void guardarDatos() {
         /*
         System.out.println("Categoria: "+this.categoria.getNombre());
         Producto producto = new Producto();
@@ -159,19 +159,14 @@ public class ProductoBean implements Serializable {
         producto.addInventario(new Inventario(this.cantidad));
         productoFacade.create(producto);    
         System.out.println("Guardadooo");
-*/
+         */
         //Bodega bd = new Bodega();
         //bd.setNombre("Bodega sur");
-        
+
         //bd.setLocalidad(loc);
         //bodegaFacade.create(bd);
-       
-        
         //Categoria cat = new Categoria("Lacteos", "Productos lacteos");
         //categoriaFacade.create(cat);
     }
-    
-    
-    
-    
+
 }
