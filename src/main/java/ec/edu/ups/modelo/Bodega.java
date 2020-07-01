@@ -107,7 +107,7 @@ public class Bodega implements Serializable {
     public void deleteInventario(Inventario inventario) {
         if (this.inventarios.contains(inventario)) {
             this.inventarios.remove(inventario);
-            inventario.setBodega(this);
+            inventario.setBodega(null);
         }
     }
 

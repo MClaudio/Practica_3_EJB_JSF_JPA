@@ -7,10 +7,7 @@ package ec.edu.ups.controlador;
 
 import ec.edu.ups.ejb.BodegaFacade;
 import ec.edu.ups.ejb.CategoriaFacade;
-import ec.edu.ups.ejb.InventarioFacade;
-import ec.edu.ups.ejb.LocalidadFacade;
 import ec.edu.ups.ejb.ProductoFacade;
-import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.modelo.Bodega;
 import ec.edu.ups.modelo.Categoria;
 import ec.edu.ups.modelo.Inventario;
@@ -22,6 +19,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.annotation.FacesConfig;
+import javax.faces.application.FacesMessage;
+import javax.faces.validator.ValidatorException;
 
 /**
  *
@@ -51,17 +50,18 @@ public class ProductoBean implements Serializable {
      * Creates a new instance of ProductoBean
      */
     public ProductoBean() {
+        
     }
 
     @PostConstruct
     public void init() {
-        
+
         try {
             this.categorias = this.categoriaFacade.findAll();
             this.cantidad = 1;
-            //System.out.println("Bodegas: "+bodegaFacade.findAll());
-            this.bodegas = this.bodegaFacade.findAll();
             this.productos = this.productoFacade.findAll();
+            this.bodegas = this.bodegaFacade.findAll();
+            
         } catch (Exception e) {
             System.out.println("Error --- " + e);
         }
@@ -131,39 +131,44 @@ public class ProductoBean implements Serializable {
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
     }
-    
+
     public String add() {
-        
-        //System.out.println("Categoria: "+this.categoria.getNombre());
-        Inventario inventario = new Inventario(this.cantidad);
-        inventario.setBodega(this.bodega);
-        
-        Producto producto = new Producto();
-        producto.setNombre(this.nombre);
-        producto.setPrecio(this.precio);
-        producto.setImagen("/imagen.gpg");
-        producto.setCategoria(this.categoria);
-        producto.addInventario(inventario);
-        
-        productoFacade.create(producto);  
-          
+
+        if (this.categoria != null && this.bodega != null) {
+            //System.out.println("Categoria: "+this.categoria.getNombre());
+            Inventario inventario = new Inventario(this.cantidad);
+            inventario.setBodega(this.bodega);
+
+            Producto producto = new Producto();
+            producto.setNombre(this.nombre);
+            producto.setPrecio(this.precio);
+            producto.setImagen("/imagen.gpg");
+            producto.setCategoria(this.categoria);
+            producto.addInventario(inventario);
+
+            productoFacade.create(producto);
+        }else{
+            FacesMessage message = new FacesMessage("Debe seleccionar una categoria y una bodega");
+	    throw new ValidatorException(message);
+        }
+
         return null;
     }
-    
-    public String delete(Producto producto){
+
+    public String delete(Producto producto) {
         this.productoFacade.remove(producto);
         return null;
     }
-    
-    public String edit(Producto producto){
+
+    public String edit(Producto producto) {
         producto.setEditable(true);
         return null;
     }
-    
-    public String save(Producto producto){
+
+    public String save(Producto producto) {
         productoFacade.edit(producto);
-	producto.setEditable(false);
-	return null;
+        producto.setEditable(false);
+        return null;
     }
 
 }

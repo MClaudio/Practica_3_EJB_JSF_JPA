@@ -5,59 +5,63 @@
  */
 package ec.edu.ups.controlador;
 
-
 import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.modelo.FacturaCabecera;
+import ec.edu.ups.modelo.Localidad;
 import ec.edu.ups.modelo.Usuario;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 
 /**
  *
  * @author enriq
  */
-
-@FacesConfig(version=FacesConfig.Version.JSF_2_3)
+@FacesConfig(version = FacesConfig.Version.JSF_2_3)
 @Named(value = "clienteBean")
-@Dependent
-public class ClienteBean implements Serializable{
+@SessionScoped
+public class ClienteBean implements Serializable {
+
+    private static final long serialVersionUID = 1;
     
-    
-    private static final long serialVersionUID=1;
     @EJB
-    private UsuarioFacade ejbUsuarioFacade;
+    private UsuarioFacade usuarioFacade;
     private String nombre;
     private String apellido;
-    private int cedula;
+    private String cedula;
     private String telefono;
     private String correo;
     private String ciudad;
     private String direccion;
     private String pais;
-    private String password;
     private String provincia;
-    private String rol;
+    private List<Usuario> usuarios;
 
-   
-    
-    
-
-   
     public ClienteBean() {
     }
 
-     public int getCedula() {
+    @PostConstruct
+    public void init() {
+        try {
+            this.usuarios = usuarioFacade.findAll();
+            System.out.println("Lista usuarios"+ this.usuarios);
+        } catch (Exception e) {
+            System.out.println("Error---"+e);
+        }
+    }
+
+    public String getCedula() {
         return cedula;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
     }
+
     public String getCiudad() {
         return ciudad;
     }
@@ -82,39 +86,12 @@ public class ClienteBean implements Serializable{
         this.pais = pais;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getProvincia() {
         return provincia;
     }
 
     public void setProvincia(String provincia) {
         this.provincia = provincia;
-    }
-
-   public String getRol() {
-        return rol;
-   }
-
-   public void setRol(String rol) {
-      this.rol = rol;
-   }
-
-    
-    
-    
-    public UsuarioFacade getEjbUsuarioFacade() {
-        return ejbUsuarioFacade;
-    }
-
-    public void setEjbUsuarioFacade(UsuarioFacade ejbUsuarioFacade) {
-        this.ejbUsuarioFacade = ejbUsuarioFacade;
     }
 
     public String getNombre() {
@@ -133,7 +110,6 @@ public class ClienteBean implements Serializable{
         this.apellido = apellido;
     }
 
-   
     public String getTelefono() {
         return telefono;
     }
@@ -149,23 +125,31 @@ public class ClienteBean implements Serializable{
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-    public void guardarDatos(){
-        Usuario usuario=new Usuario();
-        usuario.setNombre(this.nombre);
-        usuario.setApellido(this.apellido);
-        //usuario.setCedula(this.cedula);
-        //usuario.setTelefono(this.telefono);
-        //usuario.setCorreo(this.correo);
-        //usuario.setCiudad(this.ciudad);
-        //usuario.setDireccion(this.direccion);
-        //usuario.setPais(this.pais);
-        //usuario.setPassword(this.password);
-        //usuario.setProvincia(this.provincia);
-        usuario.setRol(this.rol);
-        ejbUsuarioFacade.create(usuario);
-        
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
     
-    
+    public String guardarDatos() {
+        Usuario usuario = new Usuario();
+        usuario.setNombre(this.nombre);
+        usuario.setApellido(this.apellido);
+        usuario.setCedula(this.cedula);
+        usuario.setCorreo(this.correo);
+
+        Localidad localidad = new Localidad(this.pais, this.provincia, this.ciudad, this.direccion);
+        localidad.setTelefono(this.telefono);
+        usuario.addLocalidad(localidad);
+        
+        System.out.println("Usuario: "+usuario.toString());
+
+        usuarioFacade.create(usuario);
+        return null;
+
+    }
+
 }

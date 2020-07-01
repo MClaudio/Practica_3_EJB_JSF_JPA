@@ -26,6 +26,7 @@
                     <f:selectItems  value="#{productoBean.categorias}" var="categoriaItem" 
                                    itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
                 </h:selectOneMenu>
+                <h:message for="categoria" style="color:red" />
 
                 <label>Precio unitario:</label>
                 <h:inputText id="precio" value="#{productoBean.precio}" converter="javax.faces.Double" />
@@ -41,6 +42,7 @@
                     <f:selectItems  value="#{productoBean.bodegas}" var="bodegaItem" 
                                    itemLabel="#{bodegaItem.nombre}" itemValue="#{bodegaItem}"/>
                 </h:selectOneMenu>
+                <h:message for="bodega" style="color:red" />
                 
                 <h:commandButton value="Crear Producto" action="#{productoBean.add}"></h:commandButton>
 

@@ -6,6 +6,8 @@
 package ec.edu.ups.modelo;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -32,10 +34,11 @@ public class Usuario implements  Serializable{
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaCabecera> facturas;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Localidad> localidad;
+    private List<Localidad> localidads;
     
     public Usuario(){
         this.rol = "cliente";
+        this.localidads = new ArrayList<>();
     }
 
     public Usuario(String cedula, String nombre, String apellido, String correo, String password) {
@@ -45,6 +48,7 @@ public class Usuario implements  Serializable{
         this.correo = correo;
         this.password = password;
         this.rol = "cliente";
+        this.localidads = new ArrayList<>();
     }
 
     public String getCedula() {
@@ -104,11 +108,11 @@ public class Usuario implements  Serializable{
     }
 
     public List<Localidad> getLocalidad() {
-        return localidad;
+        return localidads;
     }
 
-    public void setLocalidad(List<Localidad> localidad) {
-        this.localidad = localidad;
+    public void setLocalidad(List<Localidad> localidads) {
+        this.localidads = localidads;
     }
 
     @Override
@@ -136,11 +140,24 @@ public class Usuario implements  Serializable{
         return true;
     }
     
-    
+    public void addLocalidad(Localidad localidad) {
+        if (!this.localidads.contains(localidad)) {
+            this.localidads.add(localidad);
+            localidad.setUsuario(this);
+        }
+    }
+
+    public void deleteLocalidad(Localidad localidad) {
+        if (this.localidads.contains(localidad)) {
+            this.localidads.remove(localidad);
+            localidad.setUsuario(null);
+        }
+    }
 
     @Override
     public String toString() {
-        return "Usuario{" + "cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo + ", password=" + password + ", facturas=" + facturas + ", rol=" + rol + '}';
-    }  
+        return "Usuario{" + "cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo + ", password=" + password + ", rol=" + rol + '}';
+    }
+     
     
 }

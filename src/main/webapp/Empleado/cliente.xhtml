@@ -8,6 +8,61 @@
     </h:head>
     <h:body>
         <h3>GESTION DE CLIENTES</h3>
+        <h:form >
+            <fieldset>
+                <legend>Registro</legend>
+                
+                <label>Cedula:</label>
+                <h:inputText id="cedula" value="#{clienteBean.cedula}" required="true"
+                             requiredMessage="Campo Obligatorio"/>
+                <h:message for="cedula" style="color:red"/>
+
+                <label>Nombre:</label>
+                <h:inputText id="nombre" value="#{clienteBean.nombre}" required="true"
+                             requiredMessage="Campo Obligatorio"/>
+                <h:message for="nombre" style="color:red"/>
+
+
+                <label>Apellido:</label>
+                <h:inputText id="apellido" value="#{clienteBean.apellido}" required="true"
+                             requiredMessage="Campo Obligatorio"/> 
+                <h:message for="apellido" style="color:red"/>
+                
+                <label>Telefono:</label>
+                <h:inputText id="telefono" value="#{clienteBean.telefono}" required="true"
+                             requiredMessage="Campo Obligatorio"/> 
+                <h:message for="telefono" style="color:red"/>
+
+                <label>Correo:</label>
+                <h:inputText id="correo" value="#{clienteBean.correo}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="correo" style="color:red"/>
+                
+                <label>Ciudad:</label>
+                <h:inputText id="ciudad" value="#{clienteBean.ciudad}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="ciudad" style="color:red"/>
+                
+                <label>Direccion:</label>
+                <h:inputText id="direccion" value="#{clienteBean.direccion}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="direccion" style="color:red"/>
+                
+                <label>Pais:</label>
+                <h:inputText id="pais" value="#{clienteBean.pais}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="pais" style="color:red"/>
+
+                <label>Provincia:</label>
+                <h:inputText id="provincia" value="#{clienteBean.provincia}" required="true"
+                             requiredMessage="Campor Obligatorio"/>
+                <h:message for="provincia" style="color:red"/>
+                
+                <h:commandButton value="Guardar" action="#{clienteBean.guardarDatos()}"></h:commandButton>
+
+            </fieldset>
+        </h:form>
+        
         <h:form>
             <h:dataTable>
                 <h:column>
@@ -17,8 +72,6 @@
                 <h:column>
                     <f:facet name="header">Nombres</f:facet>      
                 </h:column>
-
-
 
                 <h:column>
                     <f:facet name="header">Apellidos</f:facet>
