@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\utilities\SelectOneMenuConverter.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\ProductoBean.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\LocalidadFacade.java
@@ -22,6 +23,8 @@ E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\FacturaBean.java
 E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Usuario.java
 =======
+=======
+>>>>>>> 78757581cbec1eabf8bc944606593ae6524f3e43
 C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_new\src\main\java\ec\edu\ups\controlador\BodegaBean.java
 C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_new\src\main\java\ec\edu\ups\modelo\FacturaDetalle.java
 C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_new\src\main\java\ec\edu\ups\modelo\Usuario.java
@@ -44,4 +47,7 @@ C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProje
 C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_new\src\main\java\ec\edu\ups\ejb\ProductoFacade.java
 C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_new\src\main\java\ec\edu\ups\modelo\Bodega.java
 C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_new\src\main\java\ec\edu\ups\ejb\LocalidadFacade.java
+<<<<<<< HEAD
+>>>>>>> 78757581cbec1eabf8bc944606593ae6524f3e43
+=======
 >>>>>>> 78757581cbec1eabf8bc944606593ae6524f3e43
