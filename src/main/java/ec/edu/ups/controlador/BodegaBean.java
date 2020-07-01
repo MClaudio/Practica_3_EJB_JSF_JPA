@@ -3,6 +3,7 @@ package ec.edu.ups.controlador;
 import ec.edu.ups.ejb.BodegaFacade;
 import ec.edu.ups.modelo.Bodega;
 import ec.edu.ups.modelo.Localidad;
+import ec.edu.ups.modelo.Producto;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -16,7 +17,6 @@ import javax.inject.Named;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author criss
@@ -24,9 +24,10 @@ import javax.inject.Named;
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
 @Named(value = "bodegaBean")
 @SessionScoped
-public class BodegaBean implements Serializable  {
+public class BodegaBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @EJB
     private BodegaFacade bodegaFacade;
     private String Ciudad;
@@ -36,17 +37,16 @@ public class BodegaBean implements Serializable  {
     private String provincia;
     private String telefono;
     private List<Bodega> bodegas;
-    
 
     public BodegaBean() {
     }
-    
+
     @PostConstruct
     public void init() {
         try {
             this.bodegas = bodegaFacade.findAll();
         } catch (Exception e) {
-            System.out.println("Error---"+e);
+            System.out.println("Error---" + e);
         }
     }
 
@@ -105,17 +105,36 @@ public class BodegaBean implements Serializable  {
     public void setBodegas(List<Bodega> bodegas) {
         this.bodegas = bodegas;
     }
-    
-    public void guardarDatos(){
-        Bodega bodega =new Bodega();
-        
+
+    public void guardarDatos() {
+        Bodega bodega = new Bodega();
+
         bodega.setNombre(this.nombre);
         Localidad localidad = new Localidad(this.Ciudad, this.direccion, this.pais, this.provincia, this.telefono);
         bodega.setLocalidad(localidad);
- 
+
         System.out.println("Bodegaaaaaaaaa " + bodega.toString());
         bodegaFacade.create(bodega);
-        
+
     }
-    
+
+    public String delete(Bodega b) {
+        System.out.println("esta entrando al metodo eliminar.......");
+        this.bodegaFacade.remove(b);
+        this.bodegas = bodegaFacade.findAll();
+        return null;
+    }
+
+    public String edit(Bodega b) {
+        b.setEditable(true);
+        return null;
+    }
+
+    public String save(Bodega b) {
+        bodegaFacade.edit(b);
+        b.setEditable(false);
+        this.bodegas = bodegaFacade.findAll();
+        return null;
+    }
+
 }
