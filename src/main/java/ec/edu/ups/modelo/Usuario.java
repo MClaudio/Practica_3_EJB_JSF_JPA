@@ -15,6 +15,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  *
@@ -35,6 +36,8 @@ public class Usuario implements  Serializable{
     private List<FacturaCabecera> facturas;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Localidad> localidads;
+    @Transient
+    private boolean editable;
     
     public Usuario(){
         this.rol = "cliente";
@@ -113,6 +116,14 @@ public class Usuario implements  Serializable{
 
     public void setLocalidad(List<Localidad> localidads) {
         this.localidads = localidads;
+    }
+    
+     public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     @Override
