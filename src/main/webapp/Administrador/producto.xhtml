@@ -75,19 +75,25 @@
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Categoria</f:facet>#{p.categoria.nombre}
+                        <f:facet name="header">Categoria</f:facet>
+                          <h:selectOneMenu id="categoria-seleccion" converter="selectOneMenuConverter" value="#{productoBean.categoria}" rendered="#{p.editable}">
+                    <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  rendered="#{p.editable}"/>
+                    <f:selectItems  value="#{productoBean.categorias}" var="categoriaItem"  rendered="#{p.editable}"
+                                   itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
+                </h:selectOneMenu>
+                        <h:outputText value="#{p.categoria.nombre}" rendered="#{not p.editable}" />
                     </h:column>
 
 
                     <h:column>
                         <f:facet name="header">Acciones</f:facet>
-                        <h:commandLink value="Eliminar" action="#{categoryBean.delete(c)}" />
+                        <h:commandLink value="Eliminar" action="#{productoBean.delete(p)}" />
 
 
-                        <h:commandLink value="Editar" action="#{categoryBean.edit(c)}"
-                                       rendered="#{not c.editable}" />
-                        <h:commandLink value="guardar" action="#{categoryBean.save(c)}"
-                                       rendered="#{c.editable}" />
+                        <h:commandLink value="Editar" action="#{productoBean.edit(p)}"
+                                       rendered="#{not p.editable}" />
+                        <h:commandLink value="guardar" action="#{productoBean.save(p)}"
+                                       rendered="#{p.editable}" />
                     </h:column>
                 </h:dataTable>
             </fieldset>

@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -55,47 +57,76 @@
 
         <h3>Listar Bodega</h3>
         <h:form>
-            <h:dataTable>
+            <h:dataTable value="#{bodegaBean.bodegas}" var="b" styleClass="tabla"
+                         headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
                 <h:column>
-                    <f:facet name="header">Codigo</f:facet>
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Ciudad</f:facet>      
-                </h:column>
-
-
-
-                <h:column>
-                    <f:facet name="header">Direccion</f:facet>
-                </h:column>
-
-                <h:column>
-
-                    <f:facet name="header">Telefono</f:facet>
-
+                    <f:facet name="header">Codigo</f:facet>#{b.codigo}
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">Nombre</f:facet>
+                    <h:inputText value="#{b.nombre}" size="10"
+                                 rendered="#{b.editable}" />
+                    <h:outputText value="#{b.nombre}" rendered="#{not b.editable}" />
                 </h:column> 
+
+                <c:forEach items="${b.localidad}" var="l">
+                    <h:outputText value="${l.localidad.ciudad}"/><br/>
+ 
+                </c:forEach>
+
+
+                
+                <h:column>
+                    <f:facet name="header">Ciudad</f:facet>  
+                    <h:inputText value="#{b.localidad.ciudad} " size="10"
+                                 rendered="#{b.editable}" />
+                    <h:outputText value="#{b.localidad.ciudad} " rendered="#{not b.editable}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Direccion</f:facet>
+                    <h:inputText value="#{b.localidad.direccion} " size="10"
+                                 rendered="#{b.editable}" />
+                    <h:outputText value="#{b.localidad.direccion}" rendered="#{not b.editable}" />
+                </h:column>
+
                 <h:column>
                     <f:facet name="header">Pais</f:facet>
+                    <h:inputText value="#{b.localidad.pais} " size="10"
+                                 rendered="#{b.editable}" />
+                    <h:outputText value="#{b.localidad.pais}" rendered="#{not b.editable}" />
                 </h:column> 
                 <h:column>
                     <f:facet name="header">Provincia</f:facet>
+                    <h:inputText value="#{b.localidad.provincia}" size="10"
+                                 rendered="#{b.editable}" />
+                    <h:outputText value="#{b.localidad.provincia}" rendered="#{not b.editable}" />
                 </h:column> 
                 <h:column>
                     <f:facet name="header">Telefono</f:facet>
+                    <h:inputText value="#{b.localidad.telefono}" size="10"
+                                 rendered="#{b.editable}" />
+                    <h:outputText value="#{b.localidad.telefono}" rendered="#{not b.editable}" />
                 </h:column> 
+
+                
+                
                 <h:column>
                     <f:facet name="header">Total Producto</f:facet>
                 </h:column> 
 
+
                 <h:column>
                     <f:facet name="header">Accion</f:facet>
-                    <h:commandButton value="Editar"></h:commandButton>
-                    <h:commandButton value="Eliminar"></h:commandButton>
+                    <h:commandButton value="Eliminar" action="#{bodegaBean.delete(b)}"></h:commandButton>
+
+                    <h:commandButton value="Editar" action="#{bodegaBean.edit(b)}"
+                                     rendered="#{not b.editable}"></h:commandButton>
+
+                    <h:commandLink value="guardar" action="#{bodegaBean.save(b)}"
+                                   rendered="#{b.editable}" />
+
 
                 </h:column> 
 

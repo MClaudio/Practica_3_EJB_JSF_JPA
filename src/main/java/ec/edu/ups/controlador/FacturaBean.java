@@ -172,7 +172,6 @@ public class FacturaBean implements Serializable {
                 inventarioFacade.edit(inv);
             }
         }
-        
 
         return null;
     }

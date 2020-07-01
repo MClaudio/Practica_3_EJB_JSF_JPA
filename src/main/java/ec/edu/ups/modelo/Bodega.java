@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  *
@@ -32,6 +33,9 @@ public class Bodega implements Serializable {
 
     @OneToMany(mappedBy = "bodega", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inventario> inventarios;
+    
+    @Transient
+    private boolean editable;
 
     public Bodega() {
     }
@@ -70,6 +74,14 @@ public class Bodega implements Serializable {
 
     public void setInventarios(List<Inventario> inventarios) {
         this.inventarios = inventarios;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     @Override
@@ -115,5 +127,5 @@ public class Bodega implements Serializable {
     public String toString() {
         return "Bodega{" + "codigo=" + codigo + ", nombre=" + nombre + '}';
     }
-    
+
 }
