@@ -76,7 +76,7 @@ public class FacturaCabecera implements  Serializable{
     }
 
     public double getTotal() {
-        this.total = this.subTotal*this.iva;
+        this.total = (this.subTotal*this.iva)+this.subTotal;
         return this.total;
     }
 

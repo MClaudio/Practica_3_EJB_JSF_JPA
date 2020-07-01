@@ -182,7 +182,7 @@ public class ProductoBean implements Serializable {
     public String save(Producto producto) {
         productoFacade.edit(producto);
         producto.setEditable(false);
-         this.productos = this.productoFacade.findAll();
+        this.productos = this.productoFacade.findAll();
         return null;
     }
   

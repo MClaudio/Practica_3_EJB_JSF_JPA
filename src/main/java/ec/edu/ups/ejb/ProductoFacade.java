@@ -30,7 +30,7 @@ public class ProductoFacade extends AbstractFacade<Producto>{
     }
     
     public Producto findForName(String name){
-        String jpql = "FROM Producto p WHERE p.nombre = '" + name+ "'";
+        String jpql = "FROM Producto p WHERE p.nombre LIKE '" + name+ "%'";
         return (Producto) em.createQuery(jpql).getSingleResult();
     }
     
