@@ -35,9 +35,12 @@ public class ProductoBean implements Serializable {
 
     @EJB
     private CategoriaFacade categoriaFacade;
+    @EJB
     private BodegaFacade bodegaFacade;
+    @EJB
     private ProductoFacade productoFacade;
     private String nombre;
+    private String medida;
     private List<Categoria> categorias;
     private Categoria categoria;
     private double precio;
@@ -132,6 +135,16 @@ public class ProductoBean implements Serializable {
         this.productos = productos;
     }
 
+    public String getMedida() {
+        return medida;
+    }
+
+    public void setMedida(String medida) {
+        this.medida = medida;
+    }
+    
+    
+
     public String add() {
 
         if (this.categoria != null && this.bodega != null) {
@@ -143,6 +156,7 @@ public class ProductoBean implements Serializable {
             producto.setNombre(this.nombre);
             producto.setPrecio(this.precio);
             producto.setImagen("/imagen.gpg");
+            producto.setUnidadMedida(this.medida);
             producto.setCategoria(this.categoria);
             producto.addInventario(inventario);
 
