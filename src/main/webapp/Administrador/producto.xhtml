@@ -81,13 +81,13 @@
 
                     <h:column>
                         <f:facet name="header">Acciones</f:facet>
-                        <h:commandLink value="Eliminar" action="#{categoryBean.delete(c)}" />
+                        <h:commandLink value="Eliminar" action="#{productoBean.delete(p)}" />
 
 
-                        <h:commandLink value="Editar" action="#{categoryBean.edit(c)}"
-                                       rendered="#{not c.editable}" />
-                        <h:commandLink value="guardar" action="#{categoryBean.save(c)}"
-                                       rendered="#{c.editable}" />
+                        <h:commandLink value="Editar" action="#{productoBean.edit(p)}"
+                                       rendered="#{not p.editable}" />
+                        <h:commandLink value="guardar" action="#{productoBean.save(p)}"
+                                       rendered="#{p.editable}" />
                     </h:column>
                 </h:dataTable>
             </fieldset>

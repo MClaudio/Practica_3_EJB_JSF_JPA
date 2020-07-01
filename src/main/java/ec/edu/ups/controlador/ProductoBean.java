@@ -165,14 +165,18 @@ public class ProductoBean implements Serializable {
             FacesMessage message = new FacesMessage("Debe seleccionar una categoria y una bodega");
 	    throw new ValidatorException(message);
         }
+        this.productos= this.productoFacade.findAll();
 
         return null;
+        
     }
 
     public String delete(Producto producto) {
         this.productoFacade.remove(producto);
+        this.productos= this.productoFacade.findAll();
         return null;
     }
+    
 
     public String edit(Producto producto) {
         producto.setEditable(true);
@@ -182,7 +186,9 @@ public class ProductoBean implements Serializable {
     public String save(Producto producto) {
         productoFacade.edit(producto);
         producto.setEditable(false);
+         this.productos = this.productoFacade.findAll();
         return null;
     }
+  
 
 }
