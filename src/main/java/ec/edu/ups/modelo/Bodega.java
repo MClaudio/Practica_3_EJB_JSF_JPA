@@ -20,7 +20,8 @@ import javax.persistence.OneToOne;
  * @author claum
  */
 @Entity
-public class Bodega implements Serializable{
+public class Bodega implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,7 @@ public class Bodega implements Serializable{
     private String nombre;
     @OneToOne(mappedBy = "bodega", cascade = CascadeType.ALL, orphanRemoval = true)
     private Localidad localidad;
-    
+
     @OneToMany(mappedBy = "bodega", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inventario> inventarios;
 
@@ -38,7 +39,7 @@ public class Bodega implements Serializable{
     public Bodega(String nombre) {
         this.nombre = nombre;
     }
-    
+
     public int getCodigo() {
         return codigo;
     }
@@ -95,6 +96,19 @@ public class Bodega implements Serializable{
         }
         return true;
     }
-    
-    
+
+    public void addInventario(Inventario inventario) {
+        if (!this.inventarios.contains(inventario)) {
+            this.inventarios.add(inventario);
+            inventario.setBodega(this);
+        }
+    }
+
+    public void deleteInventario(Inventario inventario) {
+        if (this.inventarios.contains(inventario)) {
+            this.inventarios.remove(inventario);
+            inventario.setBodega(this);
+        }
+    }
+
 }

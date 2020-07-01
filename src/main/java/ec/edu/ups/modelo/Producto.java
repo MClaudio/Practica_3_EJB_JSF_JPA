@@ -8,15 +8,14 @@ package ec.edu.ups.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  *
@@ -41,6 +40,9 @@ public class Producto implements Serializable {
     private List<Inventario> inventarios; 
     @ManyToOne
     private Categoria categoria;
+    
+    @Transient
+    private boolean editable;
 
     public Producto() {
         this.facturasDetalles = new ArrayList<>();
@@ -135,7 +137,14 @@ public class Producto implements Serializable {
         }
     }
 
+    public boolean isEditable() {
+        return editable;
+    }
 
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+     
     @Override
     public int hashCode() {
         int hash = 3;

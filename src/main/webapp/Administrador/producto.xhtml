@@ -13,12 +13,12 @@
                 <label>Nombre:</label>
                 <h:inputText id="producto-nombre" value="#{productoBean.nombre}" required="true"
                              requiredMessage="Campo Obligatorio"/>
-                <h:message for="categoria-nombre" style="color:red" />
+                <h:message for="producto-nombre" style="color:red" />
                  
                 <label>Unidad de medida:</label>
                 <h:inputText id="producto-medida" value="#{productoBean.nombre}" required="true"
                              requiredMessage="Campo Obligatorio"/>
-                <h:message for="categoria-nombre" style="color:red" />
+                <h:message for="producto-medida" style="color:red" />
                 
                 <label>Categoria:</label>
                 <h:selectOneMenu id="categoria" converter="selectOneMenuConverter" value="#{productoBean.categoria}">
@@ -42,7 +42,7 @@
                                    itemLabel="#{bodegaItem.nombre}" itemValue="#{bodegaItem}"/>
                 </h:selectOneMenu>
                 
-                <h:commandButton value="Crear Producto" action="#{productoBean.guardarDatos}"></h:commandButton>
+                <h:commandButton value="Crear Producto" action="#{productoBean.add}"></h:commandButton>
 
             </fieldset>
         </h:form>
@@ -50,30 +50,30 @@
         <h:form>
             <fieldset>
                 <legend>Lista de productos</legend>
-                <h:dataTable value="#{categoryBean.list}" var="c" styleClass="tabla"
+                <h:dataTable value="#{productoBean.productos}" var="p" styleClass="tabla"
                              headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 
                     <h:column>
-                        <f:facet name="header">Codigo</f:facet>#{c.codigo}
+                        <f:facet name="header">Codigo</f:facet>#{p.codigo}
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Imagen</f:facet>#{c.codigo}
+                        <f:facet name="header">Imagen</f:facet>#{p.imagen}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Nombre</f:facet>
-                        <h:inputText value="#{c.descripcion}" size="10"
-                                     rendered="#{c.editable}" />
-                        <h:outputText value="#{c.descripcion}" rendered="#{not c.editable}" />
+                        <h:inputText value="#{p.nombre}" size="10"
+                                     rendered="#{p.editable}" />
+                        <h:outputText value="#{p.nombre}" rendered="#{not p.editable}" />
                     </h:column>
                     <h:column>
                         <f:facet name="header">Precio</f:facet>
-                        <h:inputText value="#{c.descripcion}" size="10"
-                                     rendered="#{c.editable}" />
-                        <h:outputText value="#{c.descripcion}" rendered="#{not c.editable}" />
+                        <h:inputText value="#{p.precio}" size="10"
+                                     rendered="#{p.editable}" />
+                        <h:outputText value="#{p.precio}" rendered="#{not p.editable}" />
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Categoria</f:facet>#{c.codigo}
+                        <f:facet name="header">Categoria</f:facet>#{p.categoria.nombre}
                     </h:column>
 
 

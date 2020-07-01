@@ -14,9 +14,7 @@ import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.modelo.Bodega;
 import ec.edu.ups.modelo.Categoria;
 import ec.edu.ups.modelo.Inventario;
-import ec.edu.ups.modelo.Localidad;
 import ec.edu.ups.modelo.Producto;
-import ec.edu.ups.modelo.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -37,9 +35,6 @@ public class ProductoBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EJB
-    private UsuarioFacade usuf;
-    private LocalidadFacade lf;
-    private InventarioFacade inf;
     private CategoriaFacade categoriaFacade;
     private BodegaFacade bodegaFacade;
     private ProductoFacade productoFacade;
@@ -50,6 +45,7 @@ public class ProductoBean implements Serializable {
     private int cantidad;
     private List<Bodega> bodegas;
     private Bodega bodega;
+    private List<Producto> productos;
 
     /**
      * Creates a new instance of ProductoBean
@@ -59,32 +55,13 @@ public class ProductoBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        /*
-        Usuario usu= new Usuario();
-        usu.setNombre("clauks");
-        usu.setApellido("kjhsad");
-        usu.setCedula("010236223");
-        usu.setCorreo("claudio@mail.com");
-        usuf.create(usu);
-         */
-
-        //Categoria cat = new Categoria("Limpieza", "Articulos");
-        //categoriaFacade.create(cat);
-        //Producto prod = new Producto("jabon", "klg", "/img", 0.90);
-        //productoFacade.create(prod);
-        //Bodega bodega = new Bodega("Bodega Sur");
-        //Localidad loc = new Localidad("Ecuador", "Azuay", "Cuenca", "Av 12");
-        //bodega.setLocalidad(loc);
-        //bodegaFacade.create(bodega);
-        //Inventario inv = new Inventario(5);
-        //inf.create(inv);
-        //Localidad loc = new Localidad("Ecuador", "Azuay", "Cuenca", "Av 12");
-        //lf.create(loc);
+        
         try {
-            this.categorias = categoriaFacade.findAll();
+            this.categorias = this.categoriaFacade.findAll();
             this.cantidad = 1;
             //System.out.println("Bodegas: "+bodegaFacade.findAll());
-            //this.bodegas = bodegaFacade.findAll();
+            this.bodegas = this.bodegaFacade.findAll();
+            this.productos = this.productoFacade.findAll();
         } catch (Exception e) {
             System.out.println("Error --- " + e);
         }
@@ -132,7 +109,6 @@ public class ProductoBean implements Serializable {
     }
 
     public Categoria getCategoria() {
-        //System.out.println("Guardandooo");
         return categoria;
     }
 
@@ -148,25 +124,46 @@ public class ProductoBean implements Serializable {
         this.bodega = bodega;
     }
 
-    public void guardarDatos() {
-        /*
-        System.out.println("Categoria: "+this.categoria.getNombre());
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+    
+    public String add() {
+        
+        //System.out.println("Categoria: "+this.categoria.getNombre());
+        Inventario inventario = new Inventario(this.cantidad);
+        inventario.setBodega(this.bodega);
+        
         Producto producto = new Producto();
         producto.setNombre(this.nombre);
         producto.setPrecio(this.precio);
         producto.setImagen("/imagen.gpg");
         producto.setCategoria(this.categoria);
-        producto.addInventario(new Inventario(this.cantidad));
-        productoFacade.create(producto);    
-        System.out.println("Guardadooo");
-         */
-        //Bodega bd = new Bodega();
-        //bd.setNombre("Bodega sur");
-
-        //bd.setLocalidad(loc);
-        //bodegaFacade.create(bd);
-        //Categoria cat = new Categoria("Lacteos", "Productos lacteos");
-        //categoriaFacade.create(cat);
+        producto.addInventario(inventario);
+        
+        productoFacade.create(producto);  
+          
+        return null;
+    }
+    
+    public String delete(Producto producto){
+        this.productoFacade.remove(producto);
+        return null;
+    }
+    
+    public String edit(Producto producto){
+        producto.setEditable(true);
+        return null;
+    }
+    
+    public String save(Producto producto){
+        productoFacade.edit(producto);
+	producto.setEditable(false);
+	return null;
     }
 
 }
