@@ -10,20 +10,21 @@
     <h:body>
         <h:form id="cabecera">
             <h:outputText value="Cedula cliente:" />
-            <h:inputText value="#{cliente.cedula}" />
+            <h:inputText id="cedula" value="#{facturaBean.usuario}" required="true"/>
             <p>
-                <h:commandButton value="Buscar"></h:commandButton>
+                <h:commandButton value="Buscar" action="#{usuarioBean.init()}" ></h:commandButton>
             </p>
+            
 
         </h:form>
        
         <h3>JSF 2.3: dataTable</h3>
         <h:form>
-            <ul>
+       
                
                 <p>Producto:<h:inputText size="10" value="#{producto.nombre}" /></p>
               
-            </ul>
+          
             <h:commandButton value="Agregar" action="#{collectionBean.add}" />
             <h:dataTable value="#{collectionBean.list}" var="producto" styleClass="tabla"
                          headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
