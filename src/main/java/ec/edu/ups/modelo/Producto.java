@@ -36,8 +36,10 @@ public class Producto implements Serializable {
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaDetalle> facturasDetalles;
+    
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inventario> inventarios; 
+    
     @ManyToOne
     private Categoria categoria;
     

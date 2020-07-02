@@ -33,6 +33,7 @@ public class Localidad implements Serializable{
     
     @OneToOne
     private Bodega bodega; 
+    
     @ManyToOne
     private Usuario usuario;
     
@@ -45,6 +46,7 @@ public class Localidad implements Serializable{
         this.provincia = provincia;
         this.ciudad = ciudad;
         this.direccion = direccion;
+        this.telefono = telefono;
     }
 
     public String getPais() {

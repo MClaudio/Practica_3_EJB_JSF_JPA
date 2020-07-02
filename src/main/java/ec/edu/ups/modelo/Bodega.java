@@ -28,6 +28,7 @@ public class Bodega implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
     private String nombre;
+    
     @OneToOne(mappedBy = "bodega", cascade = CascadeType.ALL, orphanRemoval = true)
     private Localidad localidad;
 

@@ -1,9 +1,9 @@
 package ec.edu.ups.controlador;
 
 import ec.edu.ups.ejb.BodegaFacade;
+import ec.edu.ups.ejb.LocalidadFacade;
 import ec.edu.ups.modelo.Bodega;
 import ec.edu.ups.modelo.Localidad;
-import ec.edu.ups.modelo.Producto;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -30,6 +30,8 @@ public class BodegaBean implements Serializable {
 
     @EJB
     private BodegaFacade bodegaFacade;
+    @EJB 
+    private LocalidadFacade localidadFacade;
     private String Ciudad;
     private String direccion;
     private String nombre;
@@ -108,24 +110,19 @@ public class BodegaBean implements Serializable {
 
 
 
-    public void TotalProductos(Bodega b) {
-        
-       
-        System.out.println("codigoooooo : " + b);
-        
-        bodegaFacade.totalProductos(b.getCodigo());
-
+    public String TotalProductos(Bodega bodega) {
+        return String.valueOf(bodegaFacade.totalProductos(bodega.getCodigo()));
     }
 
     public void guardarDatos() {
+        System.out.println("Telefonoo: "+this.telefono);
+        Localidad newLocalidad = new Localidad(this.Ciudad, this.direccion, this.pais, this.provincia, this.telefono);
+        
         Bodega bodega = new Bodega();
-
         bodega.setNombre(this.nombre);
-        Localidad localidad = new Localidad(this.Ciudad, this.direccion, this.pais, this.provincia, this.telefono);
-        bodega.setLocalidad(localidad);
-
-        System.out.println("Bodegaaaaaaaaa " + bodega.toString());
-        bodegaFacade.create(bodega);
+        bodega.setLocalidad(newLocalidad);
+        newLocalidad.setBodega(bodega);
+        
         this.bodegas = bodegaFacade.findAll();
 
     }
@@ -144,6 +141,7 @@ public class BodegaBean implements Serializable {
 
     public String save(Bodega b) {
         bodegaFacade.edit(b);
+        System.out.println("Nueva localidad: "+b.getLocalidad().toString());
         b.setEditable(false);
         this.bodegas = bodegaFacade.findAll();
         return null;

@@ -31,12 +31,16 @@ public class BodegaFacade extends AbstractFacade<Bodega> {
         return em;
     }
 
-    public Bodega totalProductos(int codigo) {
-        String jpql = "SUM(i.CANTIDAD) FROM INVENTARIO i\n"
-                + "INNER JOIN BODEGA b ON b.CODIGO = i.BODEGA_CODIGO\n"
-                + "WHERE b.CODIGO = '" + codigo + "'";
-        //System.out.println("codigoooo " + codigo);
-        return  (Bodega) em.createQuery(jpql).getSingleResult();
+    public int totalProductos(int codigo) {
+        String jpql = "SELECT SUM(i.cantidad) FROM Inventario i INNER JOIN Bodega b ON b.codigo = i.bodega.codigo WHERE b.codigo = "+codigo;
+        
+        //System.out.println("Dato de base... " + em.createQuery(jpql).getSingleResult());
+        Object obj = em.createQuery(jpql).getSingleResult();
+        if(obj != null){
+            return Integer.valueOf(String.valueOf(obj));
+        }else{
+            return 0;
+        }
     }
 
 }
