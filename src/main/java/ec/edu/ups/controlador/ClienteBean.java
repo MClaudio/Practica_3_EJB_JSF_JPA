@@ -31,6 +31,10 @@ public class ClienteBean implements Serializable {
     
     @EJB
     private UsuarioFacade usuarioFacade;
+    
+    @EJB
+    private LocalidadFacade localidadFacade;
+    
     private String nombre;
     private String apellido;
     private String cedula;
@@ -41,6 +45,7 @@ public class ClienteBean implements Serializable {
     private String pais;
     private String provincia;
     private List<Usuario> usuarios;
+    private List<Localidad>localidad;
    
     
 
@@ -52,11 +57,22 @@ public class ClienteBean implements Serializable {
         try {
             this.usuarios = usuarioFacade.findAll();
             System.out.println("Lista usuarios"+ this.usuarios);
+            this.localidad=localidadFacade.findAll();
             
         } catch (Exception e) {
             System.out.println("Error---"+e);
         }
     }  
+
+    public List<Localidad> getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(List<Localidad> localidad) {
+        this.localidad = localidad;
+    }
+    
+    
 
     public String getCedula() {
         return cedula;
@@ -144,10 +160,13 @@ public class ClienteBean implements Serializable {
         usuario.setApellido(this.apellido);
         usuario.setCedula(this.cedula);
         usuario.setCorreo(this.correo);
+        
+        
 
         Localidad localidad = new Localidad(this.pais, this.provincia, this.ciudad, this.direccion, this.telefono);
         //localidad.setTelefono(this.telefono);
         usuario.addLocalidad(localidad);
+        localidad.setUsuario(usuario);
         
         System.out.println("Usuario: "+usuario.toString());
 
