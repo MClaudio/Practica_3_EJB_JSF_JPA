@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        
+        <h:form id="cabecera">
+            <label>Buscar usuario</label>
+            <h:inputText id="cedula" value="#{facturaDetalle.cedula}" required="true"/>
+            <p>
+                <h:commandButton value="Buscar" action="#{facturaDetalle.buscarUsuario()}" />
+            </p>
+        
+        
+        <ui:repeat var="" value="">
+           
+        <h:dataTable value="#{facturaDetalle.facturaCabecera}" var="b" styleClass="tabla"
+                     headerClass="cabeceraTabla" rowClasses="filaPar,filaImparar">
+            
+            <h:column>
+                <f:facet name="header">Fecha</f:facet>
+                <h:outputText value="#{b.fecha}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">Iva</f:facet>
+                <h:outputText value="#{b.iva}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">Total</f:facet>
+                <h:outputText value="#{b.total}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">Sub-Total</f:facet>
+                <h:outputText value="#{b.subTotal}"/>
+            </h:column>
+            
+            <h:column>
+                <h:commandButton value="Detalles" action="#{facturaDetalle.detalles(b)}"></h:commandButton>
+            </h:column>
+            
+            
+            
+        </h:dataTable>
+        
+        </ui:repeat>
+       
+        </h:form> 
+        
+        
+        
+        <h:form>
+            
+            
+            
+           
+            
+            <ui:repeat  value="" var="" >
+                
+                <h:dataTable  styleClass="tabla"  value="#{facturaDetalle.detalles}" var="d"
+                     headerClass="cabeceraTabla" rowClasses="filaPar,filaImparar">
+                    <h:column>
+                        <f:facet name="header">Nombre-Producto</f:facet> 
+                        <h:outputText value="#{d.producto.nombre}"/>
+                        
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">Precio-Unitario</f:facet> 
+                        <h:outputText value="#{d.producto.precio}"/>
+
+                    </h:column>
+                    
+                    
+                    <h:column>
+                        <f:facet name="header">Subtotal</f:facet> 
+                        <h:outputText value="#{d.subtotal}"/>
+                        
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">Categoria-Nombre</f:facet> 
+                        <h:outputText value="#{d.producto.categoria.nombre}"/>
+                        
+                        
+                    </h:column>
+                    
+                   
+                    
+                    <h:column>
+                        <f:facet name="header">Cantidad</f:facet> 
+                        <h:outputText value="#{d.cantidad}"/>
+                        
+                        
+                        
+                    </h:column>
+                    
+                    
+                    
+                    
+                </h:dataTable>
+                
+                
+                
+            </ui:repeat>
+            
+            
+        </h:form>
+        
+        
+                 
+       
+       
+        
+        
+        
+    </h:body>
+</html>
+
