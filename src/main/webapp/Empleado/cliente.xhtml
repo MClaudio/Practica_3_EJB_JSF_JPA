@@ -67,7 +67,7 @@
         <h3>TABLA CLIENTE</h3>
         <h:form>
            
-            <ui:repeat var="" value="">
+            <ui:repeat var="l" value="#{clienteBean.localidad}">
             
                 <h:dataTable  value="#{clienteBean.usuarios}" var="o" styleClass="tabla"
                          headerClass="cabeceraTabla" >      
@@ -76,7 +76,7 @@
                     <f:facet name="header">Cedula</f:facet>
                     <h:inputText value="#{o.cedula}" size="10"
                                      rendered="#{o.editable}" />
-                        <h:outputText value="#{o.cedula}" rendered="#{not p.editable}" />
+                        <h:outputText value="#{o.cedula}" rendered="#{not o.editable}" />
                      
                 </h:column>
 
@@ -84,29 +84,31 @@
                     <f:facet name="header">Nombres</f:facet> 
                     <h:inputText value="#{o.nombre}" size="10"
                                      rendered="#{p.editable}" />
-                        <h:outputText value="#{o.nombre}" rendered="#{not p.editable}" />
+                        <h:outputText value="#{o.nombre}" rendered="#{not o.editable}" />
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">Apellidos</f:facet>
                     <h:inputText value="#{o.apellido}" size="10"
                                      rendered="#{o.editable}" />
-                        <h:outputText value="#{o.apellido}" rendered="#{not p.editable}" />
+                        <h:outputText value="#{o.apellido}" rendered="#{not o.editable}" />
                 </h:column>
 
                 <h:column>
                     
                     <f:facet name="header" >Telefono</f:facet>
-                    <h:inputText value="#{o.telefono}" size="10"
-                                     rendered="#{o.editable}" />
-                        <h:outputText value="#{o.telefono}" rendered="#{not p.editable}" />
+                   
                     
                    
                 
                 </h:column>
 
                 <h:column>
-                    <f:facet name="header">Correo</f:facet>#{o.correo}
+                    <f:facet name="header">Correo</f:facet>
+                    
+                    <h:inputText value="#{o.correo}" size="10"
+                                     rendered="#{o.editable}" />
+                        <h:outputText value="#{o.correo}" rendered="#{not o.editable}" />
                     
                 </h:column> 
                 <h:column>
