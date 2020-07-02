@@ -16,8 +16,8 @@ import javax.persistence.PersistenceContext;
  * @author criss
  */
 @Stateless
-public class ProductoFacade extends AbstractFacade<Producto>{
-    
+public class ProductoFacade extends AbstractFacade<Producto> {
+
     @PersistenceContext(unitName = "persistencia")
     private EntityManager em;
 
@@ -29,21 +29,21 @@ public class ProductoFacade extends AbstractFacade<Producto>{
     protected EntityManager getEntityManager() {
         return em;
     }
-    
-    public Producto findForName(String name){
+
+    public Producto findForName(String name) {
         //String jpql = "FROM PRODUCTO p INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO WHERE p.nombre LIKE '"+name+"%' AND i.CANTIDAD > 0";
-        String jpql = "FROM Producto p WHERE p.nombre LIKE '" + name+ "%'";
+        String jpql = "FROM Producto p WHERE p.nombre LIKE '" + name + "%'";
         return (Producto) em.createQuery(jpql).getSingleResult();
     }
-    
-    public List findForBodega(int codigo){
-        
-        String jpql = "SELECT * FROM PRODUCTO p \n" +
-"INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO \n" +
-"INNER JOIN BODEGA b ON i.BODEGA_CODIGO = b.CODIGO\n" +
-"WHERE b.CODIGO = "+codigo+";";
+
+    public List findForBodega(int codigo) {
+
+        String jpql = "SELECT * FROM PRODUCTO p \n"
+                + "INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO \n"
+                + "INNER JOIN BODEGA b ON i.BODEGA_CODIGO = b.CODIGO\n"
+                + "WHERE b.CODIGO = " + codigo + ";";
         Producto productos = (Producto) em.createQuery(jpql).getResultList();
         return (List) productos;
     }
-    
+
 }

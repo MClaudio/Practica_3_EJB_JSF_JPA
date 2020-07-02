@@ -4,92 +4,107 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Agregar Factura</title>
     </h:head>
-    <h:body>
-        <h:form id="cabecera">
-            <label>Buscar usuario</label>
-            <h:inputText id="cedula" value="#{facturaBean.cedula}" required="true"/>
-            <p>
-                <h:commandButton value="Buscar" action="#{facturaBean.buscarUsuario}" />
-            </p>
-        </h:form>
-        <h:outputText value="#{facturaBean.usuario.cedula}"/>
-        <h:outputText value="#{facturaBean.usuario.nombre}"/>
-        <h:outputText value="#{facturaBean.usuario.apellido}"/>
-        <h:outputText value="#{facturaBean.usuario.correo}"/>
 
-        <br />
+    <h:form id="cabecera">
+        <label>Buscar usuario</label>
+        <h:inputText id="cedula" value="#{facturaBean.cedula}" required="true"/>
+        <p>
+            <h:commandButton value="Buscar" action="#{facturaBean.buscarUsuario}" />
+        </p>
+    </h:form>
+    <h:outputText value="#{facturaBean.usuario.cedula}"/>
+    <h:outputText value="#{facturaBean.usuario.nombre}"/>
+    <h:outputText value="#{facturaBean.usuario.apellido}"/>
+    <h:outputText value="#{facturaBean.usuario.correo}"/>
+
+    <br />
+    <h:form>
+        <label>Buscar producto</label>
+        <h:inputText id="producto" value="#{facturaBean.productoNombre}" required="true" />
+        <h:outputText value="#{facturaBean.producto.nombre}"/>
+        <h:commandButton value="AgregarProducto" action="#{facturaBean.addProducto}" />
+    </h:form>
+    <br />
+
+
+    <--....................................................................................-->
+    <h2>Primefaces AutoComplete example</h2>
+    <h:form id="form">
+        <h:panelGrid columns="2" cellpadding="5">
+            <p:outputLabel value="Simple:" for="acSimple" /> 
+            <p:autoComplete id="acSimple" value="#{facturaBean.producto.nombre}" completeMethod="#{facturaBean.buscarProducto}"  />
+        </h:panelGrid>
+    </h:form>
+    <--....................................................................................-->
+
+
+
+
+
+    <div>
         <h:form>
-            <label>Buscar producto</label>
-            <h:inputText id="producto" value="#{facturaBean.productoNombre}" required="true" />
-            <h:outputText value="#{facturaBean.producto.nombre}"/>
-            <h:commandButton value="AgregarProducto" action="#{facturaBean.addProducto}" />
+            <h:selectOneMenu id="selone_menu_colors" value="red" styleClass="selectOneMenu">
+                <f:selectItems value="#{carconf.colors}" />
+
+            </h:selectOneMenu>
+            <h:inputText id="selone_menu_subcolors"/>
         </h:form>
-        <br />
-
-        <div>
-            <h:form>
-                <h:selectOneMenu id="selone_menu_colors" value="red" styleClass="selectOneMenu">
-                    <f:selectItems value="#{carconf.colors}" />
-
-                </h:selectOneMenu>
-                <h:inputText id="selone_menu_subcolors"/>
-            </h:form>
+        <ul>
             <ul>
-                <ul>
-                    <ui:repeat id="out1" value="#{myBean.items}" var="item">
-                        <li><h:outputText value="#{item.name}"/></li>
-                    </ui:repeat>
-                </ul>
+                <ui:repeat id="out1" value="#{myBean.items}" var="item">
+                    <li><h:outputText value="#{item.name}"/></li>
+                </ui:repeat>
             </ul>
-        </div>
+        </ul>
+    </div>
 
-        <br />
-        <h3>JSF 2.3: dataTable</h3>
-        <h:form>
-            <h:dataTable value="#{facturaBean.facturaDetalles}" var="detalle" styleClass="tabla"
-                         headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
-                <h:column>
-                    <f:facet name="header">Nombre</f:facet>
-                    <h:outputText value="#{detalle.producto.nombre}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Precio unitario</f:facet>
-                    <h:outputText value="#{detalle.producto.precio}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Cantidad</f:facet>
-                    <h:commandButton value="-" action="#{facturaBean.deleteCantidad(detalle)}" />
-                    <h:outputText value="#{detalle.cantidad}" />
-                    <h:commandButton value="+" action="#{facturaBean.addCantidad(detalle)}" />
-                </h:column>               
-                <h:column>
-                    <f:facet name="header">Sub Total</f:facet>
-                    <h:outputText value="#{detalle.subtotal}" />
-                </h:column>
+    <br />
+    <h3>JSF 2.3: dataTable</h3>
+    <h:form>
+        <h:dataTable value="#{facturaBean.facturaDetalles}" var="detalle" styleClass="tabla"
+                     headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+            <h:column>
+                <f:facet name="header">Nombre</f:facet>
+                <h:outputText value="#{detalle.producto.nombre}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Precio unitario</f:facet>
+                <h:outputText value="#{detalle.producto.precio}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cantidad</f:facet>
+                <h:commandButton value="-" action="#{facturaBean.deleteCantidad(detalle)}" />
+                <h:outputText value="#{detalle.cantidad}" />
+                <h:commandButton value="+" action="#{facturaBean.addCantidad(detalle)}" />
+            </h:column>               
+            <h:column>
+                <f:facet name="header">Sub Total</f:facet>
+                <h:outputText value="#{detalle.subtotal}" />
+            </h:column>
 
-            </h:dataTable>
-        </h:form>
+        </h:dataTable>
+    </h:form>
 
 
-        <br />
+    <br />
 
-        <!-- primera fila -->
-        <h:outputText value="Sub Total:"/>
-        <h:outputText id="subTotal" value="#{facturaBean.facturaCabecera.subTotal}"/>
-        <br />
-        <!-- segunda fila -->
-        <h:outputText value="Iva:"/>
-        <h:outputText id="iva" value="#{facturaBean.facturaCabecera.iva*100} %"/>
-        <br />
-        <h:outputText value="Total:"/>
-        <h:outputText id="total" value="#{facturaBean.facturaCabecera.total}"/>
-        <br />
-        <h:form>
-            <h:commandButton id="guardar" value="Generar factura" action="#{facturaBean.generarFactura}" />
-        </h:form>
-    </h:body>
+    <!-- primera fila -->
+    <h:outputText value="Sub Total:"/>
+    <h:outputText id="subTotal" value="#{facturaBean.facturaCabecera.subTotal}"/>
+    <br />
+    <!-- segunda fila -->
+    <h:outputText value="Iva:"/>
+    <h:outputText id="iva" value="#{facturaBean.facturaCabecera.iva*100} %"/>
+    <br />
+    <h:outputText value="Total:"/>
+    <h:outputText id="total" value="#{facturaBean.facturaCabecera.total}"/>
+    <br />
+    <h:form>
+        <h:commandButton id="guardar" value="Generar factura" action="#{facturaBean.generarFactura}" />
+    </h:form>
+
 </html>

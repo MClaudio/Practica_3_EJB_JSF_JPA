@@ -51,6 +51,8 @@ public class FacturaBean implements Serializable {
     private List<FacturaDetalle> facturaDetalles;
     private Producto producto;
     private FacturaCabecera facturaCabecera;
+    //mio...............................................
+    private String txt1;
 
     public FacturaBean() {
     }
@@ -110,6 +112,25 @@ public class FacturaBean implements Serializable {
         this.facturaCabecera = facturaCabecera;
     }
 
+    //MIO..............................................................
+    public String getTxt1() {
+        return txt1;
+    }
+
+    public void setTxt1(String txt1) {
+        this.txt1 = txt1;
+    }
+
+    public List<String> completeText(String query) {
+        List<String> results = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            results.add(query + i);
+        }
+
+        return results;
+    }
+    //asta aqui.........................................................
+
     public void buscarUsuario() {
         try {
             this.usuario = usuarioFacade.find(this.cedula);
@@ -117,12 +138,9 @@ public class FacturaBean implements Serializable {
         }
     }
 
-    public void buscarProducto() {
-        try {
-            //this.producto = productoFacade.findForName(this.productoNombre);
-            System.out.println("EVENTOOOO ON KEY PRESSS");
-        } catch (Exception e) {
-        }
+    public List<Producto> buscarProducto() {
+
+            return (List<Producto>) productoFacade.findForName(this.productoNombre);  
     }
 
     public String addProducto() {
