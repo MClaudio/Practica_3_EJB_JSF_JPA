@@ -30,20 +30,17 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return em;
     }
 
-    public Producto findForName(String name) {
+    public List<Producto> findForName(String name){
         //String jpql = "FROM PRODUCTO p INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO WHERE p.nombre LIKE '"+name+"%' AND i.CANTIDAD > 0";
-        String jpql = "FROM Producto p WHERE p.nombre LIKE '" + name + "%'";
-        return (Producto) em.createQuery(jpql).getSingleResult();
+        String jpql = "FROM Producto p, Inventario i WHERE p.codigo = i.producto.codigo AND i.cantidad > 0 AND p.nombre LIKE '" +name+ "%'";
+        return (List<Producto>) em.createQuery(jpql).getResultList();
     }
-
-    public List findForBodega(int codigo) {
-
-        String jpql = "SELECT * FROM PRODUCTO p \n"
-                + "INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO \n"
-                + "INNER JOIN BODEGA b ON i.BODEGA_CODIGO = b.CODIGO\n"
-                + "WHERE b.CODIGO = " + codigo + ";";
-        Producto productos = (Producto) em.createQuery(jpql).getResultList();
-        return (List) productos;
+    
+    public List<Producto> findForBodega(int codigo){
+        
+        String jpql = "SELECT p FROM Producto p, Inventario i, Bodega b WHERE p.codigo = i.producto.codigo AND b.codigo = i.bodega.codigo AND b.codigo = "+codigo;
+        return (List<Producto>) em.createQuery(jpql).getResultList();
+        
     }
 
 }

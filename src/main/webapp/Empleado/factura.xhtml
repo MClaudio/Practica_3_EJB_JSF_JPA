@@ -29,38 +29,16 @@
         <h:commandButton value="AgregarProducto" action="#{facturaBean.addProducto}" />
     </h:form>
     <br />
+    
 
-
-    <--....................................................................................-->
     <h2>Primefaces AutoComplete example</h2>
     <h:form id="form">
         <h:panelGrid columns="2" cellpadding="5">
-            <p:outputLabel value="Simple:" for="acSimple" /> 
+            <p:outputLabel value="asdadasd" for="acSimple" /> 
             <p:autoComplete id="acSimple" value="#{facturaBean.producto.nombre}" completeMethod="#{facturaBean.buscarProducto}"  />
         </h:panelGrid>
     </h:form>
-    <--....................................................................................-->
 
-
-
-
-
-    <div>
-        <h:form>
-            <h:selectOneMenu id="selone_menu_colors" value="red" styleClass="selectOneMenu">
-                <f:selectItems value="#{carconf.colors}" />
-
-            </h:selectOneMenu>
-            <h:inputText id="selone_menu_subcolors"/>
-        </h:form>
-        <ul>
-            <ul>
-                <ui:repeat id="out1" value="#{myBean.items}" var="item">
-                    <li><h:outputText value="#{item.name}"/></li>
-                </ui:repeat>
-            </ul>
-        </ul>
-    </div>
 
     <br />
     <h3>JSF 2.3: dataTable</h3>
@@ -91,7 +69,6 @@
 
 
     <br />
-
     <!-- primera fila -->
     <h:outputText value="Sub Total:"/>
     <h:outputText id="subTotal" value="#{facturaBean.facturaCabecera.subTotal}"/>

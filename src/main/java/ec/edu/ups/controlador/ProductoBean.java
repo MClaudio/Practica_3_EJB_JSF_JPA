@@ -47,7 +47,10 @@ public class ProductoBean implements Serializable {
     private int cantidad;
     private List<Bodega> bodegas;
     private Bodega bodega;
+    private Bodega bodegaItem;
     private List<Producto> productos;
+    
+    
 
     /**
      * Creates a new instance of ProductoBean
@@ -142,6 +145,14 @@ public class ProductoBean implements Serializable {
     public void setMedida(String medida) {
         this.medida = medida;
     }
+
+    public Bodega getBodegaItem() {
+        return bodegaItem;
+    }
+
+    public void setBodegaItem(Bodega bodegaItem) {
+        this.bodegaItem = bodegaItem;
+    }
     
     public String add() {
         if (this.categoria != null && this.bodega != null) {
@@ -161,7 +172,7 @@ public class ProductoBean implements Serializable {
             FacesMessage message = new FacesMessage("Debe seleccionar una categoria y una bodega");
 	    throw new ValidatorException(message);
         }
-        this.productos= this.productoFacade.findAll();
+        this.productos = this.productoFacade.findAll();
 
         return null;
         
@@ -174,15 +185,14 @@ public class ProductoBean implements Serializable {
     }
     
       public void buscarPorBodega() {
-        
-        try {
-              System.out.println("hola");
-            this.productos = productoFacade.findForBodega(this.bodega.getCodigo());
-            System.out.println(productos);
-        } catch (Exception e) {
-        }
+          if(bodegaItem != null){
+              //System.out.println("Cambio de item em bodega..." +bodegaItem.toString());
+              this.productos = productoFacade.findForBodega(this.bodegaItem.getCodigo());
+          }else{
+              //System.out.println("Es nulo... ");
+              this.productos = this.productoFacade.findAll();
+          }
     }
-    
 
     public String edit(Producto producto) {
         producto.setEditable(true);
@@ -190,6 +200,8 @@ public class ProductoBean implements Serializable {
     }
 
     public String save(Producto producto) {
+        //System.out.println("Categoria a editar..."+categoria);
+        producto.setCategoria(this.categoria);
         productoFacade.edit(producto);
         producto.setEditable(false);
         this.productos = this.productoFacade.findAll();
