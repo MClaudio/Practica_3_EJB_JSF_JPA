@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  *
@@ -33,6 +34,8 @@ public class Categoria implements Serializable {
     
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Producto> productos;
+       @Transient
+    private boolean editable;
 
     public Categoria() {
     }
@@ -72,6 +75,14 @@ public class Categoria implements Serializable {
 
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
+    }
+    
+      public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     @Override

@@ -1,0 +1,128 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ec.edu.ups.controlador;
+
+import ec.edu.ups.ejb.CategoriaFacade;
+import ec.edu.ups.ejb.UsuarioFacade;
+import ec.edu.ups.modelo.Categoria;
+import ec.edu.ups.modelo.Localidad;
+import ec.edu.ups.modelo.Producto;
+import ec.edu.ups.modelo.Usuario;
+import java.io.Serializable;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.inject.Named;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.FacesConfig;
+
+/**
+ *
+ * @author Diego Duchimaza
+ */
+@FacesConfig(version = FacesConfig.Version.JSF_2_3)
+@Named(value = "categoriaBean")
+@SessionScoped
+public class CategoriaBean implements Serializable{
+    
+     private static final long serialVersionUID = 1;
+     
+       @EJB
+    private CategoriaFacade categoriaFacade;
+     
+      private String nombre;
+    private String decripcion;
+     private List<Categoria> categorias;
+     
+
+    
+    @PostConstruct
+    public void init() {
+        try {
+            this.categorias = categoriaFacade.findAll();
+            System.out.println("Lista categorias"+ this.categorias);
+        
+        } catch (Exception e) {
+            System.out.println("Error---"+e);
+        }
+    }  
+    public CategoriaBean() {
+    }
+
+    public CategoriaFacade getCategoriaFacade() {
+        return categoriaFacade;
+    }
+
+    public void setCategoriaFacade(CategoriaFacade categoriaFacade) {
+        this.categoriaFacade = categoriaFacade;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDecripcion() {
+        return decripcion;
+    }
+
+    public void setDecripcion(String decripcion) {
+        this.decripcion = decripcion;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+    
+      public String guardarDatos() {
+        Categoria categoria = new Categoria();
+        categoria.setNombre(this.nombre);
+        categoria.setDescripcion(this.decripcion);
+
+        
+        System.out.println("Categoria: "+categoria.toString());
+
+        categoriaFacade.create(categoria);
+        
+        this.categorias = categoriaFacade.findAll();
+        return null;
+
+    }
+    
+     public String delete(Categoria categoria) {
+        this.categoriaFacade.remove(categoria);
+        this.categorias = this.categoriaFacade.findAll();
+        return null;
+    }
+     
+     public String edit(Categoria categoria) {
+       categoria.setEditable(true);
+     
+        return null;
+    }
+     
+         public String save(Categoria categoria) {
+        //System.out.println("Categoria a editar..."+categoria);
+ 
+        categoriaFacade.edit(categoria);
+        categoria.setEditable(false);
+        this.categorias = this.categoriaFacade.findAll();
+        return null;
+    }
+  
+
+
+   
+   
+}
