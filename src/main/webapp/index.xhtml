@@ -2,12 +2,57 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
     <h:head>
+
     </h:head>
-    
+
     <h:body>
-        <p>hola soy </p>
+        <!--Inicio de la tarjeta..........................................................................-->
+
+
+
+
+        <div class="row row-cols-1 row-cols-md-3">
+            <div class="col mb-4">
+                <!-- Card -->
+                <div class="card">
+
+                    <c:forEach var="p" items="#{productoBeanIndex.productos}">
+
+
+
+                        <!--Card image-->
+                        <div class="view overlay">
+                            <h:graphicImage  class="card-img-top" style="width: 10em; height: 10em;"
+                                             value = "https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap"/>
+
+                        </div>
+
+                        <!--Card content-->
+                        <div class="card-body">
+
+                            <!--Title-->
+                            <h4 class="card-title">#{p.nombre}</h4>
+                            <!--Text-->
+                            <p class="card-text"> #{p.precio} $</p>
+                            <p class="card-text">Categoria: #{p.categoria.nombre}</p>
+
+                            
+                            <!--   <button type="button" class="btn btn-light-blue btn-md"></button> -->
+
+                        </div>
+                    </c:forEach>
+
+                </div>
+                <!-- Card -->
+            </div>
+
+        </div>
+         <!--Final de la tarjeta......................................................................-->
+
     </h:body>
 
 </html>
