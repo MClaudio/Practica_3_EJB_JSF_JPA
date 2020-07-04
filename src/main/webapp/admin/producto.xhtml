@@ -1,18 +1,19 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
+
+<ui:composition template="/WEB-INF/include/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="head">
         <title>Admin</title>
         <meta name="description" content="Ela Admin - HTML5 Admin Template"/>
-        <ui:include src="../imports/head.xhtml"/>
         <link rel="stylesheet" href="../assets/css/admin-style.css"/>
+    </ui:define>
 
-    </h:head>
-    <h:body>
+    <ui:define name="body">
         <ui:include src="../imports/admin-nav.xhtml"/>
 
         <div id="right-panel" class="right-panel">
@@ -65,14 +66,10 @@
                             <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="user-avatar rounded-circle" src="../statics/images/avatar/2.jpg" alt="User Avatar"/>
                             </a>
-
                             <div class="user-menu dropdown-menu">
                                 <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
-
                                 <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> -->
-
                                 <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-
                                 <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
                             </div>
                         </div>
@@ -92,6 +89,14 @@
                         </button>
                     </div>
 
+                    <h:form>
+                        <label>Nombre:</label>
+                        <h:inputText id="producto-nombre" value="#{productoBean.nombre}" required="true"
+                                     requiredMessage="Campo Obligatorio"/>
+                        <h:message for="producto-nombre" style="color:red" />
+                    </h:form>
+
+
                     <!-- Modal -->
                     <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -103,7 +108,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    
+
                                     <form>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
@@ -145,14 +150,13 @@
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="gridCheck"/>
-                                                    <label class="form-check-label" for="gridCheck">
-                                                        Check me out
-                                                    </label>
+                                                <label class="form-check-label" for="gridCheck">
+                                                    Check me out
+                                                </label>
                                             </div>
                                         </div>
-
                                     </form>
-                                    
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -171,8 +175,6 @@
 
             <ui:include src="../imports/footer.xhtml"/>
         </div>
-
-        <ui:include src="../imports/scripts.xhtml"/>
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition>
 
