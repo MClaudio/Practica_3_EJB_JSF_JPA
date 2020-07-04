@@ -6,53 +6,289 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
+        <meta charset="UTF-8"></meta>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></link>
+
+        <!-- Font Awesome -->
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"></link>
+
+        <!-- Google Fonts -->
+
+
+
+        <!-- Bootstrap core CSS -->
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"></link>
+
+        <!-- Material Design Bootstrap -->
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/css/mdb.min.css" rel="stylesheet"></link>
+
+        <link rel="stylesheet" href="assets/css/index/estilos.css"></link>
+
+
+        <title>Product Store</title>
+
 
     </h:head>
 
     <h:body>
+
+        <header>
+            <!-- Navbar -->
+
+            <nav class="navbar navbar-expand-lg navbar-dark gris row scrolling-navbar fixed-top">
+                <!-- logo -->
+
+                <div class="col-xs-9 col-sm-8 col-md-4 col-mg-4 letter">
+                    <a href="index.html" id="prin">
+                        <img src="statics/images/favicon.png" height="55px" width="55px"/>
+                    </a>
+                </div>
+
+                <!-- Datos extras -->
+
+                <ul class="nav navbar-nav nav-flex-icons ml-auto  mr-sm-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="html/Login.html">
+                            <i style="font-size: 17px;" class="fa fa-user"></i>
+
+                            <span class="clearfix d-none d-sm-inline-block" style="font-size: 17px;">Account</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+
+
+
+
+
+        <section class="zoom">
+            <img src="statics/images/index/text.jpg" class="text"/>
+
+        
+        </section>
         <!--Inicio de la tarjeta..........................................................................-->
 
 
 
+        <!--Inicio de tajertas volteables.................................................................-->
 
-        <div class="row row-cols-1 row-cols-md-3">
-            <div class="col mb-4">
-                <!-- Card -->
-                <div class="card">
-
-                    <c:forEach var="p" items="#{productoBeanIndex.productos}">
+        <div class="contenedor">
+            <c:forEach var="p" items="#{productoBeanIndex.productos}">
+                <div class="contenedor_tarjeta">
 
 
+                    <figure>
+                        <img class="frontal" src="https://mott.pe/noticias/wp-content/uploads/2018/11/las-mejores-apps-para-tomar-fotos-de-paisajes-de-paga-y-gratis.png" alt=""/>
 
-                        <!--Card image-->
-                        <div class="view overlay">
-                            <h:graphicImage  class="card-img-top" style="width: 10em; height: 10em;"
-                                             value = "https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap"/>
+                        <figcaption class="trasera">
+                            <h2 class="titulo">#{p.nombre}</h2>
 
-                        </div>
+                            <hr>
 
-                        <!--Card content-->
-                        <div class="card-body">
+                                <p>
+                                    #{p.precio} $
+                                </p>
+                                <p>Categoria: #{p.categoria.nombre}</p>
 
-                            <!--Title-->
-                            <h4 class="card-title">#{p.nombre}</h4>
-                            <!--Text-->
-                            <p class="card-text"> #{p.precio} $</p>
-                            <p class="card-text">Categoria: #{p.categoria.nombre}</p>
+                            </hr>>
 
-                            
-                            <!--   <button type="button" class="btn btn-light-blue btn-md"></button> -->
-
-                        </div>
-                    </c:forEach>
+                            <a class="btn btn-danger btn-block" href="idenx2.html" type="submit" name="accion" value="">Comprar</a>
+                        </figcaption>
+                    </figure>
 
                 </div>
-                <!-- Card -->
+            </c:forEach>
+        </div>
+        <!--Fin de tajertas volteables........................................................-->
+
+
+        <!--Inicio de tajertas de Boostrap.....................................................-->
+        <div class="container"> 
+            <div class="row row-cols-1 row-cols-md-3">
+                <c:forEach var="p" items="#{productoBeanIndex.productos}">
+                    <div class="col mb-4">
+
+                        <!-- Card -->
+                        <div class="card">
+
+
+
+
+
+                            <!--Card image-->
+                            <div class="view overlay">
+                                <h:graphicImage  class="card-img-top" style="width: 10em; height: 10em;"
+                                                 value = "https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap"/>
+
+                            </div>
+
+                            <!--Card content-->
+                            <div class="card-body">
+
+                                <!--Title-->
+                                <h4 class="card-title">#{p.nombre}</h4>
+                                <!--Text-->
+                                <p class="card-text"> #{p.precio} $</p>
+                                <p class="card-text">Categoria: #{p.categoria.nombre}</p>
+
+
+                                <!--   <button type="button" class="btn btn-light-blue btn-md"></button> -->
+
+                            </div>
+
+
+                        </div>
+                        <!-- Card -->
+
+                    </div>
+                </c:forEach>
+
+            </div>
+        </div>
+
+        <!--Inicio de tajertas de Boostrap........................................................-->
+
+
+        
+         <!-- Footer -->
+
+    <footer class="page-footer font-small unique-color-dark pt-4">
+        <!-- Footer Links -->
+
+        <div class="container text-center text-md-left">
+            <!-- Grid row -->
+
+            <div class="row">
+                <!-- Grid column -->
+
+                <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
+                    <!-- Content -->
+
+                    <h5 class="font-weight-bold text-uppercase mb-4">Contenido</h5>
+
+                    <p>
+                        Se realizara una aplicaion para materia plataformas web, la aplicacion trata sobre un agenda telefonica.
+                    </p>
+                </div>
+
+                <!-- Grid column -->
+                <hr class="clearfix w-100 d-md-none"/>
+                <!-- Grid column -->
+                <hr class="clearfix w-100 d-md-none"/>
+                <!-- Grid column -->
+
+                <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+                    <!-- Contact details -->
+
+                    <h5 class="font-weight-bold text-uppercase mb-4">Contactanos</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <i class="fas fa-home mr-3"></i> Cuenca
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <a href="mailto:cuenta@deemail.com">
+                                    <i class="fas fa-envelope mr-3"></i> letmy.4@hotmail.com
+                                </a>
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>
+                                <a href="tel:+0969415550">
+                                    <i class="fas fa-phone mr-3"></i> + 0969415550
+                                </a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Grid column -->
+                <hr class="clearfix w-100 d-md-none"/>
+                <!-- Grid column -->
+
+                <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+                    <!-- Social buttons -->
+
+                    <h5 class="font-weight-bold text-uppercase mb-4">Siguenos</h5>
+
+                    <!-- Facebook -->
+
+                    <a href="https://www.facebook.com/christian.mocha.7" target="_black" class="fb-ic">
+                        <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
+                    </a>
+
+                    <!-- Instagram -->
+
+                    <a href="https://www.instagram.com/crissmocha/" target="_black" class="ins-ic">
+                        <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
+                        <!-- Youtube -->
+
+                        <a href="https://www.youtube.com/channel/UCE6WWxqqeDaNhqOaRFSNXrA?view_as=subscriber" target="_black" class="ins-ic">
+                            <i class="fab fa-youtube fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
+                        </a>
+                    </a>
+                </div>
+
+                <!-- Grid column -->
             </div>
 
+            <!-- Grid row -->
         </div>
-         <!--Final de la tarjeta......................................................................-->
 
+        <!-- Footer Links -->
+        <!-- Copyright -->
+
+        <div class="footer-copyright text-center py-3">
+            © 2020 Copyright:
+
+            <a href="https://mdbootstrap.com/">
+                C. Maldonado, C. Mocha, D. Duchimaza, J. Ochoa
+            </a>
+        </div>
+
+        <!-- Copyright -->
+    </footer>
+
+    <!-- Footer -->
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+        <script src="assets/js/index/index.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+        <!-- JQuery -->
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Bootstrap tooltips -->
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+
+        <!-- Bootstrap core JavaScript -->
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+        <!-- MDB core JavaScript -->
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/js/mdb.min.js"></script>
     </h:body>
 
 </html>

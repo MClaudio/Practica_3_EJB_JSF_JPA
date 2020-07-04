@@ -23,20 +23,29 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
-<navigation-rule>
-    <from-view-id>/admin/index.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>producto</from-outcome>
-			<to-view-id>/admin/producto.xhtml</to-view-id>
-		</navigation-case>
-                <navigation-case>
-			<from-outcome>bodega</from-outcome>
-			<to-view-id>/admin/bodega.xhtml</to-view-id>
-		</navigation-case>
-                <navigation-case>
-			<from-outcome>categoria</from-outcome>
-			<to-view-id>/admin/categoria.xhtml</to-view-id>
-		</navigation-case>
+    <navigation-rule>
+        <from-view-id>/admin/index.xhtml</from-view-id>
+        <from-view-id>/Empleado/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>producto</from-outcome>
+            <to-view-id>/admin/producto.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bodega</from-outcome>
+            <to-view-id>/admin/bodega.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>categoria</from-outcome>
+            <to-view-id>/admin/categoria.xhtml</to-view-id>
+        </navigation-case
+          <navigation-case>
+            <from-outcome>cliente</from-outcome>
+            <to-view-id>/Empleado/cliente.xhtml</to-view-id>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>factura</from-outcome>
+            <to-view-id>/Empleado/factura.xhtml</to-view-id>
+        </navigation-case>
 		
-	</navigation-rule>
+    </navigation-rule>
 </faces-config>
