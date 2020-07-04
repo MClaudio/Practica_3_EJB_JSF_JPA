@@ -25,6 +25,10 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
     <navigation-rule>
         <from-view-id>/admin/index.xhtml</from-view-id>
+<<<<<<< HEAD
+=======
+        <from-view-id>/Empleado/index.xhtml</from-view-id>
+>>>>>>> 634cdf2c091e0db7e454a5af3d0c2b5ebff0ca6c
         <navigation-case>
             <from-outcome>producto</from-outcome>
             <to-view-id>/admin/producto.xhtml</to-view-id>
@@ -37,6 +41,17 @@
             <from-outcome>categoria</from-outcome>
             <to-view-id>/admin/categoria.xhtml</to-view-id>
         </navigation-case>
+<<<<<<< HEAD
+=======
+          <navigation-case>
+            <from-outcome>cliente</from-outcome>
+            <to-view-id>/Empleado/cliente.xhtml</to-view-id>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>factura</from-outcome>
+            <to-view-id>/Empleado/factura.xhtml</to-view-id>
+        </navigation-case>
+>>>>>>> 634cdf2c091e0db7e454a5af3d0c2b5ebff0ca6c
 		
     </navigation-rule>
 </faces-config>
