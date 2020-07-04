@@ -41,3 +41,7 @@ and open the template in the editor.
 #cellPaiChart{
     height: 160px;
 }
+
+.content-header{
+    background-color: #00aced;
+}

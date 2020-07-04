@@ -15,6 +15,8 @@ import ec.edu.ups.modelo.Producto;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -49,6 +51,7 @@ public class ProductoBean implements Serializable {
     private Bodega bodega;
     private Bodega bodegaItem;
     private List<Producto> productos;
+    private List<String> unidadMedidas;
     
     
 
@@ -61,6 +64,13 @@ public class ProductoBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        this.unidadMedidas = new ArrayList<>();
+        this.unidadMedidas = Arrays.asList(
+                "unitario",
+                "lb",
+                "kg",
+                "l"
+                );
 
         try {
             this.categorias = this.categoriaFacade.findAll();
@@ -153,7 +163,11 @@ public class ProductoBean implements Serializable {
     public void setBodegaItem(Bodega bodegaItem) {
         this.bodegaItem = bodegaItem;
     }
-    
+
+    public List<String> getUnidadMedida() {
+        return unidadMedidas;
+    }
+ 
     public String add() {
         if (this.categoria != null && this.bodega != null) {
             Inventario inventario = new Inventario(this.cantidad);
@@ -207,6 +221,8 @@ public class ProductoBean implements Serializable {
         this.productos = this.productoFacade.findAll();
         return null;
     }
+    
+    
   
 
 }
