@@ -43,5 +43,7 @@ and open the template in the editor.
 }
 
 .content-header{
-    background-color: #00aced;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
