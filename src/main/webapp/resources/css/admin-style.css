@@ -47,3 +47,7 @@ and open the template in the editor.
     justify-content: space-between;
     align-items: center;
 }
+
+body{
+    background-color: #0099d4;
+}

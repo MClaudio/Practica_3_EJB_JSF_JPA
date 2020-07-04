@@ -10,7 +10,9 @@
 
     <ui:define name="head">
         <title>Index</title>
-        <link rel="stylesheet" href="assets/css/index/estilos.css"></link>    
+        <h:outputStylesheet name="css/index/estilos.css"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"></link>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/css/mdb.min.css" rel="stylesheet"></link>
     </ui:define>
 
 
@@ -23,7 +25,7 @@
 
                 <div class="col-xs-9 col-sm-8 col-md-4 col-mg-4 letter">
                     <a href="index.html" id="prin">
-                        <img src="resource/img/favicon.png" height="55px" width="55px"/>
+                        <img src="resources/img/favicon.png" height="55px" width="55px"/>
                     </a>
                 </div>
 
@@ -50,13 +52,8 @@
             </nav>
         </header>
 
-
-
-
-
-
         <section class="zoom">
-            <img src="resource/img/index/text.jpg" class="text"/>
+            <img src="resources/img/index/text.jpg" class="text"/>
 
 
         </section>
@@ -84,7 +81,7 @@
                                 </p>
                                 <p>Categoria: #{p.categoria.nombre}</p>
 
-                            </hr>>
+                            </hr>
 
                             <a class="btn btn-danger btn-block" href="idenx2.html" type="submit" name="accion" value="">Comprar</a>
                         </figcaption>
