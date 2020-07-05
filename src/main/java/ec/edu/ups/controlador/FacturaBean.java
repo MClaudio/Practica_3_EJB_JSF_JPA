@@ -139,7 +139,7 @@ public class FacturaBean implements Serializable {
     }
 
     public List<Producto> buscarProducto() {
-         return (List<Producto>) productoFacade.findForName(this.productoNombre);  
+         return (List<Producto>) productoFacade.findByNameAndCount(this.productoNombre);  
     }
 
     public String addProducto() {

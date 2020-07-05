@@ -53,6 +53,7 @@ public class ProductoBean implements Serializable {
     private List<Producto> productos;
     private List<String> unidadMedidas;
     private List<Bodega> listbodegas;
+    private String nombreProducto;
 
     /**
      * Creates a new instance of ProductoBean
@@ -174,8 +175,15 @@ public class ProductoBean implements Serializable {
     public void setNewBodega(Bodega newBodega) {
         this.newBodega = newBodega;
     }
-    
 
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+    
     public void newProducto() {
         this.listbodegas = new ArrayList<>();
    }
@@ -199,7 +207,7 @@ public class ProductoBean implements Serializable {
     }
 
     public String add() {
-        System.out.println("Se crea un productoo...");
+
         if (this.categoria != null && this.bodega != null) {
             Inventario inventario = new Inventario(this.cantidad);
             inventario.setBodega(this.bodega);
@@ -232,12 +240,24 @@ public class ProductoBean implements Serializable {
     public void buscarPorBodega() {
         if (bodega != null) {
             //System.out.println("Cambio de item em bodega..." +bodegaItem.toString());
-            this.productos = productoFacade.findForBodega(this.bodega.getCodigo());
+            this.productos = productoFacade.findByBodega(this.bodega.getCodigo());
         } else {
             //System.out.println("Es nulo... ");
             this.productos = this.productoFacade.findAll();
         }
     }
+    
+    public void buscarPorNombre() {
+        if (nombreProducto != null) {
+            //System.out.println("Cambio de item em bodega..." +bodegaItem.toString());
+            this.productos = productoFacade.findByName(this.nombreProducto);    
+        } else {
+            //System.out.println("Es nulo... ");
+            this.productos = this.productoFacade.findAll();    
+        }
+        nombreProducto= null;
+    }
+
 
     public String edit(Producto producto) {
         producto.setEditable(true);
@@ -245,7 +265,8 @@ public class ProductoBean implements Serializable {
     }
 
     public String save(Producto producto) {
-        //System.out.println("Categoria a editar..."+categoria);
+        System.out.println("Medida a editar..."+medida);
+        producto.setUnidadMedida(medida);
         producto.setCategoria(this.categoria);
         productoFacade.edit(producto);
         producto.setEditable(false);

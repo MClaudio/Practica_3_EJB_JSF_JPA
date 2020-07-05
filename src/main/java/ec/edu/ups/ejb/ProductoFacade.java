@@ -30,17 +30,23 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return em;
     }
 
-    public List<Producto> findForName(String name){
+    public List<Producto> findByNameAndCount(String name){
         //String jpql = "FROM PRODUCTO p INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO WHERE p.nombre LIKE '"+name+"%' AND i.CANTIDAD > 0";
         String jpql = "FROM Producto p, Inventario i WHERE p.codigo = i.producto.codigo AND i.cantidad > 0 AND p.nombre LIKE '" +name+ "%'";
         return (List<Producto>) em.createQuery(jpql).getResultList();
     }
     
-    public List<Producto> findForBodega(int codigo){
+    public List<Producto> findByBodega(int codigo){
         
         String jpql = "SELECT p FROM Producto p, Inventario i, Bodega b WHERE p.codigo = i.producto.codigo AND b.codigo = i.bodega.codigo AND b.codigo = "+codigo;
         return (List<Producto>) em.createQuery(jpql).getResultList();
         
+    }
+    
+    public List<Producto> findByName(String name){
+        //String jpql = "FROM PRODUCTO p INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO WHERE p.nombre LIKE '"+name+"%' AND i.CANTIDAD > 0";
+        String jpql = "FROM Producto p, Inventario i WHERE p.codigo = i.producto.codigo AND p.nombre LIKE '" +name+ "%'";
+        return (List<Producto>) em.createQuery(jpql).getResultList();
     }
 
 }

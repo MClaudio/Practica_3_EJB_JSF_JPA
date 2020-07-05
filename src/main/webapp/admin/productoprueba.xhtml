@@ -103,12 +103,9 @@
                         <h:outputText value="#{p.categoria.nombre}" rendered="#{not p.editable}" />
                     </h:column>
 
-
                     <h:column>
                         <f:facet name="header">Acciones</f:facet>
                         <h:commandLink value="Eliminar" action="#{productoBean.delete(p)}" />
-
-
                         <h:commandLink value="Editar" action="#{productoBean.edit(p)}"
                                        rendered="#{not p.editable}" />
                         <h:commandLink value="guardar" action="#{productoBean.save(p)}"
@@ -121,4 +118,54 @@
         
     </h:body>
 </html>
-
+<!-- </h:form>
+                             <h:form>
+                                 <div class="form-row">
+                                     <div class="form-group col-md-6">
+     
+                                         <div class="form-row">
+                                             <div class="form-group col-md-6">
+                                                 <label for="bodega-add">Agregar una bodega</label>
+     
+     
+                                                 <h:selectOneMenu class="form-control" id="bodega-add" converter="selectOneMenuConverter" value="#{productoBean.newBodega}" >
+                                                     <f:selectItem  itemLabel="Todo" itemValue="#{null}" noSelectionOption="true"  />
+                                                     <f:selectItems  value="#{productoBean.bodegas}" var="bodegaIte" 
+                                                                     itemLabel="#{bodegaIte.nombre}" itemValue="#{bodegaIte}"/>
+                                                 </h:selectOneMenu>
+     
+                                                 <h:commandButton id="btnAddBodega" class="btn btn-primary" value="Agregar" action="#{productoBean.addBodega}"  >
+     
+                                                     <f:ajax event="click" execute="@this" render="list-bodegas" />
+                                                 </h:commandButton>
+     
+     
+                                             </div>
+                                             <div class="form-group col-md-3 ">
+     
+                                             </div>
+                                         </div>
+     
+                                     </div>
+                                     <div class="form-group col-md-6">
+     
+                                         <label>Bodegas</label>
+     
+                                         <h:outputText id="list-bodegas">
+                                             listado de bodegas
+                                             <ul>
+                                                                                    
+                                                 <c:forEach  var="b" items="">
+                                                     <li><i class="fas fa-trash-alt"></i> </li>
+                                                 </c:forEach>
+                                             </ul>
+                                         </h:outputText>
+     
+     
+     
+                                     </div>
+     
+                                 </div>
+                             </h:form>-->
+                            <!--</div>-->
+                            <!--<h:form>-->
