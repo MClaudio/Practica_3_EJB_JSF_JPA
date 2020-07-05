@@ -49,17 +49,16 @@ public class ProductoBean implements Serializable {
     private int cantidad;
     private List<Bodega> bodegas;
     private Bodega bodega;
-    private Bodega bodegaItem;
+    private Bodega newBodega;
     private List<Producto> productos;
     private List<String> unidadMedidas;
-    
-    
+    private List<Bodega> listbodegas;
 
     /**
      * Creates a new instance of ProductoBean
      */
     public ProductoBean() {
-        
+
     }
 
     @PostConstruct
@@ -70,14 +69,14 @@ public class ProductoBean implements Serializable {
                 "lb",
                 "kg",
                 "l"
-                );
+        );
 
         try {
             this.categorias = this.categoriaFacade.findAll();
             this.cantidad = 1;
             this.productos = this.productoFacade.findAll();
             this.bodegas = this.bodegaFacade.findAll();
-            
+
         } catch (Exception e) {
             System.out.println("Error --- " + e);
         }
@@ -156,19 +155,51 @@ public class ProductoBean implements Serializable {
         this.medida = medida;
     }
 
-    public Bodega getBodegaItem() {
-        return bodegaItem;
-    }
-
-    public void setBodegaItem(Bodega bodegaItem) {
-        this.bodegaItem = bodegaItem;
-    }
-
-    public List<String> getUnidadMedida() {
+    public List<String> getUnidadMedidas() {
         return unidadMedidas;
     }
- 
+
+    public List<Bodega> getListbodegas() {
+        return listbodegas;
+    }
+
+    public void setListbodegas(List<Bodega> listbodegas) {
+        this.listbodegas = listbodegas;
+    }
+
+    public Bodega getNewBodega() {
+        return newBodega;
+    }
+
+    public void setNewBodega(Bodega newBodega) {
+        this.newBodega = newBodega;
+    }
+    
+
+    public void newProducto() {
+        this.listbodegas = new ArrayList<>();
+   }
+
+    public void addBodega() {
+       
+        if (newBodega != null) {
+            System.out.println("Nuevo inventario agregandoo....  "+newBodega.toString());
+            if (!listbodegas.contains(this.newBodega)) {
+                this.listbodegas.remove(this.newBodega);
+            }
+        }else{
+             System.out.println("bodega nueva null.......");
+        }
+    }
+
+    public void removeBodega(Bodega bodega) {
+        if(listbodegas.contains(bodega)){
+            this.listbodegas.remove(bodega);
+        }
+    }
+
     public String add() {
+        System.out.println("Se crea un productoo...");
         if (this.categoria != null && this.bodega != null) {
             Inventario inventario = new Inventario(this.cantidad);
             inventario.setBodega(this.bodega);
@@ -176,36 +207,36 @@ public class ProductoBean implements Serializable {
             Producto producto = new Producto();
             producto.setNombre(this.nombre);
             producto.setPrecio(this.precio);
-            producto.setImagen("/imagen.gpg");
+            producto.setImagen("imagen.gpg");
             producto.setUnidadMedida(this.medida);
             producto.setCategoria(this.categoria);
             producto.addInventario(inventario);
 
             productoFacade.create(producto);
-        }else{
+        } else {
             FacesMessage message = new FacesMessage("Debe seleccionar una categoria y una bodega");
-	    throw new ValidatorException(message);
+            throw new ValidatorException(message);
         }
-        this.productos = this.productoFacade.findAll();
 
+        this.productos = this.productoFacade.findAll();
         return null;
-        
+
     }
 
     public String delete(Producto producto) {
         this.productoFacade.remove(producto);
-        this.productos= this.productoFacade.findAll();
+        this.productos = this.productoFacade.findAll();
         return null;
     }
-    
-      public void buscarPorBodega() {
-          if(bodegaItem != null){
-              //System.out.println("Cambio de item em bodega..." +bodegaItem.toString());
-              this.productos = productoFacade.findForBodega(this.bodegaItem.getCodigo());
-          }else{
-              //System.out.println("Es nulo... ");
-              this.productos = this.productoFacade.findAll();
-          }
+
+    public void buscarPorBodega() {
+        if (bodega != null) {
+            //System.out.println("Cambio de item em bodega..." +bodegaItem.toString());
+            this.productos = productoFacade.findForBodega(this.bodega.getCodigo());
+        } else {
+            //System.out.println("Es nulo... ");
+            this.productos = this.productoFacade.findAll();
+        }
     }
 
     public String edit(Producto producto) {
@@ -221,8 +252,5 @@ public class ProductoBean implements Serializable {
         this.productos = this.productoFacade.findAll();
         return null;
     }
-    
-    
-  
 
 }

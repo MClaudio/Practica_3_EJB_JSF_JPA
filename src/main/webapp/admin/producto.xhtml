@@ -1,179 +1,289 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:composition template="/WEB-INF/include/template.xhtml"
+<ui:composition template="index.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:define name="head">
-        <title>Admin</title>
-        <meta name="description" content="Ela Admin - HTML5 Admin Template"/>
-        <link rel="stylesheet" href="../resource/css/admin-style.css"/>
-    </ui:define>
+    <ui:define name="content">
 
-    <ui:define name="body">
-        <ui:include src="../imports/admin-nav.xhtml"/>
+        <script type="text/javascript">
+            function indicador(data) {
+                if (data.status == "begin") {
 
-        <div id="right-panel" class="right-panel">
-            <!-- Header-->
-            <header id="header" class="header">
-                <div class="top-left">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="./"><img src="../statics/images/logo.png" alt="Logo"/></a>
-                        <a class="navbar-brand hidden" href="./"><img src="../statics/images/logo2.png" alt="Logo"/></a>
-                        <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
-                    </div>
-                </div>
-                <div class="top-right">
-                    <div class="header-menu">
-                        <div class="header-left">
-                            <button class="search-trigger"><i class="fa fa-search"></i></button>
-                            <div class="form-inline">
-                                <form class="search-form">
-                                    <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search"/>
-                                    <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
-                                </form>
-                            </div>
+                } else if (data.status == "success") {
 
-                            <!--
-                            <div class="dropdown for-notification">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-bell"></i>
-                                    <span class="count bg-danger">3</span>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="notification">
-                                    <p class="red">You have 3 Notification</p>
-                                    <a class="dropdown-item media" href="#">
-                                        <i class="fa fa-check"></i>
-                                        <p>Server #1 overloaded.</p>
-                                    </a>
-                                    <a class="dropdown-item media" href="#">
-                                        <i class="fa fa-info"></i>
-                                        <p>Server #2 overloaded.</p>
-                                    </a>
-                                    <a class="dropdown-item media" href="#">
-                                        <i class="fa fa-warning"></i>
-                                        <p>Server #3 overloaded.</p>
-                                    </a>
-                                </div>
-                            </div>
-                            -->
-                        </div>
+                }
+            }
+        </script>
 
-                        <div class="user-area dropdown float-right">
-                            <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle" src="../statics/images/avatar/2.jpg" alt="User Avatar"/>
-                            </a>
-                            <div class="user-menu dropdown-menu">
-                                <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
-                                <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> -->
-                                <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-                                <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Productos</h1>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-sm-4 d-flex">
+                        <div class="page-header float-left d-flex align-items-center">
+                            <div class="page-title ">
+                                <h:form id="f-buscar" class="d-flex">
+                                    <div class="form-group mr-3">
+                                        <label for="input-search" class="sr-only">Buscar</label>
+                                        <h:inputText class="form-control" id="input-search" a:placeholder="Buscar"/>
+                                    </div>
+                                    <h:button class="btn btn-primary" value="Buscar"/>   
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <h:form>
+                                    <h:commandLink class="btn btn-primary" 
+                                                   a:data-toggle="modal" 
+                                                   a:data-target="#mediumModal" 
+                                                   value="+ Agregar" 
+                                                   action="#{productoBean.newProducto}" 
+                                                   >
+                                        <f:ajax render="mediumModal" onevent="indicador" />
+                                    </h:commandLink>
 
+                                </h:form>
+
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </header>
-            <!-- /#header -->
-            <div class="content">
-                <!-- Animated -->
-                <div class="animated fadeIn">
+            </div>
+        </div>
 
-                    <div class="content-header">
-                        <h2>Productos</h2>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mediumModal">
-                            + Agregar
+
+
+
+
+
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Lista de productos</strong>
+                                <h:form>
+                                    <h:selectOneMenu class="form-control" id="bodega-productos" converter="selectOneMenuConverter" value="#{productoBean.bodega}" >
+                                        <f:selectItem  itemLabel="Todo" itemValue="#{null}" noSelectionOption="true"  />
+                                        <f:selectItems  value="#{productoBean.bodegas}" var="bodegaIte" 
+                                                        itemLabel="#{bodegaIte.nombre}" itemValue="#{bodegaIte}"/>
+                                    </h:selectOneMenu>
+                                    <h:commandButton class="btn btn-primary" value="Filtar" action="#{productoBean.buscarPorBodega}" />
+                                </h:form>
+                            </div>
+                            <div class="table-stats order-table ov-h">
+
+
+                                <h:form>
+                                    <h:dataTable class="table" value="#{productoBean.productos}" var="p" styleClass="tabla"
+                                                 headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+
+
+                                        <h:column class="serial">
+                                            <f:facet class="serial" name="header">Codigo</f:facet>#{p.codigo}
+                                        </h:column>
+
+                                        <h:column class="avatar">
+                                            <f:facet class="avatar" name="header">Imagen</f:facet>
+                                            <div class="round-img">
+                                                <h:graphicImage class="rounded-circle" alt="#{p.imagen}"/>
+                                            </div>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Nombre</f:facet>
+                                            <span class="name">
+                                                <h:inputText class="form-control" value="#{p.nombre}" 
+                                                             rendered="#{p.editable}" />
+                                                <h:outputText value="#{p.nombre}" rendered="#{not p.editable}" />
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Medida</f:facet>
+                                            <span class="product">
+                                                <h:selectOneMenu class="form-control" value="#{productoBean.medida}" rendered="#{p.editable}">
+                                                    <f:selectItems value="#{productoBean.unidadMedidas}" rendered="#{p.editable}"/>
+                                                </h:selectOneMenu>
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Precio</f:facet>
+                                            <h:inputText class="form-control" value="#{p.precio}" size="4" 
+                                                         rendered="#{p.editable}" converter="javax.faces.Double" />
+                                            <h:outputText value="#{p.precio}" rendered="#{not p.editable}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Categoria</f:facet>
+                                            <h:selectOneMenu class="form-control" id="categoria-seleccion" converter="selectOneMenuConverter" value="#{productoBean.categoria}" rendered="#{p.editable}">
+
+                                                <f:selectItems  value="#{productoBean.categorias}" var="categoriaItem"  rendered="#{p.editable}"
+                                                                itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
+                                            </h:selectOneMenu>
+                                            <h:outputText value="#{p.categoria.nombre}" rendered="#{not p.editable}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Cantidad</f:facet>
+                                            <span class="count">
+                                                <h:inputText value="200" />
+                                            </span>
+                                        </h:column>
+
+
+                                        <h:column>
+                                            <f:facet name="header">Acciones</f:facet>
+                                            <h:commandLink class="btn btn-danger mr-3" value="Eliminar" action="#{productoBean.delete(p)}" />
+
+
+                                            <h:commandLink class="btn btn-primary mr-3" value="Editar" action="#{productoBean.edit(p)}"
+                                                           rendered="#{not p.editable}" />
+                                            <h:commandLink class="btn btn-success mr-3" value="guardar" action="#{productoBean.save(p)}"
+                                                           rendered="#{p.editable}" />
+                                        </h:column>
+
+
+
+
+                                    </h:dataTable>
+                                </h:form>
+                            </div> <!-- /.table-stats -->
+                        </div>
+                    </div>
+
+
+                </div>
+            </div><!-- .animated -->
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumModalLabel">Agregar Producto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <div class="modal-body">
 
-                    <h:form>
-                        <label>Nombre:</label>
-                        <h:inputText id="producto-nombre" value="#{productoBean.nombre}" required="true"
-                                     requiredMessage="Campo Obligatorio"/>
-                        <h:message for="producto-nombre" style="color:red" />
-                    </h:form>
-
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="mediumModalLabel">Medium Modal</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-
-                                    <form>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="inputEmail4">Email</label>
-                                                <input type="email" class="form-control" id="inputEmail4"/>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="inputPassword4">Password</label>
-                                                <input type="password" class="form-control" id="inputPassword4"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputAddress">Address</label>
-                                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputAddress2">Address 2</label>
-                                            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"/>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="inputCity">City</label>
-                                                <input type="text" class="form-control" id="inputCity"/>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputState">State</label>
-                                                <!--
-                                                <select id="inputState" class="form-control"/>
-                                                    <option selected>Choose...</option>
-                                                    <option>...</option>
-                                                </select>
-                                                -->
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label for="inputZip">Zip</label>
-                                                <input type="text" class="form-control" id="inputZip"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="gridCheck"/>
-                                                <label class="form-check-label" for="gridCheck">
-                                                    Check me out
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </form>
+                        <h:form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="producto-nombre">Nombre</label>
+                                    <h:inputText class="form-control" id="producto-nombre" value="#{productoBean.nombre}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="producto-nombre" style="color:red" />
 
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-success">Confirm</button>
+                                <div class="form-group col-md-6">
+                                    <label for="producto-categoria">Categoria</label>
+                                    <h:selectOneMenu class="form-control" id="producto-categoria" converter="selectOneMenuConverter" value="#{productoBean.categoria}">
+                                        <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  />
+                                        <f:selectItems  value="#{productoBean.categorias}" var="categoriaItem" 
+                                                        itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
+                                    </h:selectOneMenu>
+                                    <h:message for="producto-categoria" style="color:red" />
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="producto-unidad">Unidad de medida</label>
+                                    <h:selectOneMenu class="form-control" id="producto-unidad" value="#{productoBean.medida}">
+                                        <f:selectItems value="#{productoBean.unidadMedidas}" />
+                                    </h:selectOneMenu>
+                                    <h:message for="producto-unidad" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="producto-precio">Precio unitario</label>
+                                    <h:inputText class="form-control" id="producto-precio" value="#{productoBean.precio}" converter="javax.faces.Double" />
+                                    <h:message for="precio" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="producto-cantidad">Cantidad</label>
+                                    <h:inputText class="form-control" id="producto-cantidad" value="#{productoBean.cantidad}" converter="javax.faces.Integer" />
+                                    <h:message for="cantidad" style="color:red" />
+                                </div>
+                            </div>
+                        </h:form>
+
+                        <h:form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="bodega-add">Agregar una bodega</label>
+
+
+                                            <h:selectOneMenu class="form-control" id="bodega-add" converter="selectOneMenuConverter" value="#{productoBean.newBodega}" >
+                                                <f:selectItem  itemLabel="Todo" itemValue="#{null}" noSelectionOption="true"  />
+                                                <f:selectItems  value="#{productoBean.bodegas}" var="bodegaIte" 
+                                                                itemLabel="#{bodegaIte.nombre}" itemValue="#{bodegaIte}"/>
+                                            </h:selectOneMenu>
+
+                                            <h:commandButton id="btnAddBodega" class="btn btn-primary" value="Agregar" action="#{productoBean.addBodega}"  >
+                                            
+                                            <f:ajax event="click" execute="@this" render="list-bodegas" />
+                                            </h:commandButton>
+
+
+                                        </div>
+                                        <div class="form-group col-md-3 ">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-md-6">
+
+                                    <label>Bodegas</label>
+
+                                    <h:outputText id="list-bodegas">
+                                        listado de bodegas
+                                        <ul>
+                                            <c:forEach  var="b" items="#{productoBean.listbodegas}">
+                                                <li><i class="fas fa-trash-alt"></i> #{b.nombre}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </h:outputText>
+
+
+
+                                </div>
+
+                            </div>
+                        </h:form>
                     </div>
-
-
+                    <h:form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <h:commandButton class="btn btn-success" value="Crear Producto" action="#{productoBean.add}"/>
+                        </div>
+                    </h:form>
                 </div>
-                <!-- .animated -->
             </div>
-            <!-- /.content -->
-            <div class="clearfix"></div>
-
-            <ui:include src="../imports/footer.xhtml"/>
         </div>
     </ui:define>
 </ui:composition>

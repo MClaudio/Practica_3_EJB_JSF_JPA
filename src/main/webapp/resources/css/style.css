@@ -2503,4 +2503,7 @@ footer.site-footer {
     left: inherit !important;
     right: 20px !important; }
 
+  #left-panel a{
+      text-decoration: none;
+  }
 /*# sourceMappingURL=style.css.map */

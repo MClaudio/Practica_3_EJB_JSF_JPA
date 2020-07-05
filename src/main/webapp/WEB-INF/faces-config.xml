@@ -29,10 +29,9 @@
             org.omnifaces.resourcehandler.UnmappedResourceHandler
         </resource-handler>
     </application>
+    
     <navigation-rule>
         <from-view-id>/admin/index.xhtml</from-view-id>
-        <from-view-id>/Empleado/index.xhtml</from-view-id>
-
         <navigation-case>
             <from-outcome>producto</from-outcome>
             <to-view-id>/admin/producto.xhtml</to-view-id>
@@ -44,8 +43,11 @@
         <navigation-case>
             <from-outcome>categoria</from-outcome>
             <to-view-id>/admin/categoria.xhtml</to-view-id>
-        </navigation-case>
-
+        </navigation-case>		
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/Empleado/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cliente</from-outcome>
             <to-view-id>/Empleado/cliente.xhtml</to-view-id>
@@ -53,7 +55,6 @@
         <navigation-case>
             <from-outcome>factura</from-outcome>
             <to-view-id>/Empleado/factura.xhtml</to-view-id>
-        </navigation-case>
-		
+        </navigation-case>	
     </navigation-rule>
 </faces-config>
