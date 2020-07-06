@@ -67,7 +67,7 @@
         <h3>TABLA CLIENTE</h3>
         <h:form>
            
-            <ui:repeat var="l" value="#{clienteBean.localidad}">
+            <ui:repeat var="" value="">
             
                 <h:dataTable  value="#{clienteBean.usuarios}" var="o" styleClass="tabla"
                          headerClass="cabeceraTabla" >      
@@ -94,11 +94,7 @@
                         <h:outputText value="#{o.apellido}" rendered="#{not o.editable}" />
                 </h:column>
 
-                <h:column>
-                    
-                    <f:facet name="header" >Telefono</f:facet>   
-                
-                </h:column>
+               
 
                 <h:column>
                     <f:facet name="header">Correo</f:facet>
@@ -110,13 +106,23 @@
                 </h:column> 
                 <h:column>
                     <f:facet name="header">Factura</f:facet>
+                    
+                    <h:outputText value="#{clienteBean.totalFactura(o)}"/>
+                   
+  
+                    
                 </h:column> 
 
                 <h:column>
                     <f:facet name="header">Accion</f:facet>
-                    <h:commandButton value="Editar" action="#{clienteBean.edit(o)}"></h:commandButton>
+                    <h:commandButton value="Editar" action="#{clienteBean.edit(o)}"
+                                     rendered="#{not o.editable}"></h:commandButton>
+
+                    <h:commandLink value="guardar" action="#{clienteBean.save(o)}"
+                                   rendered="#{o.editable}" />
+                    
                     <h:commandButton value="Eliminar" action="#{clienteBean.delete(o)}"></h:commandButton>
-                    <h:commandButton value="Localidad" action="#{clienteBean.detalles(o)}"></h:commandButton>
+                    <h:commandButton value="Localidad" action="#{clienteBean.listarLocalidad(o)}"></h:commandButton>
                
           
 
@@ -138,7 +144,7 @@
            
             <ui:repeat var="" value="">
             
-                <h:dataTable  value="#{clienteBean.localidad}" var="l" styleClass="tabla"
+                <h:dataTable  value="#{clienteBean.localidades}" var="l" styleClass="tabla"
                          headerClass="cabeceraTabla" >      
                 
                 <h:column>

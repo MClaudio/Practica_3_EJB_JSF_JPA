@@ -35,13 +35,13 @@ public class Usuario implements  Serializable{
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaCabecera> facturas;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Localidad> localidads;
+    private List<Localidad> localidades;
     @Transient
     private boolean editable;
     
     public Usuario(){
         this.rol = "cliente";
-        this.localidads = new ArrayList<>();
+        this.localidades = new ArrayList<>();
     }
 
     public Usuario(String cedula, String nombre, String apellido, String correo, String password) {
@@ -51,7 +51,7 @@ public class Usuario implements  Serializable{
         this.correo = correo;
         this.password = password;
         this.rol = "cliente";
-        this.localidads = new ArrayList<>();
+        this.localidades = new ArrayList<>();
     }
 
     public String getCedula() {
@@ -110,13 +110,15 @@ public class Usuario implements  Serializable{
         this.rol = rol;
     }
 
-    public List<Localidad> getLocalidad() {
-        return localidads;
+    public List<Localidad> getLocalidades() {
+        return localidades;
     }
 
-    public void setLocalidad(List<Localidad> localidads) {
-        this.localidads = localidads;
+    public void setLocalidades(List<Localidad> localidades) {
+        this.localidades = localidades;
     }
+
+    
     
      public boolean isEditable() {
         return editable;
@@ -152,15 +154,15 @@ public class Usuario implements  Serializable{
     }
     
     public void addLocalidad(Localidad localidad) {
-        if (!this.localidads.contains(localidad)) {
-            this.localidads.add(localidad);
+        if (!this.localidades.contains(localidad)) {
+            this.localidades.add(localidad);
             localidad.setUsuario(this);
         }
     }
 
     public void deleteLocalidad(Localidad localidad) {
-        if (this.localidads.contains(localidad)) {
-            this.localidads.remove(localidad);
+        if (this.localidades.contains(localidad)) {
+            this.localidades.remove(localidad);
             localidad.setUsuario(null);
         }
     }
