@@ -11,6 +11,7 @@ import ec.edu.ups.modelo.FacturaCabecera;
 import ec.edu.ups.modelo.Localidad;
 import ec.edu.ups.modelo.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -50,6 +51,7 @@ public class ClienteBean implements Serializable {
     
 
     public ClienteBean() {
+        this.localidad=new ArrayList<>();
     }
 
     @PostConstruct
@@ -58,6 +60,7 @@ public class ClienteBean implements Serializable {
             this.usuarios = usuarioFacade.findAll();
             System.out.println("Lista usuarios"+ this.usuarios);
             this.localidad=localidadFacade.findAll();
+            
             
         } catch (Exception e) {
             System.out.println("Error---"+e);
@@ -186,5 +189,13 @@ public class ClienteBean implements Serializable {
        usuario.setEditable(true);
         return null;
     }
+     
+       public void detalles(Usuario usuario){
+           
+       //this.localidad=new ArrayList<>();    
+       this.localidad=usuario.getLocalidad();
+       
+        System.out.println("Detalles"+this.localidad);
+       }
 
 }
