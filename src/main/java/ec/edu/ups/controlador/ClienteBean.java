@@ -46,12 +46,12 @@ public class ClienteBean implements Serializable {
     private String pais;
     private String provincia;
     private List<Usuario> usuarios;
-    private List<Localidad>localidad;
+    private List<Localidad>localidades;
    
     
 
     public ClienteBean() {
-        this.localidad=new ArrayList<>();
+        
     }
 
     @PostConstruct
@@ -59,7 +59,8 @@ public class ClienteBean implements Serializable {
         try {
             this.usuarios = usuarioFacade.findAll();
             System.out.println("Lista usuarios"+ this.usuarios);
-            this.localidad=localidadFacade.findAll();
+            //this.localidad=localidadFacade.findAll();
+            this.localidades=new ArrayList<>();
             
             
         } catch (Exception e) {
@@ -67,13 +68,15 @@ public class ClienteBean implements Serializable {
         }
     }  
 
-    public List<Localidad> getLocalidad() {
-        return localidad;
+    public List<Localidad> getLocalidades() {
+        return localidades;
     }
 
-    public void setLocalidad(List<Localidad> localidad) {
-        this.localidad = localidad;
+    public void setLocalidades(List<Localidad> localidades) {
+        this.localidades = localidades;
     }
+
+    
     
     
 
@@ -190,12 +193,26 @@ public class ClienteBean implements Serializable {
         return null;
     }
      
-       public void detalles(Usuario usuario){
+       public void listarLocalidad(Usuario usuario){
            
        //this.localidad=new ArrayList<>();    
-       this.localidad=usuario.getLocalidad();
+       this.localidades=usuario.getLocalidades();
+        System.out.println("Localidades"+this.localidades);
+       }
        
-        System.out.println("Detalles"+this.localidad);
+       public String save(Usuario usuario) {
+        //bodegaFacade.edit(b);
+        usuarioFacade.edit(usuario);
+       // System.out.println("Guardar Usuario: "+b.getLocalidad().toString());
+        usuario.setEditable(false);
+        this.usuarios = usuarioFacade.findAll();
+        return null;
+    }
+       
+       public int totalFactura(Usuario u){
+           
+          return usuarioFacade.contarFacturas(u);    
+           
        }
 
 }
