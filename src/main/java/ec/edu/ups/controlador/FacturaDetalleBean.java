@@ -42,14 +42,8 @@ public class FacturaDetalleBean implements Serializable {
     @EJB
     private FacturaCabeceraFacade facturaCabeceraFacade;
     
-    @EJB
-    private ProductoFacade productoFacade; 
     
-    @EJB
-    private FacturaDetalleFacade facturaDetalleFacade;
-    
-   
-    
+     
     private String cedula;
     private int cantidad;
     private List<FacturaCabecera> facturaCabecera;
