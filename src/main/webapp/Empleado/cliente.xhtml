@@ -83,7 +83,7 @@
                 <h:column>
                     <f:facet name="header">Nombres</f:facet> 
                     <h:inputText value="#{o.nombre}" size="10"
-                                     rendered="#{p.editable}" />
+                                     rendered="#{o.editable}" />
                         <h:outputText value="#{o.nombre}" rendered="#{not o.editable}" />
                 </h:column>
 
@@ -96,10 +96,7 @@
 
                 <h:column>
                     
-                    <f:facet name="header" >Telefono</f:facet>
-                   
-                    
-                   
+                    <f:facet name="header" >Telefono</f:facet>   
                 
                 </h:column>
 
@@ -112,25 +109,75 @@
                     
                 </h:column> 
                 <h:column>
-                    <f:facet name="header">Factura</f:facet>#{o.facturas}
+                    <f:facet name="header">Factura</f:facet>
                 </h:column> 
 
                 <h:column>
                     <f:facet name="header">Accion</f:facet>
                     <h:commandButton value="Editar" action="#{clienteBean.edit(o)}"></h:commandButton>
                     <h:commandButton value="Eliminar" action="#{clienteBean.delete(o)}"></h:commandButton>
+                    <h:commandButton value="Localidad" action="#{clienteBean.detalles(o)}"></h:commandButton>
+               
+          
 
                 </h:column> 
 
                      
                 
             </h:dataTable>
-              </ui:repeat>          
-                   
+              </ui:repeat>   
             
+            
+    
+
+      
+        </h:form>
+        
+         <h3>TABLA LOCALIDAD</h3>
+        <h:form>
+           
+            <ui:repeat var="" value="">
+            
+                <h:dataTable  value="#{clienteBean.localidad}" var="l" styleClass="tabla"
+                         headerClass="cabeceraTabla" >      
+                
+                <h:column>
+                    <f:facet name="header">Pais</f:facet>
+                    <h:outputText value="#{l.pais}"/>
+                        
+                     
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Provincia</f:facet> 
+                    <h:outputText value="#{l.provincia}"/>                    
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Ciudad</f:facet>
+                    <h:outputText value="#{l.ciudad}"/>
+                </h:column>
+
+                <h:column>
+                    
+                    <f:facet name="header" >Direccion</f:facet>
+                    <h:outputText value="#{l.direccion}"/>
+                    
+                   
+                
+                </h:column>
+
                 
                
 
+
+                     
+                
+            </h:dataTable>
+              </ui:repeat>   
+            
+            
+    
 
       
         </h:form>
