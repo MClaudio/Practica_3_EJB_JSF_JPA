@@ -31,6 +31,23 @@ public class UsuarioFacade extends AbstractFacade<Usuario>{
        return em; 
     }
     
+    public int contarFacturas(Usuario u){
+        
+        
+        String jpql = "SELECT COUNT(u.cedula) FROM Usuario u INNER JOIN FacturaCabecera f ON u.cedula = f.usuario.cedula WHERE u.cedula ='"+u.getCedula()+"' ";
+        
+        //System.out.println("Dato de base... " + em.createQuery(jpql).getSingleResult());
+        Object obj = em.createQuery(jpql).getSingleResult();
+        if(obj != null){
+            return Integer.valueOf(String.valueOf(obj));
+        }else{
+            return 0;
+        }
+    
+        
+        
+    }
+    
   
     
 }
