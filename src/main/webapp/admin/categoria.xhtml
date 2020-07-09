@@ -1,72 +1,191 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:composition template="/WEB-INF/include/template.xhtml"
+<ui:composition template="index.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-    
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
     <ui:define name="content">
 
-        <h:form>
-            <fieldset>
-                <legend>Agregar Categoria</legend>
-                <label>Nombre:</label>
-                <h:inputText id="categoria-nombre" value="#{categoriaBean.nombre}" required="true"
-                             requiredMessage="Campo Obligatorio"/>
-                <h:message for="categoria-nombre" style="color:red" />
+        <script type="text/javascript">
+            function indicador(data) {
+                if (data.status == "begin") {
 
-                <label>Descripcion:</label>
-                <h:inputTextarea id="categoria-descripcion" value="#{categoriaBean.decripcion}" required="true"
-                                 requiredMessage="Campo Obligatorio"/>
-                <h:message for="categoria-descripcion" style="color:red" />
+                } else if (data.status == "success") {
+
+                }
+            }
+        </script>
+
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Categoria</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 d-flex">
+                        <div class="page-header float-left d-flex align-items-center">
+                            <div class="page-title ">
+                                <h:form id="f-buscar" class="d-flex">
+                                    <div class="form-group mr-3">
+                                        <label for="input-search" class="sr-only">Buscar</label>
+                                        <h:inputText class="form-control" id="input-search" a:placeholder="Buscar"
+                                                     value="#{categoriaBean.nombreCategoria}"
+                                                     />
+                                    </div>
+                                    <h:commandButton class="btn btn-primary" value="Buscar"
+                                                     action="#{categoriaBean.buscarPorNombre()}"
+                                                     />   
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <h:form>
+                                    <h:commandLink class="btn btn-primary" 
+                                                   a:data-toggle="modal" 
+                                                   a:data-target="#mediumModal" 
+                                                   value="+ Agregar" 
+                                                   action="#{categoriaBean.newProducto()}" 
+                                                   >
+                                        <f:ajax render="mediumModal" onevent="indicador" />
+                                    </h:commandLink>
+
+                                </h:form>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
-                <h:commandButton value="Crear Categoria" action="#{categoriaBean.guardarDatos}"></h:commandButton>
-
-            </fieldset>
-        </h:form>
-
-        <h:form>
-            <fieldset>
-                <legend>Lista de Categorias</legend>
-
-                <h:dataTable value="#{categoriaBean.categorias}" var="c" styleClass="tabla"
-                             headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
-
-                    <h:column>
-                        <f:facet name="header">Codigo</f:facet>#{c.codigo}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Nombre</f:facet>
-                        <h:inputText value="#{c.nombre}" size="10"
-                                     rendered="#{c.editable}" />
-                        <h:outputText value="#{c.nombre}" rendered="#{not c.editable}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Descripcion</f:facet>
-                        <h:inputTextarea value="#{c.descripcion}" rows="5" cols="30" 
-                                         rendered="#{c.editable}"/>
-                        <h:outputText value="#{c.descripcion}" rendered="#{not c.editable}" />
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Acciones</f:facet>
-                        <h:commandLink value="Eliminar" action="#{categoriaBean.delete(c)}" />
 
 
-                        <h:commandLink value="Editar" action="#{categoriaBean.edit(c)}"
-                                       rendered="#{not c.editable}" />
-                        <h:commandLink value="guardar" action="#{categoriaBean.save(c)}"
-                                       rendered="#{c.editable}" />
-                    </h:column>
-                </h:dataTable>
-            </fieldset>
-        </h:form>
 
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+
+                            <div class="table-stats order-table ov-h">
+
+
+                                <h:form>
+                                    <h:dataTable class="table" value="#{categoriaBean.categorias}" var="c" styleClass="tabla"
+                                                 headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+
+
+                                        <h:column class="serial">
+                                            <f:facet class="serial" name="header">Codigo</f:facet>#{c.codigo}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Nombre</f:facet>
+                                            <span class="name">
+                                                <h:inputText class="form-control" value="#{c.nombre}" 
+                                                             rendered="#{c.editable}" />
+                                                <h:outputText value="#{c.nombre}" rendered="#{not c.editable}" />
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Descripcion</f:facet>
+                                            <span class="name">
+                                                <h:inputText class="form-control" value="#{c.descripcion}" 
+                                                             rendered="#{c.editable}" />
+                                                <h:outputText value="#{c.descripcion}" rendered="#{not c.editable}" />
+                                            </span>
+                                        </h:column>
+
+                                        
+
+
+                                        <h:column>
+                                            <f:facet name="header">Acciones</f:facet>
+                                            <h:commandLink class="btn btn-danger mr-3" value="Eliminar" action="#{categoriaBean.delete(c)}" />
+
+
+                                            <h:commandLink class="btn btn-primary mr-3" value="Editar" action="#{categoriaBean.edit(c)}"
+                                                           rendered="#{not c.editable}" />
+                                            <h:commandLink class="btn btn-success mr-3" value="guardar" action="#{categoriaBean.save(c)}"
+                                                           rendered="#{c.editable}" />
+                                        </h:column>
+
+
+
+
+                                    </h:dataTable>
+                                </h:form>
+                            </div> <!-- /.table-stats -->
+                        </div>
+                    </div>
+
+
+                </div>
+            </div><!-- .animated -->
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumModalLabel">Agregar Categorias</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <h:form>
+                        <div class="modal-body">
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6 ">
+                                    <label for="categoria-nombre">Nombre</label>
+                                    <h:inputText class="form-control" id="categoria-nombre" value="#{categoriaBean.nombre}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="categoria-nombre" style="color:red" />
+
+                                </div>
+                                <div class="form-group col-md-6 "> </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="categoria-descripcion">Descripcion</label>
+                                    <h:inputTextarea class="form-control" id="categoria-descripcion" value="#{categoriaBean.decripcion}" required="true"
+                                                     requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="categoria-descripcion" style="color:red" />
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <h:commandButton class="btn btn-success" value="Crear Categoria" action="#{categoriaBean.guardarDatos()}"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- END Modal -->
     </ui:define>
-</ui:composition> 
+</ui:composition>
+
