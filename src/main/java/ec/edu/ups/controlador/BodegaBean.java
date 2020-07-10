@@ -146,5 +146,16 @@ public class BodegaBean implements Serializable {
         this.bodegas = bodegaFacade.findAll();
         return null;
     }
+    
+    public void newProducto() {
+        this.Ciudad="";
+        this.direccion="";
+        this.nombre="";
+        this.pais="";
+        this.provincia="";
+        this.telefono="";
+        
+        
+   }
 
 }
