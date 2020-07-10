@@ -145,4 +145,14 @@ public class CategoriaBean implements Serializable {
         System.out.println("Nombre............ " + nombreCategoria);
         nombreCategoria= null;
     }
+    public void listar() {
+       
+         try {
+            this.categorias = categoriaFacade.findAll();
+            System.out.println("Lista categorias" + this.categorias);
+
+        } catch (Exception e) {
+            System.out.println("Error---" + e);
+        }
+    }
 }

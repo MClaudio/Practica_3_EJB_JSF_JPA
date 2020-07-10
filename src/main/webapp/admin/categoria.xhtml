@@ -41,9 +41,25 @@
                                                      value="#{categoriaBean.nombreCategoria}"
                                                      />
                                     </div>
-                                    <h:commandButton class="btn btn-primary" value="Buscar"
-                                                     action="#{categoriaBean.buscarPorNombre()}"
-                                                     />   
+                                   <!-- <h:commandButton class="btn btn-primary" value="Buscar"
+                                                     action=""
+                                                     />   -->
+                                   
+
+                                    <h:column>
+                                        <f:facet name="header">Acciones</f:facet>
+                                        
+
+
+                                        <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px;" value="Buscar" action="#{categoriaBean.buscarPorNombre()}"
+                                                       rendered="#{categoriaBean.nombreCategoria != null}" />
+                                        <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px; background-color: green;" value="Listar" action="#{categoriaBean.listar()}"
+                                                       rendered="#{categoriaBean.nombreCategoria == null}" />
+                                        
+                                        
+                                        
+                                    </h:column>
+                                   
                                 </h:form>
                             </div>
                         </div>
@@ -86,8 +102,8 @@
 
 
                                 <h:form>
-                                    <h:dataTable class="table" value="#{categoriaBean.categorias}" var="c" styleClass="tabla"
-                                                 headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+                                    <h:dataTable  value="#{categoriaBean.categorias}" var="c" styleClass="table w-100"
+                                                  headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar" >
 
 
                                         <h:column class="serial">
@@ -112,7 +128,7 @@
                                             </span>
                                         </h:column>
 
-                                        
+
 
 
                                         <h:column>
