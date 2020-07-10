@@ -4,7 +4,6 @@ ec\edu\ups\controlador\FacturaBean.class
 ec\edu\ups\controlador\ProductoBean.class
 ec\edu\ups\ejb\UsuarioFacade.class
 ec\edu\ups\ejb\FacturaDetalleFacade.class
-ec\edu\ups\controlador\FacturaDetalleBean.class
 ec\edu\ups\ejb\InventarioFacade.class
 ec\edu\ups\modelo\Usuario.class
 ec\edu\ups\ejb\FacturaCabeceraFacade.class

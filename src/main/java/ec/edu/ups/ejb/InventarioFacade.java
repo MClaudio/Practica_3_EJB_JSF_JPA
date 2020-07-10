@@ -6,6 +6,8 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.modelo.Inventario;
+import ec.edu.ups.modelo.Producto;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,11 @@ public class InventarioFacade extends AbstractFacade<Inventario>{
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    public List<Inventario> findByProducto(Producto producto){
+        String jpql = "FROM Inventario i INNER JOIN Producto p ON p.inventario.codigo = i.codigo WHERE p.codigo = "+producto.getCodigo();
+        return (List<Inventario>) em.createQuery(jpql).getResultList();
     }
     
 }

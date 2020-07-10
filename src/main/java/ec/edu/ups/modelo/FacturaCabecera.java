@@ -32,6 +32,7 @@ public class FacturaCabecera implements  Serializable{
     private double iva;
     private double subTotal;
     private double total;
+    private String estado;
    
     @ManyToOne
     private Usuario usuario;
@@ -42,6 +43,7 @@ public class FacturaCabecera implements  Serializable{
     public FacturaCabecera() {
         this.facturaDetalles = new ArrayList<>();
         this.iva = 0.12;
+        this.estado = "pendiente";
     }
 
     public FacturaCabecera(Date fecha,double total, Usuario usuario, List<FacturaDetalle> facturaDetalles) {
@@ -50,6 +52,7 @@ public class FacturaCabecera implements  Serializable{
         this.usuario = usuario;
         this.facturaDetalles = facturaDetalles;
         this.iva = 0.12;
+        this.estado = "pendiente";
     }
 
     public int getCodigo() {
@@ -105,6 +108,15 @@ public class FacturaCabecera implements  Serializable{
     public void setFacturaDetalles(List<FacturaDetalle> facturaDetalles) {
         this.facturaDetalles = facturaDetalles;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
     
     public double getSubTotal() {
         double sum = 0;

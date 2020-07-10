@@ -30,9 +30,9 @@ import javax.faces.annotation.FacesConfig;
  * @author enriq
  */
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
-@Named(value = "facturaDetalle")
+@Named(value = "facturasBean")
 @SessionScoped
-public class FacturaDetalleBean implements Serializable {
+public class FacturasBean implements Serializable {
     private static final long serialVersionUID = 1;
             
             
@@ -41,41 +41,23 @@ public class FacturaDetalleBean implements Serializable {
     
     @EJB
     private FacturaCabeceraFacade facturaCabeceraFacade;
-    
-    
-     
+      
     private String cedula;
     private int cantidad;
-    private List<FacturaCabecera> facturaCabecera;
+    private List<FacturaCabecera> facturasCabeceras;
     private Producto producto;
-    
     private List<FacturaDetalle> detalles;
-   
     private Usuario usuario;
 
-    public FacturaDetalleBean() {
+    public FacturasBean() {
     }
-  
-    
-    
-
-   
-   
     
     @PostConstruct
     public void init(){
-        this.facturaCabecera=facturaCabeceraFacade.findAll();
-        System.out.println("Lista Factura Cabecera"+facturaCabecera);
+        this.facturasCabeceras=facturaCabeceraFacade.findAll();
+        //System.out.println("Lista Factura Cabecera"+facturasCabeceras);
         //this.producto=productoFacade.findAll();
-        this.detalles=new ArrayList<>();
-        
-                
-        
-       
-        
-        
-        
-        
+        this.detalles=new ArrayList<>();   
     }
     
 
@@ -86,21 +68,16 @@ public class FacturaDetalleBean implements Serializable {
     public void setDetalles(List<FacturaDetalle> detalles) {
         this.detalles = detalles;
     }
-    
-    
-    
 
-    public FacturaCabeceraFacade getFacturaCabeceraFacade() {
-        return facturaCabeceraFacade;
+    public List<FacturaCabecera> getFacturasCabeceras() {
+        return facturasCabeceras;
     }
 
-    public void setFacturaCabeceraFacade(FacturaCabeceraFacade facturaCabeceraFacade) {
-        this.facturaCabeceraFacade = facturaCabeceraFacade;
+    public void setFacturasCabeceras(List<FacturaCabecera> facturasCabeceras) {
+        this.facturasCabeceras = facturasCabeceras;
     }
-
-   
     
-
+  
     public int getCantidad() {
         return cantidad;
     }
@@ -109,10 +86,6 @@ public class FacturaDetalleBean implements Serializable {
         this.cantidad = cantidad;
     }
     
-    
-
-   
-
     public Producto getProducto() {
         return producto;
     }
@@ -121,15 +94,6 @@ public class FacturaDetalleBean implements Serializable {
         this.producto = producto;
     }
 
-  
-
-   
-    
-    
-
-   
-    
-    
 
     public String getCedula() {
         return cedula;
@@ -140,11 +104,11 @@ public class FacturaDetalleBean implements Serializable {
     }
 
     public List<FacturaCabecera> getFacturaCabecera() {
-        return facturaCabecera;
+        return facturasCabeceras;
     }
 
     public void setFacturaCabecera(List<FacturaCabecera> facturaCabecera) {
-        this.facturaCabecera = facturaCabecera;
+        this.facturasCabeceras = facturaCabecera;
     }
 
     public Usuario getUsuario() {
@@ -156,32 +120,18 @@ public class FacturaDetalleBean implements Serializable {
     }
    
 
-    
-    
     public void buscarUsuario() {
         try {
             this.usuario = usuarioFacade.find(this.cedula);
         } catch (Exception e) {
         }
     }
-    
-    
-   // public void detalles(){
-     //   this.facturaDetalleFacade=fc.getFactruraDetalles
-    //}
+
     
     public void detalles(FacturaCabecera factura){
-       this.detalles=factura.getFacturaDetalles();
-       
-        System.out.println("Detalles"+this.detalles);
-       
-
-
-
-
+       this.detalles=factura.getFacturaDetalles();    
     }
     
-
 
 
 }

@@ -37,8 +37,8 @@ public class Producto implements Serializable {
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaDetalle> facturasDetalles;
     
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Inventario> inventarios; 
+    @ManyToOne
+    private Inventario inventario;
     
     @ManyToOne
     private Categoria categoria;
@@ -47,9 +47,7 @@ public class Producto implements Serializable {
     private boolean editable;
 
     public Producto() {
-        this.facturasDetalles = new ArrayList<>();
-        this.inventarios = new ArrayList<>();
-        
+        this.facturasDetalles = new ArrayList<>(); 
     }
 
     public Producto(String nombre, String unidadMedida, String imagen, double precio) {
@@ -59,7 +57,6 @@ public class Producto implements Serializable {
         this.precio = precio;
     }
 
-   
 
     public int getCodigo() {
         return codigo;
@@ -101,12 +98,12 @@ public class Producto implements Serializable {
         this.facturasDetalles = facturasDetalles;
     }
 
-    public List<Inventario> getInventarios() {
-        return inventarios;
+    public Inventario getInventario() {
+        return inventario;
     }
 
-    public void setInventarios(List<Inventario> inventarios) {
-        this.inventarios = inventarios;
+    public void setInventario(Inventario inventario) {
+        this.inventario = inventario;
     }
 
     public Categoria getCategoria() {
@@ -125,20 +122,6 @@ public class Producto implements Serializable {
         this.unidadMedida = unidadMedida;
     }
     
-    public void addInventario(Inventario inventario){
-        if(!this.inventarios.contains(inventario)){
-            this.inventarios.add(inventario);
-            inventario.setProducto(this);
-        }
-    }
-    
-     public void deleteInventario(Inventario inventario) {
-        if (this.inventarios.contains(inventario)) {
-            this.inventarios.remove(inventario);
-            inventario.setProducto(null);
-        }
-    }
-
     public boolean isEditable() {
         return editable;
     }
@@ -170,8 +153,6 @@ public class Producto implements Serializable {
             return false;
         }
         return true;
-    }
-
-    
+    } 
 
 }

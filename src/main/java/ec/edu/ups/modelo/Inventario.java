@@ -6,11 +6,15 @@
 package ec.edu.ups.modelo;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  *
@@ -27,8 +31,11 @@ public class Inventario implements Serializable{
     @ManyToOne
     private Bodega bodega;
     
-    @ManyToOne
-    private Producto producto;
+    @OneToMany(mappedBy = "inventario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Producto> productos;
+    
+    @Transient
+    private boolean editable;
 
     public Inventario() {
     }
@@ -53,12 +60,12 @@ public class Inventario implements Serializable{
         this.cantidad = cantidad;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public List<Producto> getProductos() {
+        return productos;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 
     public Bodega getBodega() {
@@ -68,7 +75,15 @@ public class Inventario implements Serializable{
     public void setBodega(Bodega bodega) {
         this.bodega = bodega;
     }
-    
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+        
     @Override
     public int hashCode() {
         int hash = 7;
@@ -93,6 +108,20 @@ public class Inventario implements Serializable{
         }
         return true;
     }
+    /*
+    public void addInventario(Inventario inventario){
+        if(!this.inventarios.contains(inventario)){
+            this.inventarios.add(inventario);
+            inventario.setProducto(this);
+        }
+    }
     
+     public void deleteInventario(Inventario inventario) {
+        if (this.inventarios.contains(inventario)) {
+            this.inventarios.remove(inventario);
+            inventario.setProducto(null);
+        }
+    }
+    */
     
 }

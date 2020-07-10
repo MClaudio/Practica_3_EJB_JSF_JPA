@@ -38,7 +38,7 @@
                                     <div class="form-group mr-3">
                                         <label for="input-search" class="sr-only">Buscar</label>
                                         <h:inputText class="form-control" id="input-search" a:placeholder="Buscar"
-                                                     value="#{productoBean.nombreProducto}"
+                                                     value="#{productoBean.nombre}"
                                                      />
                                     </div>
                                     <h:commandButton class="btn btn-primary" value="Buscar"
@@ -63,18 +63,12 @@
 
                                 </h:form>
 
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
-
 
         <div class="content">
             <div class="animated fadeIn">
@@ -96,7 +90,7 @@
 
 
                                 <h:form>
-                                    <h:dataTable class="table" value="#{productoBean.productos}" var="p" styleClass="tabla"
+                                    <h:dataTable value="#{productoBean.productos}" var="p" styleClass="tabla w-100"
                                                  headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 
 
@@ -104,13 +98,14 @@
                                             <f:facet class="serial" name="header">Codigo</f:facet>#{p.codigo}
                                         </h:column>
 
-                                        <h:column class="avatar">
-                                            <f:facet class="avatar" name="header">Imagen</f:facet>
-                                            <div class="round-img">
-                                                <h:graphicImage class="rounded-circle" alt="#{p.imagen}"/>
-                                            </div>
-                                        </h:column>
-
+                                        <!--
+                                                                                <h:column class="avatar">
+                                                                                    <f:facet class="avatar" name="header">Imagen</f:facet>
+                                                                                    <div class="round-img">
+                                                                                        <h:graphicImage class="rounded-circle" alt=""/>
+                                                                                    </div>
+                                                                                </h:column>
+                                        -->
                                         <h:column>
                                             <f:facet name="header">Nombre</f:facet>
                                             <span class="name">
@@ -126,7 +121,7 @@
 
                                                 <f:selectItems  value="#{productoBean.unidadMedidas}" var="medidaItem"  rendered="#{p.editable}"
                                                                 itemLabel="#{medidaItem}" itemValue="#{medidaItem}"/>
-                                                
+
                                             </h:selectOneMenu>
                                             <h:outputText value="#{p.unidadMedida}" rendered="#{not p.editable}" />
                                         </h:column>
@@ -141,20 +136,18 @@
                                         <h:column>
                                             <f:facet name="header">Categoria</f:facet>
                                             <h:selectOneMenu class="form-control" id="categoria-seleccion" converter="selectOneMenuConverter" value="#{productoBean.categoria}" rendered="#{p.editable}">
-
                                                 <f:selectItems  value="#{productoBean.categorias}" var="categoriaItem"  rendered="#{p.editable}"
                                                                 itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
                                             </h:selectOneMenu>
                                             <h:outputText value="#{p.categoria.nombre}" rendered="#{not p.editable}" />
                                         </h:column>
-        
+
                                         <h:column>
                                             <f:facet name="header">Cantidad</f:facet>
                                             <span class="count">
-                                                <h:inputText value="200" />
+                                                <h:outputText value="#{productoBean.cantidadProductos(p.codigo)}" />
                                             </span>
                                         </h:column>
-
 
                                         <h:column>
                                             <f:facet name="header">Acciones</f:facet>
@@ -165,23 +158,27 @@
                                                            rendered="#{not p.editable}" />
                                             <h:commandLink class="btn btn-success mr-3" value="guardar" action="#{productoBean.save(p)}"
                                                            rendered="#{p.editable}" />
+
+                                            <h:commandLink class="btn btn-primary mr-3" value="Inventario"
+                                                           a:data-toggle="modal" 
+                                                           a:data-target="#modalInvetario" 
+                                                           action="#{inventarioBean.inventarioProducto(p)}"
+                                                           >
+                                                <f:ajax render="modalInvetario" onevent="indicador"  />
+                                            </h:commandLink>
+
                                         </h:column>
-
-
-
 
                                     </h:dataTable>
                                 </h:form>
                             </div> <!-- /.table-stats -->
                         </div>
                     </div>
-
-
                 </div>
             </div><!-- .animated -->
         </div>
 
-        <!-- Modal -->
+        <!-- Modal Agregar producto-->
         <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -195,14 +192,13 @@
                         <div class="modal-body">
 
                             <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="producto-nombre">Nombre</label>
                                     <h:inputText class="form-control" id="producto-nombre" value="#{productoBean.nombre}" required="true"
                                                  requiredMessage="Campo Obligatorio"/>
                                     <h:message for="producto-nombre" style="color:red" />
-
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="producto-categoria">Categoria</label>
                                     <h:selectOneMenu class="form-control" id="producto-categoria" converter="selectOneMenuConverter" value="#{productoBean.categoria}">
                                         <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  />
@@ -210,21 +206,11 @@
                                                         itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
                                     </h:selectOneMenu>
                                     <h:message for="producto-categoria" style="color:red" />
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label for="bodega">Bodega</label>
-                                    <h:selectOneMenu class="form-control" id="bodega" converter="selectOneMenuConverter" value="#{productoBean.bodega}">
-                                        <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  />
-                                        <f:selectItems  value="#{productoBean.bodegas}" var="bodegaItem" 
-                                                        itemLabel="#{bodegaItem.nombre}" itemValue="#{bodegaItem}"/>
-                                    </h:selectOneMenu>
-                                    <h:message for="bodega" style="color:red" />
-                                </div>
+                                </div>  
                             </div>
 
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-8">
                                     <label for="producto-unidad">Unidad de medida</label>
                                     <h:selectOneMenu class="form-control" id="producto-unidad" value="#{productoBean.medida}">
                                         <f:selectItems value="#{productoBean.unidadMedidas}" />
@@ -236,11 +222,6 @@
                                     <h:inputText class="form-control" id="producto-precio" value="#{productoBean.precio}" converter="javax.faces.Double" />
                                     <h:message for="precio" style="color:red" />
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label for="producto-cantidad">Cantidad</label>
-                                    <h:inputText class="form-control" id="producto-cantidad" value="#{productoBean.cantidad}" converter="javax.faces.Integer" />
-                                    <h:message for="cantidad" style="color:red" />
-                                </div>
                             </div>
 
                             <div class="modal-footer">
@@ -249,6 +230,65 @@
                             </div>
                         </div>
                     </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- END Modal -->
+
+
+
+        <!-- Modal inventario-->
+        <div class="modal fade" id="modalInvetario" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumModalLabel">Agregar Producto</h5><br/>
+                        
+                        
+                    </div>
+                    <div class="modal-body">
+                        <h:form> 
+                            <h:dataTable value="#{inventarioBean.inventarios}" var="i" styleClass="tabla w-100"
+                                         headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+
+
+                                <h:column class="serial">
+                                    <f:facet class="serial" name="header">Codigo</f:facet>#{i.codigo}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Bodega</f:facet>
+                                    <h:selectOneMenu class="form-control" id="inventario-bodega" converter="selectOneMenuConverter" value="#{inventarioBean.bodega}">
+                                        <f:selectItems  value="#{productoBean.bodegas}" var="bodegaItem"  
+                                                        itemLabel="#{bodegaItem.nombre}" itemValue="#{bodegaItem}"/>
+                                    </h:selectOneMenu>
+                                    <h:outputText value="#{i.bodega.nombre}"  />
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Cantidad</f:facet>
+                                    <span class="name">
+                                        <h:inputText class="form-control" id="inventario-cantidad" />
+                                        <h:outputText value="#{i.cantidad}" />
+                                    </span>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Acciones</f:facet>
+                                    <h:commandLink class="btn btn-danger mr-3" value="Eliminar" action="#{inventarioBean.delete(i)}" />
+
+                                    <h:commandLink class="btn btn-primary mr-3" value="Editar" action="#{inventarioBean.edit(i)}"  />
+
+                                    <h:commandLink class="btn btn-success mr-3" value="guardar" action="#{inventarioBean.save(i)}" />
+
+                                </h:column>
+
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>

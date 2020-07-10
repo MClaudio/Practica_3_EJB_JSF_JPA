@@ -179,7 +179,7 @@ public class FacturaBean implements Serializable {
         }
         this.facturaCabecera.setFacturaDetalles(this.facturaDetalles);
     }
-
+/*
     public String generarFactura() {
         this.facturaCabecera.setUsuario(this.usuario);
         this.facturaCabecera.setFecha(new Date());
@@ -194,7 +194,7 @@ public class FacturaBean implements Serializable {
 
         return null;
     }
-
+*/
     public void changeTotal1(AjaxBehaviorEvent event) {
         System.out.println("EVENTOOOO ON KEY PRESSS");
     }

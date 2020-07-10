@@ -29,6 +29,16 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    public int countAllProducts(int codigo){
+        String jpql = "SELECT SUM(i.cantidad) FROM Producto p INNER JOIN Inventario i ON p.inventario.codigo = i.codigo WHERE p.codigo = "+codigo;
+        Object obj = em.createQuery(jpql).getSingleResult();
+        if(obj != null){
+            return Integer.valueOf(String.valueOf(obj));
+        }else{
+            return 0;
+        }
+    }
 
     public List<Producto> findByNameAndCount(String name){
         //String jpql = "FROM PRODUCTO p INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO WHERE p.nombre LIKE '"+name+"%' AND i.CANTIDAD > 0";
@@ -37,15 +47,14 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     }
     
     public List<Producto> findByBodega(int codigo){
-        
-        String jpql = "SELECT p FROM Producto p, Inventario i, Bodega b WHERE p.codigo = i.producto.codigo AND b.codigo = i.bodega.codigo AND b.codigo = "+codigo;
+        String jpql = "SELECT p FROM Producto p, Inventario i, Bodega b WHERE p.inventario.codigo = i.codigo AND b.codigo = i.bodega.codigo AND b.codigo = "+codigo;
         return (List<Producto>) em.createQuery(jpql).getResultList();
         
     }
     
     public List<Producto> findByName(String name){
         //String jpql = "FROM PRODUCTO p INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO WHERE p.nombre LIKE '"+name+"%' AND i.CANTIDAD > 0";
-        String jpql = "FROM Producto p, Inventario i WHERE p.codigo = i.producto.codigo AND p.nombre LIKE '" +name+ "%'";
+        String jpql = "FROM Producto p WHERE p.nombre LIKE '" +name+ "%'";
         return (List<Producto>) em.createQuery(jpql).getResultList();
     }
 

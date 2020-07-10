@@ -8,6 +8,26 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
+        
+        
+        <div class="form-group col-md-4">
+                                    <label for="bodega">Bodega</label>
+                                    <h:selectOneMenu class="form-control" id="bodega" converter="selectOneMenuConverter" value="#{productoBean.bodega}">
+                                        <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  />
+                                        <f:selectItems  value="#{productoBean.bodegas}" var="bodegaItem" 
+                                                        itemLabel="#{bodegaItem.nombre}" itemValue="#{bodegaItem}"/>
+                                    </h:selectOneMenu>
+                                    <h:message for="bodega" style="color:red" />
+                                </div>
+        
+        
+        <div class="form-group col-md-2">
+                                    <label for="producto-cantidad">Cantidad</label>
+                                    <h:inputText class="form-control" id="producto-cantidad" value="#{productoBean.cantidad}" converter="javax.faces.Integer" />
+                                    <h:message for="cantidad" style="color:red" />
+                                </div>
+        
+        
         <h:form>
             <fieldset>
                 <legend>Agregar Producto</legend>

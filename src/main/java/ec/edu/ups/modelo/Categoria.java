@@ -34,7 +34,7 @@ public class Categoria implements Serializable {
     
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Producto> productos;
-       @Transient
+    @Transient
     private boolean editable;
 
     public Categoria() {
