@@ -47,6 +47,7 @@ public class ClienteBean implements Serializable {
     private String provincia;
     private List<Usuario> usuarios;
     private List<Localidad>localidades;
+    private String clienteCedula;
    
     
 
@@ -57,8 +58,9 @@ public class ClienteBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
+              System.out.println("Lista usuarios"+ this.usuarios);
             this.usuarios = usuarioFacade.findAll();
-            System.out.println("Lista usuarios"+ this.usuarios);
+          
             //this.localidad=localidadFacade.findAll();
             this.localidades=new ArrayList<>();
             
@@ -159,6 +161,15 @@ public class ClienteBean implements Serializable {
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+
+    public String getClienteCedula() {
+        return clienteCedula;
+    }
+
+    public void setClienteCedula(String clienteCedula) {
+        this.clienteCedula = clienteCedula;
+    }
+    
     
     public String guardarDatos() {
         Usuario usuario = new Usuario();
@@ -214,5 +225,20 @@ public class ClienteBean implements Serializable {
           return usuarioFacade.contarFacturas(u);    
            
        }
+          public void newCliente() {
+        this.usuarios= new ArrayList<>();
+   }
+         public void buscarPorCedula() {
+        if (clienteCedula!= null) {
+            //System.out.println("Cambio de item em bodega..." +bodegaItem.toString());
+           Usuario usuario = new Usuario();
+            usuario = usuarioFacade.findByCedula(this.clienteCedula);  
+                 System.out.println(usuario);
+        } else {
+            //System.out.println("Es nulo... ");
+            this.usuarios= this.usuarioFacade.findAll();    
+        }
+        clienteCedula= null;
+    }
 
 }

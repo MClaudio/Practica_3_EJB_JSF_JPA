@@ -38,9 +38,12 @@ public class Usuario implements  Serializable{
     private List<Localidad> localidades;
     @Transient
     private boolean editable;
+    private boolean cambioPassword;
     
     public Usuario(){
         this.rol = "cliente";
+        this.password = "12345";
+        this.cambioPassword = false;
         this.localidades = new ArrayList<>();
     }
 

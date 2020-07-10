@@ -1,202 +1,239 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <h3>GESTION DE CLIENTES</h3>
-        <h:form >
-            <fieldset>
-                <legend>Registro</legend>
-                
-                <label>Cedula:</label>
-                <h:inputText id="cedula" value="#{clienteBean.cedula}" required="true"
-                             requiredMessage="Campo Obligatorio"/>
-                <h:message for="cedula" style="color:red"/>
+<ui:composition template="index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-                <label>Nombre:</label>
-                <h:inputText id="nombre" value="#{clienteBean.nombre}" required="true"
-                             requiredMessage="Campo Obligatorio"/>
-                <h:message for="nombre" style="color:red"/>
+    <ui:define name="content">
+
+        <script type="text/javascript">
+            function indicador(data) {
+                if (data.status == "begin") {
+
+                } else if (data.status == "success") {
+
+                }
+            }
+        </script>
 
 
-                <label>Apellido:</label>
-                <h:inputText id="apellido" value="#{clienteBean.apellido}" required="true"
-                             requiredMessage="Campo Obligatorio"/> 
-                <h:message for="apellido" style="color:red"/>
-                
-                <label>Telefono:</label>
-                <h:inputText id="telefono" value="#{clienteBean.telefono}" required="true"
-                             requiredMessage="Campo Obligatorio"/> 
-                <h:message for="telefono" style="color:red"/>
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Clientes</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 d-flex">
+                        <div class="page-header float-left d-flex align-items-center">
+                            <div class="page-title ">
+                                <h:form id="f-buscar" class="d-flex">
+                                    <div class="form-group mr-3">
+                                        <label for="input-search" class="sr-only">Buscar</label>
+                                        <h:inputText class="form-control" id="input-search" a:placeholder="Buscar"
+                                                     value="#{clienteBean.cedula}"
+                                                     />
+                                    </div>
+                                    <h:commandButton class="btn btn-primary" value="Buscar"
+                                                     action="#{clienteBean.buscarPorCedula()}"
+                                                     />   
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <h:form>
+                                    <h:commandLink class="btn btn-primary" 
+                                                   a:data-toggle="modal" 
+                                                   a:data-target="#mediumModal" 
+                                                   value="+ Agregar" 
+                                                   action="#{clienteBean.newCliente()}" 
+                                                   >
+                                        <f:ajax render="mediumModal" onevent="indicador" />
+                                    </h:commandLink>
 
-                <label>Correo:</label>
-                <h:inputText id="correo" value="#{clienteBean.correo}" required="true"
-                             requiredMessage="Campor Obligatorio"/>
-                <h:message for="correo" style="color:red"/>
-                
-                <label>Ciudad:</label>
-                <h:inputText id="ciudad" value="#{clienteBean.ciudad}" required="true"
-                             requiredMessage="Campor Obligatorio"/>
-                <h:message for="ciudad" style="color:red"/>
-                
-                <label>Direccion:</label>
-                <h:inputText id="direccion" value="#{clienteBean.direccion}" required="true"
-                             requiredMessage="Campor Obligatorio"/>
-                <h:message for="direccion" style="color:red"/>
-                
-                <label>Pais:</label>
-                <h:inputText id="pais" value="#{clienteBean.pais}" required="true"
-                             requiredMessage="Campor Obligatorio"/>
-                <h:message for="pais" style="color:red"/>
-
-                <label>Provincia:</label>
-                <h:inputText id="provincia" value="#{clienteBean.provincia}" required="true"
-                             requiredMessage="Campor Obligatorio"/>
-                <h:message for="provincia" style="color:red"/>
-                
-                <h:commandButton value="Guardar" action="#{clienteBean.guardarDatos()}"></h:commandButton>
-
-            </fieldset>
-        </h:form>
-        <h3>TABLA CLIENTE</h3>
-        <h:form>
-           
-            <ui:repeat var="" value="">
-            
-                <h:dataTable  value="#{clienteBean.usuarios}" var="o" styleClass="tabla"
-                         headerClass="cabeceraTabla" >      
-                
-                <h:column>
-                    <f:facet name="header">Cedula</f:facet>
-                    <h:inputText value="#{o.cedula}" size="10"
-                                     rendered="#{o.editable}" />
-                        <h:outputText value="#{o.cedula}" rendered="#{not o.editable}" />
-                     
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Nombres</f:facet> 
-                    <h:inputText value="#{o.nombre}" size="10"
-                                     rendered="#{o.editable}" />
-                        <h:outputText value="#{o.nombre}" rendered="#{not o.editable}" />
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Apellidos</f:facet>
-                    <h:inputText value="#{o.apellido}" size="10"
-                                     rendered="#{o.editable}" />
-                        <h:outputText value="#{o.apellido}" rendered="#{not o.editable}" />
-                </h:column>
-
-               
-
-                <h:column>
-                    <f:facet name="header">Correo</f:facet>
-                    
-                    <h:inputText value="#{o.correo}" size="10"
-                                     rendered="#{o.editable}" />
-                        <h:outputText value="#{o.correo}" rendered="#{not o.editable}" />
-                    
-                </h:column> 
-                <h:column>
-                    <f:facet name="header">Factura</f:facet>
-                    
-                    <h:outputText value="#{clienteBean.totalFactura(o)}"/>
-                   
-  
-                    
-                </h:column> 
-
-                <h:column>
-                    <f:facet name="header">Accion</f:facet>
-                    <h:commandButton value="Editar" action="#{clienteBean.edit(o)}"
-                                     rendered="#{not o.editable}"></h:commandButton>
-
-                    <h:commandLink value="guardar" action="#{clienteBean.save(o)}"
-                                   rendered="#{o.editable}" />
-                    
-                    <h:commandButton value="Eliminar" action="#{clienteBean.delete(o)}"></h:commandButton>
-                    <h:commandButton value="Localidad" action="#{clienteBean.listarLocalidad(o)}"></h:commandButton>
-               
-          
-
-                </h:column> 
-
-                     
-                
-            </h:dataTable>
-              </ui:repeat>   
-            
-            
-    
-
-      
-        </h:form>
-        
-         <h3>TABLA LOCALIDAD</h3>
-        <h:form>
-           
-            <ui:repeat var="" value="">
-            
-                <h:dataTable  value="#{clienteBean.localidades}" var="l" styleClass="tabla"
-                         headerClass="cabeceraTabla" >      
-                
-                <h:column>
-                    <f:facet name="header">Pais</f:facet>
-                    <h:outputText value="#{l.pais}"/>
-                        
-                     
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Provincia</f:facet> 
-                    <h:outputText value="#{l.provincia}"/>                    
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Ciudad</f:facet>
-                    <h:outputText value="#{l.ciudad}"/>
-                </h:column>
-
-                <h:column>
-                    
-                    <f:facet name="header" >Direccion</f:facet>
-                    <h:outputText value="#{l.direccion}"/>
-                    
-                   
-                
-                </h:column>
-                    
-                <h:column>
-                    
-                    <f:facet name="header" >Telefono</f:facet>
-                    <h:outputText value="#{l.telefono}"/>
-                    
-                   
-                
-                </h:column>
-
-                
-               
+                                </h:form>
 
 
-                     
-                
-            </h:dataTable>
-              </ui:repeat>   
-            
-            
-    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-      
-        </h:form>
 
-    </h:body>
-</html>
 
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+
+                            <div class="table-stats order-table ov-h">
+                                <h:form>
+                                    <h:dataTable class="table" value="#{clienteBean.usuarios}" var="c" styleClass="tabla"
+                                                 headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+
+                                        <h:column>
+                                            <f:facet name="header">Cedula</f:facet>
+                                            <span class="name">
+                                                <h:inputText class="form-control" value="#{c.cedula}" 
+                                                             rendered="#{c.editable}" />
+                                                <h:outputText value="#{c.cedula}" rendered="#{not c.editable}" />
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Nombre</f:facet>
+                                            <span class="name">
+                                                <h:inputText class="form-control" value="#{c.nombre}" 
+                                                             rendered="#{c.editable}" />
+                                                <h:outputText value="#{c.nombre}" rendered="#{not c.editable}" />
+                                            </span>
+                                        </h:column>
+
+
+                                        <h:column>
+                                            <f:facet name="header">Apellido</f:facet>
+                                            <span class="name">
+                                                <h:inputText class="form-control" value="#{c.apellido}" 
+                                                             rendered="#{c.editable}" />
+                                                <h:outputText value="#{c.apellido}" rendered="#{not c.editable}" />
+                                            </span>
+                                        </h:column>
+
+
+
+                                        <h:column>
+                                            <f:facet name="header">Correo</f:facet>
+                                            <span class="name">
+                                                <h:inputText class="form-control" value="#{c.correo}" 
+                                                             rendered="#{c.editable}" />
+                                                <h:outputText value="#{c.correo}" rendered="#{not c.editable}" />
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Acciones</f:facet>
+                                            <h:commandLink class="btn btn-danger mr-3" value="Eliminar" action="#{clienteBean.delete(c)}" />
+
+
+                                            <h:commandLink class="btn btn-primary mr-3" value="Editar" action="#{clienteBean.edit(c)}"
+                                                           rendered="#{not c.editable}" />
+                                            <h:commandLink class="btn btn-success mr-3" value="guardar" action="#{clienteBean.save(c)}"
+                                                           rendered="#{c.editable}" />
+                                        </h:column>
+
+
+
+
+                                    </h:dataTable>
+                                </h:form>
+                            </div> <!-- /.table-stats -->
+                        </div>
+                    </div>
+
+
+                </div>
+            </div><!-- .animated -->
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumModalLabel">Agregar Cliente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <h:form>
+                        <div class="modal-body">
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="cliente-cedula">Cedula</label>
+                                    <h:inputText class="form-control" id="cliente-cedula" value="#{clienteBean.cedula}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="cliente-cedula" style="color:red" />
+
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="cliente-nombre">Nombre</label>
+                                    <h:inputText class="form-control" id="cliente-nombre" value="#{clienteBean.nombre}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="cliente-nombre" style="color:red" />
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="cliente-apellido">Apellido</label>
+                                    <h:inputText class="form-control" id="cliente-apellido" value="#{clienteBean.apellido}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="cliente-apellido" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="cliente-correo">Correo</label>
+                                    <h:inputText class="form-control" id="cliente-correo" value="#{clienteBean.correo}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="cliente-correo" style="color:red" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="cliente-telefono">Telefono</label>
+                                    <h:inputText class="form-control" id="cliente-telefono" value="#{clienteBean.telefono}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="cliente-telefono" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="cliente-pais">Pais</label>
+                                    <h:inputText class="form-control" id="cliente-pais" value="#{clienteBean.pais}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="cliente-pais" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="cliente-provincia">Provincia</label>
+                                    <h:inputText class="form-control" id="cliente-provincia" value="#{clienteBean.provincia}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="cliente-provincia" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="cliente-ciudad">Ciudad</label>
+                                    <h:inputText class="form-control" id="cliente-ciudad" value="#{clienteBean.ciudad}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="cliente-ciudad" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="cliente-direccion">Direccion</label>
+                                    <h:inputText class="form-control" id="cliente-direccion" value="#{clienteBean.direccion}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="cliente-direccion" style="color:red" />
+                                </div>
+
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <h:commandButton class="btn btn-success" value="Crear Cliente" action="#{clienteBean.guardarDatos()}"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+</ui:composition>

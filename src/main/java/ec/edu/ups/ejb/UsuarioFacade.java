@@ -7,7 +7,9 @@ package ec.edu.ups.ejb;
 
 import ec.edu.ups.modelo.Categoria;
 import ec.edu.ups.modelo.Inventario;
+import ec.edu.ups.modelo.Producto;
 import ec.edu.ups.modelo.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -46,6 +48,11 @@ public class UsuarioFacade extends AbstractFacade<Usuario>{
     
         
         
+    }
+       public Usuario findByCedula(String cedula){
+        //String jpql = "FROM PRODUCTO p INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO WHERE p.nombre LIKE '"+name+"%' AND i.CANTIDAD > 0";
+        String jpql = "SELECT FROM Usuario u WHERE u.cedula =  " +cedula+ ";";
+        return (Usuario) em.createQuery(jpql).getResultList();
     }
     
   
