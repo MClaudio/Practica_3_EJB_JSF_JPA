@@ -226,7 +226,7 @@ public class ClienteBean implements Serializable {
            
        }
           public void newCliente() {
-        this.usuarios= new ArrayList<>();
+     
    }
          public void buscarPorCedula() {
         if (clienteCedula!= null) {

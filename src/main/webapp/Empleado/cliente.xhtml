@@ -133,6 +133,16 @@
                                                            rendered="#{not c.editable}" />
                                             <h:commandLink class="btn btn-success mr-3" value="guardar" action="#{clienteBean.save(c)}"
                                                            rendered="#{c.editable}" />
+                                           <h:commandLink id="btn-localidad" 
+                                                           class="btn btn-success mr-3" 
+                                                           value="Localidad"
+                                                           a:data-toggle="modal" 
+                                                           a:data-target="#modalLocalidad" 
+                                                           action="#{clienteBean.listarLocalidad(c)}"
+                                                           >
+                                                <f:ajax execute="btn-localidad" render="modalLocalidad form-tab-localidad txt-cliente-nombre" />
+                                            </h:commandLink>
+
                                         </h:column>
 
 
@@ -234,6 +244,84 @@
                 </div>
             </div>
         </div>
+        
+        
+        
+        <!-- Modal Localidad-->
+        <div class="modal fade" id="modalLocalidad" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <div>
+                            <h5 class="modal-title" id="mediumModalLabel">Inventario - <h:outputText id="txt-cliente-nombre" value="#{clienteBean.nombre}"/> </h5>
+                      
+                        </div>
+                    </div>
+
+
+                    <div class="modal-body">
+                        <h:form id="form-tab-localidad"> 
+                            <h:dataTable id="table-inventarios" value="#{clienteBean.localidades}" var="l" styleClass="tabla w-100"
+                                         headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+
+
+                                <h:column>
+                                    <f:facet name="header">Pais</f:facet>
+                                    <span class="name">
+                                        <h:inputText class="form-control" id="pais" rendered="#{l.editable}" value="#{l.pais}"/>
+                                        <h:outputText id="txt-pais" value="#{l.pais}" rendered="#{not l.editable}"/>
+                                    </span>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Provincia</f:facet>
+                                    <span class="name">
+                                        <h:inputText class="form-control" id="provincia" rendered="#{l.editable}" value="#{l.provincia}"/>
+                                        <h:outputText id="txt-provincia" value="#{l.provincia}" rendered="#{not l.editable}"/>
+                                    </span>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Ciuadad</f:facet>
+                                    <span class="name">
+                                        <h:inputText class="form-control" id="ciudad" rendered="#{l.editable}" value="#{l.ciudad}"/>
+                                        <h:outputText id="txt-ciudad" value="#{l.ciudad}" rendered="#{not l.editable}"/>
+                                    </span>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Direccion</f:facet>
+                                    <span class="name">
+                                        <h:inputText class="form-control" id="direccion" rendered="#{l.editable}" value="#{l.direccion}"/>
+                                        <h:outputText id="txt-direccion" value="#{l.direccion}" rendered="#{not l.editable}"/>
+                                    </span>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Acciones</f:facet>
+                              
+                                    <h:commandLink id="btn-editar-localidad" class="btn btn-primary mr-3" value="Editar" action="#{clienteBean.edit(l)}"  rendered="#{not l.editable}">
+                                        <f:ajax execute="btn-editar-localidad" 
+                                                render="form-tab-localidad  txt-inventario-cantidad btn-editar-localidad btn-guardar-localidad" />
+                                    </h:commandLink>
+                                    <h:commandLink id="btn-guardar-localidad" class="btn btn-success mr-3" value="guardar" action="#{clienteBean.save(l)}" rendered="#{l.editable}">
+                                        <f:ajax execute="btn-guardar-localidad" 
+                                                render="form-tab-localidad  btn-editar-localidad btn-guardar-localidad" />
+                                    </h:commandLink>
+
+                                </h:column>
+
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Modal -->
 
     </ui:define>
 </ui:composition>

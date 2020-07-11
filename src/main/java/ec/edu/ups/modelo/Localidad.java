@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  *
@@ -38,6 +39,8 @@ public class Localidad implements Serializable{
     private Usuario usuario;
     @OneToOne(mappedBy = "localidad", cascade = CascadeType.ALL, orphanRemoval = true)
     private FacturaCabecera facturaCabecera;
+       @Transient
+    private boolean editable;
     
     public Localidad(){
               
@@ -65,6 +68,13 @@ public class Localidad implements Serializable{
 
     public void setProvincia(String provincia) {
         this.provincia = provincia;
+    }
+     public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     public String getCiudad() {
