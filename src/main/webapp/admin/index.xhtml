@@ -1,90 +1,97 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="/WEB-INF/include/template.xhtml"
+<ui:composition template="template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:define name="head">
-        <title>Index-ADMIN</title>
-        <h:outputStylesheet name="css/admin-style.css"/>
-    </ui:define>
+    <ui:define name="content">
 
-    <ui:define name="body">
-        <ui:include  src="../imports/admin-nav.xhtml"/>
-
-        <div id="right-panel" class="right-panel">
-            <!-- Header-->
-            <header id="header" class="header">
-                <div class="top-left">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="./"><h:graphicImage name="img/logo.png" alt="Logo"/></a>
-                        <a class="navbar-brand hidden" href="./"><h:graphicImage name="img/logo2.png" alt="Logo"/></a>
-                        <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
-                    </div>
-                </div>
-                <div class="top-right">
-                    <div class="header-menu">
-                        <div class="header-left">
-                            <button class="search-trigger"><i class="fa fa-search"></i></button>
-                            <div class="form-inline">
-                                <form class="search-form">
-                                    <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search"/>
-                                    <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
-                                </form>
-                            </div>
-
-
-                            <div class="dropdown for-notification">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-bell"></i>
-                                    <span class="count bg-danger">3</span>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="notification">
-                                    <p class="red">You have 3 Notification</p>
-                                    <a class="dropdown-item media" href="#">
-                                        <i class="fa fa-check"></i>
-                                        <p>Server #1 overloaded.</p>
-                                    </a>
-                                    <a class="dropdown-item media" href="#">
-                                        <i class="fa fa-info"></i>
-                                        <p>Server #2 overloaded.</p>
-                                    </a>
-                                    <a class="dropdown-item media" href="#">
-                                        <i class="fa fa-warning"></i>
-                                        <p>Server #3 overloaded.</p>
-                                    </a>
+        <!-- Content -->
+        <div class="content">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                <!-- Widgets  -->
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-1">
+                                        <i class="pe-7s-cash"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text">$<span class="count">23569</span></div>
+                                            <div class="stat-heading">Revenue</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
+                    </div>
 
-                        <div class="user-area dropdown float-right">
-                            <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <h:graphicImage class="user-avatar rounded-circle" name="img/avatar/2.jpg" alt="User Avatar"/>
-                            </a>
-
-                            <div class="user-menu dropdown-menu">
-                                <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
-                                <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> -->
-                                <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-                                <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-2">
+                                        <i class="pe-7s-cart"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">3435</span></div>
+                                            <div class="stat-heading">Sales</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-3">
+                                        <i class="pe-7s-browser"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">349</span></div>
+                                            <div class="stat-heading">Templates</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <i class="pe-7s-users"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">2986</span></div>
+                                            <div class="stat-heading">Clients</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </header>
-            <!-- /#header -->
-
-            <ui:insert name="content"/>
-
-            <div class="clearfix"></div>
-            <ui:include src="../imports/footer.xhtml"/>
-        </div>
-
+                <!-- /Widgets -->
+            </div>    
+        </div>    
     </ui:define>
 </ui:composition>
 

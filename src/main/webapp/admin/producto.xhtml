@@ -37,13 +37,18 @@
                                 <h:form id="f-buscar" class="d-flex">
                                     <div class="form-group mr-3">
                                         <label for="input-search" class="sr-only">Buscar</label>
-                                        <h:inputText class="form-control" id="input-search" a:placeholder="Buscar"
+                                        <h:inputText class="form-control" 
+                                                     id="input-search" 
+                                                     a:placeholder="Buscar"
                                                      value="#{productoBean.nombre}"
                                                      />
                                     </div>
-                                    <h:commandButton class="btn btn-primary" value="Buscar"
-                                                     action="#{productoBean.buscarPorNombre}"
-                                                     />   
+                                    <h:commandButton id="btn-buscar"
+                                                     class="btn btn-primary" value="Buscar"
+                                                     action="#{productoBean.buscarPorNombre}">
+                                        <f:ajax execute="btn-buscar input-search" 
+                                                render="form-tab-productos table-productos" />   
+                                    </h:commandButton>   
                                 </h:form>
                             </div>
                         </div>
@@ -53,12 +58,13 @@
                             <div class="page-title">
                                 <h:form>
                                     <h:commandLink class="btn btn-primary" 
+                                                   id="btn-modal-crear"
                                                    a:data-toggle="modal" 
                                                    a:data-target="#mediumModal" 
                                                    value="+ Agregar" 
                                                    action="#{productoBean.newProducto}" 
                                                    >
-                                        <f:ajax render="mediumModal" onevent="indicador" />
+                                        <f:ajax execute="btn-modal-crear" render="mediumModal" />
                                     </h:commandLink>
 
                                 </h:form>
@@ -83,14 +89,18 @@
                                         <f:selectItems  value="#{productoBean.bodegas}" var="bodegaIte" 
                                                         itemLabel="#{bodegaIte.nombre}" itemValue="#{bodegaIte}"/>
                                     </h:selectOneMenu>
-                                    <h:commandButton class="btn btn-primary ml-2" value="Filtar bodega" action="#{productoBean.buscarPorBodega}" />
+                                    <h:commandButton class="btn btn-primary ml-2"
+                                                     id="btn-buscar-bodega"
+                                                     value="Filtar bodega" 
+                                                     action="#{productoBean.buscarPorBodega}"  
+                                                     >
+                                        
+                                    </h:commandButton>
                                 </h:form>
                             </div>
                             <div class="table-stats order-table ov-h">
-
-
                                 <h:form id="form-tab-productos">
-                                    <h:dataTable value="#{productoBean.productos}" var="p" styleClass="tabla w-100"
+                                    <h:dataTable id="table-productos" value="#{productoBean.productos}" var="p" styleClass="tabla w-100"
                                                  headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 
 
@@ -150,15 +160,23 @@
 
                                         <h:column>
                                             <f:facet name="header">Acciones</f:facet>
-                                            <h:commandLink class="btn btn-danger mr-3" value="Eliminar" action="#{productoBean.delete(p)}" />
+                                            <h:commandLink class="btn btn-danger mr-3" 
+                                                           value="Eliminar" 
+                                                           action="#{productoBean.delete(p)}" />
 
 
-                                            <h:commandLink class="btn btn-primary mr-3" value="Editar" action="#{productoBean.edit(p)}"
+                                            <h:commandLink class="btn btn-primary mr-3" 
+                                                           value="Editar" 
+                                                           action="#{productoBean.edit(p)}"
                                                            rendered="#{not p.editable}" />
-                                            <h:commandLink class="btn btn-success mr-3" value="guardar" action="#{productoBean.save(p)}"
+                                            <h:commandLink class="btn btn-success mr-3" 
+                                                           value="guardar" 
+                                                           action="#{productoBean.save(p)}"
                                                            rendered="#{p.editable}" />
 
-                                            <h:commandLink id="btn-inventario" class="btn btn-primary" value="Inventario"
+                                            <h:commandLink id="btn-inventario" 
+                                                           class="btn btn-primary" 
+                                                           value="Inventario"
                                                            a:data-toggle="modal" 
                                                            a:data-target="#modalInvetario" 
                                                            action="#{inventarioBean.inventarioProducto(p)}"
@@ -253,7 +271,7 @@
                                                         itemLabel="#{bodegaIte.nombre}" itemValue="#{bodegaIte}"/>
                                     </h:selectOneMenu>
                                 </div>
-                                
+
                                 <div class="form-group mx-sm-3 mb-2">
                                     <label for="new-inventario-cantidad" >Cantidad: </label>
                                     <h:inputText id="new-inventario-cantidad" class="form-control" value="#{inventarioBean.cantidad}" required="true"/>
@@ -297,15 +315,15 @@
                                     <f:facet name="header">Acciones</f:facet>
                                     <h:commandLink id="btn-eliminar-inventario" class="btn btn-danger mr-3" value="Eliminar" action="#{inventarioBean.delete(i)}" >
                                         <f:ajax execute="btn-eliminar-inventario" 
-                                            render="form-tab-inventarios form-tab-productos" />
+                                                render="form-tab-inventarios form-tab-productos" />
                                     </h:commandLink>
                                     <h:commandLink id="btn-editar-inventario" class="btn btn-primary mr-3" value="Editar" action="#{inventarioBean.edit(i)}"  rendered="#{not i.editable}">
-                                    <f:ajax execute="btn-editar-inventario" 
-                                            render="form-tab-inventarios inventario-bodega inventario-cantidad txt-inventario-bodega txt-inventario-cantidad btn-editar-inventario btn-guardar-inventario" />
+                                        <f:ajax execute="btn-editar-inventario" 
+                                                render="form-tab-inventarios inventario-bodega inventario-cantidad txt-inventario-bodega txt-inventario-cantidad btn-editar-inventario btn-guardar-inventario" />
                                     </h:commandLink>
                                     <h:commandLink id="btn-guardar-inventario" class="btn btn-success mr-3" value="guardar" action="#{inventarioBean.save(i)}" rendered="#{i.editable}">
-                                    <f:ajax execute="btn-guardar-inventario inventario-bodega inventario-cantidad" 
-                                            render="form-tab-inventarios form-tab-productos txt-inventario-bodega txt-inventario-cantidad btn-editar-inventario btn-guardar-inventario" />
+                                        <f:ajax execute="btn-guardar-inventario inventario-bodega inventario-cantidad" 
+                                                render="form-tab-inventarios form-tab-productos txt-inventario-bodega txt-inventario-cantidad btn-editar-inventario btn-guardar-inventario" />
                                     </h:commandLink>
 
                                 </h:column>

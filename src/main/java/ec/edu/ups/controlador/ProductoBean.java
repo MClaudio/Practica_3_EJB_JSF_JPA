@@ -48,13 +48,11 @@ public class ProductoBean implements Serializable {
     private List<Categoria> categorias;
     private Categoria categoria;
     private double precio;
-    private int cantidad;
     private List<Bodega> bodegas;
     private Bodega bodega;
-    private Bodega newBodega;
     private List<Producto> productos;
     private List<String> unidadMedidas;
-    private List<Bodega> listbodegas;
+
 
     /**
      * Creates a new instance of ProductoBean
@@ -75,11 +73,10 @@ public class ProductoBean implements Serializable {
 
         try {
             this.categorias = this.categoriaFacade.findAll();
-            System.out.println("lista de categorias en el init.."+this.categorias);
-            this.cantidad = 1;
+            //System.out.println("lista de categorias en el init.."+this.categorias);
             
             this.bodegas = this.bodegaFacade.findAll();
-
+            this.productos = this.productoFacade.findAll();
         } catch (Exception e) {
             System.out.println("Error --- " + e);
         }
@@ -110,13 +107,6 @@ public class ProductoBean implements Serializable {
         this.precio = precio;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
 
     public List<Bodega> getBodegas() {
         return bodegas;
@@ -143,7 +133,7 @@ public class ProductoBean implements Serializable {
     }
 
     public List<Producto> getProductos() {
-        this.productos = this.productoFacade.findAll();
+        
         return productos;
     }
 
@@ -163,43 +153,9 @@ public class ProductoBean implements Serializable {
         return unidadMedidas;
     }
 
-    public List<Bodega> getListbodegas() {
-        return listbodegas;
-    }
-
-    public void setListbodegas(List<Bodega> listbodegas) {
-        this.listbodegas = listbodegas;
-    }
-
-    public Bodega getNewBodega() {
-        return newBodega;
-    }
-
-    public void setNewBodega(Bodega newBodega) {
-        this.newBodega = newBodega;
-    }
-
     public void newProducto() {
         this.nombre = null;
         this.medida = null;
-    }
-
-    public void addBodega() {
-
-        if (newBodega != null) {
-            //System.out.println("Nuevo inventario agregandoo....  "+newBodega.toString());
-            if (!listbodegas.contains(this.newBodega)) {
-                this.listbodegas.remove(this.newBodega);
-            }
-        } else {
-            //System.out.println("bodega nueva null.......");
-        }
-    }
-
-    public void removeBodega(Bodega bodega) {
-        if (listbodegas.contains(bodega)) {
-            this.listbodegas.remove(bodega);
-        }
     }
 
     public String add() {
@@ -248,6 +204,7 @@ public class ProductoBean implements Serializable {
     }
 
     public void buscarPorNombre() {
+        
         if (nombre != null && !nombre.equals("")) {
             //System.out.println("Cambio de item em bodega..." + nombre);
             this.productos = productoFacade.findByName(this.nombre);
@@ -255,6 +212,7 @@ public class ProductoBean implements Serializable {
             //System.out.println("Es nulo... ");
             this.productos = this.productoFacade.findAll();
         }
+        System.out.println("Nombre a buscar ..." +this.productos);
         nombre = null;
     }
 
