@@ -11,28 +11,28 @@ import ec.edu.ups.ejb.ProductoFacade;
 import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.modelo.FacturaCabecera;
 import ec.edu.ups.modelo.FacturaDetalle;
-import ec.edu.ups.modelo.Inventario;
+import ec.edu.ups.modelo.Localidad;
 import ec.edu.ups.modelo.Producto;
 import ec.edu.ups.modelo.Usuario;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.faces.event.AjaxBehaviorEvent;
 
 /**
  *
- * @author Diego Duchimaza
+ * @author claum
  */
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
-@Named(value = "facturaBean")
+@Named(value = "nuevaFacturaBean")
 @SessionScoped
-public class FacturaBean implements Serializable {
+public class NuevaFacturaBean implements Serializable {
 
     private static final long serialVersionUID = 1;
 
@@ -42,19 +42,23 @@ public class FacturaBean implements Serializable {
     private ProductoFacade productoFacade;
     @EJB
     private FacturaCabeceraFacade facturaCabeceraFacade;
-    @EJB
-    private InventarioFacade inventarioFacade;
 
     private String cedula;
     private String productoNombre;
     private Usuario usuario;
+    private Localidad localidad;
     private List<FacturaDetalle> facturaDetalles;
+    private List<Producto> productos;
     private Producto producto;
     private FacturaCabecera facturaCabecera;
+
     //mio...............................................
     private String txt1;
 
-    public FacturaBean() {
+    /**
+     * Creates a new instance of NuevaFacturaBean
+     */
+    public NuevaFacturaBean() {
     }
 
     @PostConstruct
@@ -112,6 +116,22 @@ public class FacturaBean implements Serializable {
         this.facturaCabecera = facturaCabecera;
     }
 
+    public Localidad getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
     //MIO..............................................................
     public String getTxt1() {
         return txt1;
@@ -138,15 +158,20 @@ public class FacturaBean implements Serializable {
         }
     }
 
-    public List<Producto> buscarProducto() {
-         return (List<Producto>) productoFacade.findByNameAndCount(this.productoNombre);  
+    public void buscarProducto() {
+        this.productos = productoFacade.findByNameAndCount(this.productoNombre);
     }
 
-    public String addProducto() {
+    public void limpiarProductos() {
+        this.productos = new ArrayList<>();
+    }
+
+    /*
+    public String addProducto(Producto producto) {
         //System.out.println("Producto: "+this.producto);
         FacturaDetalle fd = new FacturaDetalle();
         fd.setCantidad(1);
-        fd.setProducto(this.producto);
+        fd.setProducto(producto);
 
         if (this.facturaDetalles.contains(fd)) {
             this.addCantidad(facturaDetalles.get(facturaDetalles.indexOf(fd)));
@@ -158,12 +183,15 @@ public class FacturaBean implements Serializable {
         this.facturaCabecera.setFacturaDetalles(this.facturaDetalles);
         return null;
     }
-
+   */
+/*
     public void addCantidad(FacturaDetalle fd) {
-        fd.setCantidad(fd.getCantidad() + 1);
-        this.facturaCabecera.setFacturaDetalles(this.facturaDetalles);
+        if (fd.getProducto().getInventario().getCantidad() < fd.getCantidad()) {
+            fd.setCantidad(fd.getCantidad() + 1);
+            this.facturaCabecera.setFacturaDetalles(this.facturaDetalles);
+        }
     }
-
+*/
     public void deleteCantidad(FacturaDetalle fd) {
         if (fd.getCantidad() - 1 == 0) {
             this.facturaDetalles.remove(fd);
@@ -183,14 +211,19 @@ public class FacturaBean implements Serializable {
     public String generarFactura() {
         this.facturaCabecera.setUsuario(this.usuario);
         this.facturaCabecera.setFecha(new Date());
-        facturaCabeceraFacade.create(this.facturaCabecera);
+        this.facturaCabecera.setLocalidad(this.localidad);
 
         for (FacturaDetalle fd : this.facturaCabecera.getFacturaDetalles()) {
+            int inv = fd.getProducto().getInventario().getCantidad();
+            fd.getProducto().getInventario().setCantidad(inv - fd.getCantidad());
+            /*
             for (Inventario inv : fd.getProducto().getInventarios()) {
                 inv.setCantidad(inv.getCantidad() - fd.getCantidad());
                 inventarioFacade.edit(inv);
             }
+             
         }
+        facturaCabeceraFacade.create(this.facturaCabecera);
 
         return null;
     }

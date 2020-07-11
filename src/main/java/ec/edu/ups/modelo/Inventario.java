@@ -7,6 +7,7 @@ package ec.edu.ups.modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,8 +32,8 @@ public class Inventario implements Serializable{
     @ManyToOne
     private Bodega bodega;
     
-    @OneToMany(mappedBy = "inventario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Producto> productos;
+    @ManyToOne
+    private Producto producto;
     
     @Transient
     private boolean editable;
@@ -40,8 +41,10 @@ public class Inventario implements Serializable{
     public Inventario() {
     }
 
-    public Inventario(int cantidad) {
+    public Inventario(int cantidad, Bodega bodega, Producto producto) {
         this.cantidad = cantidad;
+        this.bodega = bodega;
+        this.producto = producto;
     }
 
     public int getCodigo() {
@@ -60,12 +63,12 @@ public class Inventario implements Serializable{
         this.cantidad = cantidad;
     }
 
-    public List<Producto> getProductos() {
-        return productos;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public Bodega getBodega() {
@@ -84,10 +87,27 @@ public class Inventario implements Serializable{
         this.editable = editable;
     }
         
+    
+    /*
+    public void addInventario(Inventario inventario){
+        if(!this.inventarios.contains(inventario)){
+            this.inventarios.add(inventario);
+            inventario.setProducto(this);
+        }
+    }
+    
+     public void deleteInventario(Inventario inventario) {
+        if (this.inventarios.contains(inventario)) {
+            this.inventarios.remove(inventario);
+            inventario.setProducto(null);
+        }
+    }
+    */
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 13 * hash + this.codigo;
+        hash = 79 * hash + this.codigo;
         return hash;
     }
 
@@ -108,20 +128,13 @@ public class Inventario implements Serializable{
         }
         return true;
     }
-    /*
-    public void addInventario(Inventario inventario){
-        if(!this.inventarios.contains(inventario)){
-            this.inventarios.add(inventario);
-            inventario.setProducto(this);
-        }
+
+    @Override
+    public String toString() {
+        return "Inventario{" + "codigo=" + codigo + ", cantidad=" + cantidad + ", editable=" + editable + '}';
     }
     
-     public void deleteInventario(Inventario inventario) {
-        if (this.inventarios.contains(inventario)) {
-            this.inventarios.remove(inventario);
-            inventario.setProducto(null);
-        }
-    }
-    */
     
+    
+  
 }

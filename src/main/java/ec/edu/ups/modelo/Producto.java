@@ -37,8 +37,8 @@ public class Producto implements Serializable {
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaDetalle> facturasDetalles;
     
-    @ManyToOne
-    private Inventario inventario;
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Inventario> inventarios;
     
     @ManyToOne
     private Categoria categoria;
@@ -98,12 +98,12 @@ public class Producto implements Serializable {
         this.facturasDetalles = facturasDetalles;
     }
 
-    public Inventario getInventario() {
-        return inventario;
+    public List<Inventario> getInventarios() {
+        return inventarios;
     }
 
-    public void setInventario(Inventario inventario) {
-        this.inventario = inventario;
+    public void setInventarios(List<Inventario> inventarios) {
+        this.inventarios = inventarios;
     }
 
     public Categoria getCategoria() {
@@ -155,4 +155,9 @@ public class Producto implements Serializable {
         return true;
     } 
 
+    @Override
+    public String toString() {
+        return "Producto{" + "codigo=" + codigo + ", nombre=" + nombre + ", unidadMedida=" + unidadMedida + ", imagen=" + imagen + ", precio=" + precio + ", editable=" + editable + '}';
+    }
+    
 }

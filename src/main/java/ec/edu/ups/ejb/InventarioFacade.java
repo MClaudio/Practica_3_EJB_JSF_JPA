@@ -10,6 +10,7 @@ import ec.edu.ups.modelo.Producto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -32,8 +33,25 @@ public class InventarioFacade extends AbstractFacade<Inventario>{
     }
     
     public List<Inventario> findByProducto(Producto producto){
-        String jpql = "FROM Inventario i INNER JOIN Producto p ON p.inventario.codigo = i.codigo WHERE p.codigo = "+producto.getCodigo();
+        String jpql = "FROM Inventario i INNER JOIN Producto p ON i.producto.codigo = p.codigo WHERE p.codigo = "+producto.getCodigo();
         return (List<Inventario>) em.createQuery(jpql).getResultList();
+    }
+    
+    public Inventario findInventario(Inventario inventario){
+        String jpql = "SELECT i FROM Inventario i"
+                + " INNER JOIN Bodega b ON b.codigo = "+inventario.getBodega().getCodigo()
+                + " INNER JOIN Producto p ON p.codigo = "+inventario.getProducto().getCodigo()
+                + " WHERE i.bodega.codigo = "+inventario.getBodega().getCodigo()
+                + " AND i.producto.codigo = "+inventario.getProducto().getCodigo();
+        
+        try {
+            return (Inventario) em.createQuery(jpql).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+        
+        
+             
     }
     
 }

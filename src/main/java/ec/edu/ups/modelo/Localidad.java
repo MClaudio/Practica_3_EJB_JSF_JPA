@@ -7,6 +7,7 @@
 package ec.edu.ups.modelo;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,10 +33,11 @@ public class Localidad implements Serializable{
     private String telefono;
     
     @OneToOne
-    private Bodega bodega; 
-    
+    private Bodega bodega;  
     @ManyToOne
     private Usuario usuario;
+    @OneToOne(mappedBy = "localidad", cascade = CascadeType.ALL, orphanRemoval = true)
+    private FacturaCabecera facturaCabecera;
     
     public Localidad(){
               
@@ -112,7 +114,15 @@ public class Localidad implements Serializable{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
+    public FacturaCabecera getFacturaCabecera() {
+        return facturaCabecera;
+    }
+
+    public void setFacturaCabecera(FacturaCabecera facturaCabecera) {
+        this.facturaCabecera = facturaCabecera;
+    }
+        
     @Override
     public int hashCode() {
         int hash = 7;

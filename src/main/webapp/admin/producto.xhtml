@@ -77,19 +77,19 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Lista de productos</strong>
-                                <h:form>
+                                <h:form class="mt-2 d-flex justify-content-between w-25">
                                     <h:selectOneMenu class="form-control" id="bodega-productos" converter="selectOneMenuConverter" value="#{productoBean.bodega}" >
                                         <f:selectItem  itemLabel="Todo" itemValue="#{null}" noSelectionOption="true"  />
                                         <f:selectItems  value="#{productoBean.bodegas}" var="bodegaIte" 
                                                         itemLabel="#{bodegaIte.nombre}" itemValue="#{bodegaIte}"/>
                                     </h:selectOneMenu>
-                                    <h:commandButton class="btn btn-primary" value="Filtar" action="#{productoBean.buscarPorBodega}" />
+                                    <h:commandButton class="btn btn-primary ml-2" value="Filtar bodega" action="#{productoBean.buscarPorBodega}" />
                                 </h:form>
                             </div>
                             <div class="table-stats order-table ov-h">
 
 
-                                <h:form>
+                                <h:form id="form-tab-productos">
                                     <h:dataTable value="#{productoBean.productos}" var="p" styleClass="tabla w-100"
                                                  headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 
@@ -116,9 +116,8 @@
                                         </h:column>
 
                                         <h:column>
-                                            <f:facet name="header">unidad de medida</f:facet>
+                                            <f:facet name="header">Unidad de medida</f:facet>
                                             <h:selectOneMenu class="form-control" id="medida-seleccion" converter="selectOneMenuConverter" value="#{productoBean.medida}" rendered="#{p.editable}">
-
                                                 <f:selectItems  value="#{productoBean.unidadMedidas}" var="medidaItem"  rendered="#{p.editable}"
                                                                 itemLabel="#{medidaItem}" itemValue="#{medidaItem}"/>
 
@@ -130,7 +129,7 @@
                                             <f:facet name="header">Precio</f:facet>
                                             <h:inputText class="form-control" value="#{p.precio}" size="4" 
                                                          rendered="#{p.editable}" converter="javax.faces.Double" />
-                                            <h:outputText value="#{p.precio}" rendered="#{not p.editable}" />
+                                            <h:outputText value="#{p.precio} $" rendered="#{not p.editable}" />
                                         </h:column>
 
                                         <h:column>
@@ -159,12 +158,12 @@
                                             <h:commandLink class="btn btn-success mr-3" value="guardar" action="#{productoBean.save(p)}"
                                                            rendered="#{p.editable}" />
 
-                                            <h:commandLink class="btn btn-primary mr-3" value="Inventario"
+                                            <h:commandLink id="btn-inventario" class="btn btn-primary" value="Inventario"
                                                            a:data-toggle="modal" 
                                                            a:data-target="#modalInvetario" 
                                                            action="#{inventarioBean.inventarioProducto(p)}"
                                                            >
-                                                <f:ajax render="modalInvetario" onevent="indicador"  />
+                                                <f:ajax execute="btn-inventario" render="modalInvetario form-tab-inventarios txt-producto-nombre" />
                                             </h:commandLink>
 
                                         </h:column>
@@ -242,15 +241,36 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="mediumModalLabel">Agregar Producto</h5><br/>
-                        
-                        
-                    </div>
-                    <div class="modal-body">
-                        <h:form> 
-                            <h:dataTable value="#{inventarioBean.inventarios}" var="i" styleClass="tabla w-100"
-                                         headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 
+                        <div>
+                            <h5 class="modal-title" id="mediumModalLabel">Inventario - <h:outputText id="txt-producto-nombre" value="#{inventarioBean.producto.nombre}"/> </h5>
+                            <h:form class="form-inline mt-2">
+                                <div class="form-group mb-1">
+                                    <label for="bodega-inventario">Bodega: </label>
+
+                                    <h:selectOneMenu class="form-control" id="bodega-inventario" converter="selectOneMenuConverter" value="#{inventarioBean.bodega}" >
+                                        <f:selectItems  value="#{productoBean.bodegas}" var="bodegaIte" 
+                                                        itemLabel="#{bodegaIte.nombre}" itemValue="#{bodegaIte}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <label for="new-inventario-cantidad" >Cantidad: </label>
+                                    <h:inputText id="new-inventario-cantidad" class="form-control" value="#{inventarioBean.cantidad}" required="true"/>
+                                </div>
+                                <h:commandButton id="btn-new-inventario" class="btn btn-primary mb-2" value="Nuevo inventario" action="#{inventarioBean.add()}" >
+                                    <f:ajax execute="btn-new-inventario new-inventario-cantidad bodega-inventario" 
+                                            render="form-tab-inventarios form-tab-productos new-inventario-cantidad" />
+                                </h:commandButton>
+                            </h:form>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-body">
+                        <h:form id="form-tab-inventarios"> 
+                            <h:dataTable id="table-inventarios" value="#{inventarioBean.inventarios}" var="i" styleClass="tabla w-100"
+                                         headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 
                                 <h:column class="serial">
                                     <f:facet class="serial" name="header">Codigo</f:facet>#{i.codigo}
@@ -258,28 +278,35 @@
 
                                 <h:column>
                                     <f:facet name="header">Bodega</f:facet>
-                                    <h:selectOneMenu class="form-control" id="inventario-bodega" converter="selectOneMenuConverter" value="#{inventarioBean.bodega}">
+                                    <h:selectOneMenu class="form-control" id="inventario-bodega" converter="selectOneMenuConverter" value="#{inventarioBean.bodega}" rendered="#{i.editable}">
                                         <f:selectItems  value="#{productoBean.bodegas}" var="bodegaItem"  
                                                         itemLabel="#{bodegaItem.nombre}" itemValue="#{bodegaItem}"/>
                                     </h:selectOneMenu>
-                                    <h:outputText value="#{i.bodega.nombre}"  />
+                                    <h:outputText id="txt-inventario-bodega" value="#{i.bodega.nombre}"  rendered="#{not i.editable}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Cantidad</f:facet>
                                     <span class="name">
-                                        <h:inputText class="form-control" id="inventario-cantidad" />
-                                        <h:outputText value="#{i.cantidad}" />
+                                        <h:inputText class="form-control" id="inventario-cantidad" rendered="#{i.editable}" value="#{i.cantidad}"/>
+                                        <h:outputText id="txt-inventario-cantidad" value="#{i.cantidad}" rendered="#{not i.editable}"/>
                                     </span>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Acciones</f:facet>
-                                    <h:commandLink class="btn btn-danger mr-3" value="Eliminar" action="#{inventarioBean.delete(i)}" />
-
-                                    <h:commandLink class="btn btn-primary mr-3" value="Editar" action="#{inventarioBean.edit(i)}"  />
-
-                                    <h:commandLink class="btn btn-success mr-3" value="guardar" action="#{inventarioBean.save(i)}" />
+                                    <h:commandLink id="btn-eliminar-inventario" class="btn btn-danger mr-3" value="Eliminar" action="#{inventarioBean.delete(i)}" >
+                                        <f:ajax execute="btn-eliminar-inventario" 
+                                            render="form-tab-inventarios form-tab-productos" />
+                                    </h:commandLink>
+                                    <h:commandLink id="btn-editar-inventario" class="btn btn-primary mr-3" value="Editar" action="#{inventarioBean.edit(i)}"  rendered="#{not i.editable}">
+                                    <f:ajax execute="btn-editar-inventario" 
+                                            render="form-tab-inventarios inventario-bodega inventario-cantidad txt-inventario-bodega txt-inventario-cantidad btn-editar-inventario btn-guardar-inventario" />
+                                    </h:commandLink>
+                                    <h:commandLink id="btn-guardar-inventario" class="btn btn-success mr-3" value="guardar" action="#{inventarioBean.save(i)}" rendered="#{i.editable}">
+                                    <f:ajax execute="btn-guardar-inventario inventario-bodega inventario-cantidad" 
+                                            render="form-tab-inventarios form-tab-productos txt-inventario-bodega txt-inventario-cantidad btn-editar-inventario btn-guardar-inventario" />
+                                    </h:commandLink>
 
                                 </h:column>
 

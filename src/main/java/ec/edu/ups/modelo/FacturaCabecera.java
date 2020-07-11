@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 /**
  *
  * @author Diego Duchimaza
@@ -36,9 +37,10 @@ public class FacturaCabecera implements  Serializable{
    
     @ManyToOne
     private Usuario usuario;
-    
     @OneToMany(mappedBy = "facturaCabecera", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaDetalle> facturaDetalles;
+    @OneToOne
+    private Localidad localidad;
 
     public FacturaCabecera() {
         this.facturaDetalles = new ArrayList<>();
@@ -116,7 +118,14 @@ public class FacturaCabecera implements  Serializable{
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
+
+    public Localidad getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
+    }  
     
     public double getSubTotal() {
         double sum = 0;

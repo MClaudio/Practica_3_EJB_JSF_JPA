@@ -25,17 +25,19 @@ import javax.faces.validator.ValidatorException;
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
 @Named(value = "inventarioBean")
 @SessionScoped
-public class InventarioBean implements Serializable{
-    
+public class InventarioBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @EJB
     private InventarioFacade inventarioFacade;
-    
+
     private List<Inventario> inventarios;
     private Inventario inventario;
     private Bodega bodega;
-    
+    private Producto producto;
+    private int cantidad;
+
     /**
      * Creates a new instance of InventarioBean
      */
@@ -43,7 +45,6 @@ public class InventarioBean implements Serializable{
     }
 
     public List<Inventario> getInventarios() {
-        //this.inventarios = inventarioFacade.findAll();
         return inventarios;
     }
 
@@ -58,10 +59,11 @@ public class InventarioBean implements Serializable{
     public void setInventario(Inventario inventario) {
         this.inventario = inventario;
     }
-    
-    public void inventarioProducto(Producto producto){
-        System.out.println("Inventario Producto..."+producto.toString());
-        this.inventarios = inventarioFacade.findByProducto(producto);
+
+    public void inventarioProducto(Producto producto) {
+        //System.out.println("Inventario Producto..."+producto.toString());
+        this.producto = producto;
+        this.inventarios = producto.getInventarios();
     }
 
     public Bodega getBodega() {
@@ -71,27 +73,61 @@ public class InventarioBean implements Serializable{
     public void setBodega(Bodega bodega) {
         this.bodega = bodega;
     }
-      
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
     public String add() {
+        try {
+            Inventario newInventario = new Inventario(cantidad, bodega, producto);
+            Inventario findInventario = inventarioFacade.findInventario(newInventario);
 
-       
+            if (findInventario != null) {
+                findInventario.setCantidad(findInventario.getCantidad() + cantidad);
+                inventarioFacade.edit(findInventario);
+                this.inventarios = this.inventarioFacade.findByProducto(producto);
+            } else {
+                inventarioFacade.create(newInventario);
+                this.inventarios.add(newInventario);
+            }
+            this.cantidad = 0;
+        } catch (Exception e) {
+        }
+
         return null;
-
     }
 
     public String delete(Inventario inventario) {
+        System.out.println("producto en metodo eliminar "+producto);
+        this.inventarioFacade.remove(inventario);
+        this.inventarios = this.inventarioFacade.findByProducto(producto);
         
         return null;
     }
-    
-    public String edit(Inventario inventarioo) {
-       
+
+    public String edit(Inventario inventario) {
+        inventario.setEditable(true);
         return null;
     }
 
     public String save(Inventario inventario) {
-       
+        inventarioFacade.edit(inventario);
+        inventario.setEditable(false);
+        this.inventarios = this.inventarioFacade.findByProducto(producto);
         return null;
     }
-    
+
 }

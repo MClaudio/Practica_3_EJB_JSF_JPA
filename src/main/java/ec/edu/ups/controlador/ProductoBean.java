@@ -67,7 +67,7 @@ public class ProductoBean implements Serializable {
     public void init() {
         this.unidadMedidas = new ArrayList<>();
         this.unidadMedidas = Arrays.asList(
-                "unitario",
+                "unidad",
                 "lb",
                 "kg",
                 "l"
@@ -75,8 +75,9 @@ public class ProductoBean implements Serializable {
 
         try {
             this.categorias = this.categoriaFacade.findAll();
+            System.out.println("lista de categorias en el init.."+this.categorias);
             this.cantidad = 1;
-            this.productos = this.productoFacade.findAll();
+            
             this.bodegas = this.bodegaFacade.findAll();
 
         } catch (Exception e) {
@@ -142,6 +143,7 @@ public class ProductoBean implements Serializable {
     }
 
     public List<Producto> getProductos() {
+        this.productos = this.productoFacade.findAll();
         return productos;
     }
 
@@ -179,6 +181,7 @@ public class ProductoBean implements Serializable {
 
     public void newProducto() {
         this.nombre = null;
+        this.medida = null;
     }
 
     public void addBodega() {
@@ -189,7 +192,7 @@ public class ProductoBean implements Serializable {
                 this.listbodegas.remove(this.newBodega);
             }
         } else {
-            System.out.println("bodega nueva null.......");
+            //System.out.println("bodega nueva null.......");
         }
     }
 
@@ -201,7 +204,7 @@ public class ProductoBean implements Serializable {
 
     public String add() {
 
-        if (this.categoria != null && this.bodega != null) {
+        if (this.categoria != null) {
             //Inventario inventario = new Inventario(this.cantidad);
             //inventario.setBodega(this.bodega);
 
@@ -246,7 +249,7 @@ public class ProductoBean implements Serializable {
 
     public void buscarPorNombre() {
         if (nombre != null && !nombre.equals("")) {
-            System.out.println("Cambio de item em bodega..." + nombre);
+            //System.out.println("Cambio de item em bodega..." + nombre);
             this.productos = productoFacade.findByName(this.nombre);
         } else {
             //System.out.println("Es nulo... ");
@@ -261,7 +264,7 @@ public class ProductoBean implements Serializable {
     }
 
     public String save(Producto producto) {
-        System.out.println("Medida a editar..." + medida);
+       //System.out.println("Medida a editar..." + medida);
         producto.setUnidadMedida(medida);
         producto.setCategoria(this.categoria);
         productoFacade.edit(producto);

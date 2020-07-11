@@ -52,10 +52,13 @@
             <from-outcome>cliente</from-outcome>
             <to-view-id>/Empleado/cliente.xhtml</to-view-id>
         </navigation-case>
-
         <navigation-case>
             <from-outcome>facturas</from-outcome>
             <to-view-id>/Empleado/facturas.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>nuevaFactura</from-outcome>
+            <to-view-id>/Empleado/nuevaFactura.xhtml</to-view-id>
         </navigation-case>	
     </navigation-rule>
 </faces-config>

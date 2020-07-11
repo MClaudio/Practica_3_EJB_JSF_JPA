@@ -1,6 +1,5 @@
 ec\edu\ups\controlador\ProductoBeanIndex.class
 ec\edu\ups\ejb\CategoriaFacade.class
-ec\edu\ups\controlador\FacturaBean.class
 ec\edu\ups\controlador\ProductoBean.class
 ec\edu\ups\ejb\UsuarioFacade.class
 ec\edu\ups\ejb\FacturaDetalleFacade.class
@@ -9,9 +8,12 @@ ec\edu\ups\modelo\Usuario.class
 ec\edu\ups\ejb\FacturaCabeceraFacade.class
 ec\edu\ups\modelo\Bodega.class
 ec\edu\ups\modelo\Categoria.class
+ec\edu\ups\controlador\InventarioBean.class
 ec\edu\ups\modelo\Localidad.class
 ec\edu\ups\modelo\FacturaDetalle.class
+ec\edu\ups\controlador\NuevaFacturaBean.class
 ec\edu\ups\controlador\CategoriaBean.class
+ec\edu\ups\controlador\FacturasBean.class
 ec\edu\ups\modelo\FacturaCabecera.class
 ec\edu\ups\ejb\AbstractFacade.class
 ec\edu\ups\modelo\Inventario.class

@@ -27,10 +27,10 @@ import javax.faces.annotation.FacesConfig;
 @Named(value = "productoBeanIndex")
 @SessionScoped
 public class ProductoBeanIndex implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
-    
-        @EJB
+
+    @EJB
     private CategoriaFacade categoriaFacade;
     @EJB
     private BodegaFacade bodegaFacade;
@@ -52,7 +52,7 @@ public class ProductoBeanIndex implements Serializable {
      */
     public ProductoBeanIndex() {
     }
-    
+
     @PostConstruct
     public void init() {
 
@@ -61,12 +61,13 @@ public class ProductoBeanIndex implements Serializable {
             this.cantidad = 1;
             this.productos = this.productoFacade.findAll();
             this.bodegas = this.bodegaFacade.findAll();
-            
+
         } catch (Exception e) {
             System.out.println("Error --- " + e);
         }
 
     }
+
     public String getNombre() {
         return nombre;
     }
@@ -146,5 +147,5 @@ public class ProductoBeanIndex implements Serializable {
     public void setBodegaItem(Bodega bodegaItem) {
         this.bodegaItem = bodegaItem;
     }
-    
+
 }

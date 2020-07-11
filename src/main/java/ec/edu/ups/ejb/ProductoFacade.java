@@ -31,7 +31,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     }
     
     public int countAllProducts(int codigo){
-        String jpql = "SELECT SUM(i.cantidad) FROM Producto p INNER JOIN Inventario i ON p.inventario.codigo = i.codigo WHERE p.codigo = "+codigo;
+        String jpql = "SELECT SUM(i.cantidad) FROM Producto p INNER JOIN Inventario i ON i.producto.codigo = p.codigo WHERE p.codigo = "+codigo;
         Object obj = em.createQuery(jpql).getSingleResult();
         if(obj != null){
             return Integer.valueOf(String.valueOf(obj));
@@ -47,7 +47,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     }
     
     public List<Producto> findByBodega(int codigo){
-        String jpql = "SELECT p FROM Producto p, Inventario i, Bodega b WHERE p.inventario.codigo = i.codigo AND b.codigo = i.bodega.codigo AND b.codigo = "+codigo;
+        String jpql = "SELECT p FROM Producto p, Inventario i, Bodega b WHERE i.producto.codigo = p.codigo AND b.codigo = i.bodega.codigo AND b.codigo = "+codigo;
         return (List<Producto>) em.createQuery(jpql).getResultList();
         
     }
