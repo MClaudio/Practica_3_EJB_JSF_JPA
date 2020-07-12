@@ -39,6 +39,7 @@ public class BodegaBean implements Serializable {
     private String provincia;
     private String telefono;
     private List<Bodega> bodegas;
+    private String nombreBodega;
 
     public BodegaBean() {
     }
@@ -52,6 +53,15 @@ public class BodegaBean implements Serializable {
         }
     }
 
+    public String getNombreBodega() {
+        return nombreBodega;
+    }
+
+    public void setNombreBodega(String nombreBodega) {
+        this.nombreBodega = nombreBodega;
+    }
+
+    
     public String getCiudad() {
         return Ciudad;
     }
@@ -162,5 +172,27 @@ public class BodegaBean implements Serializable {
         
         
    }
+    
+    public void buscarPorNombre() {
+        if (nombreBodega != null) {
+            //System.out.println("Cambio de item em bodega..." +bodegaItem.toString());
+            this.bodegas = bodegaFacade.findByName(this.nombreBodega);
+        } else {
+            //System.out.println("Es nulo... ");
+            this.bodegas = this.bodegaFacade.findAll();    
+        }
+        System.out.println("Nombre............ " + nombreBodega);
+        nombreBodega= null;
+    }
+    public void listar() {
+       
+         try {
+            this.bodegas = bodegaFacade.findAll();
+            System.out.println("Lista categorias" + this.bodegas);
+
+        } catch (Exception e) {
+            System.out.println("Error---" + e);
+        }
+    }
 
 }
