@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition template="template.xhtml"
-                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    
+
     <ui:define name="content">
 
         <script type="text/javascript">
@@ -21,29 +21,159 @@
         </script>
 
 
-      
-        
-            <div class="breadcrumbs">
-                <div class="breadcrumbs-inner">
-                    <div class="row m-0">
-                        <div class="col-sm-4">
-                            <div class="page-header float-left">
-                                <div class="page-title">
-                                    <h1>Bodegas</h1>
-                                </div>
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Bodega</h1>
                             </div>
                         </div>
-                        <div class="col-sm-4 d-flex">
-                            <div class="page-header float-left d-flex align-items-center">
-                                <div class="page-title ">
-                                    <h:form id="f-buscar" class="d-flex">
-                                        <div class="form-group mr-3">
-                                            <label for="input-search" class="sr-only">Buscar</label>
-                                            <h:inputText class="form-control" id="input-search" a:placeholder="Buscar"
-                                                         value=""
-                                                         />
-                                        </div>
+                    </div>
+                    <div class="col-sm-4 d-flex">
+                        <div class="page-header float-left d-flex align-items-center">
+                            <div class="page-title ">
+                                <h:form id="f-buscar" class="d-flex">
+                                    <div class="form-group mr-3">
+                                        <label for="input-search" class="sr-only">Buscar</label>
+                                        <h:inputText class="form-control" id="input-search" a:placeholder="Buscar"
+                                                     value="#{bodegaBean.nombreBodega}"
+                                                     />
+                                    </div>
 
+ <!-- <h:commandButton class="btn btn-primary" value="Buscar"
+                                                     action=""
+                                                     />   -->
+                                   
+
+                                    <h:column>
+                                        <f:facet name="header">Acciones</f:facet>
+                                        
+
+
+                                        <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px;" value="Buscar" action="#{bodegaBean.buscarPorNombre()}"
+                                                       rendered="#{bodegaBean.nombreBodega!= null}" />
+                                        <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px; background-color: green;" value="Listar" action="#{bodegaBean.listar()}"
+                                                       rendered="#{bodegaBean.nombreBodega == null}" />
+                                        
+                                        
+                                        
+                                    </h:column>
+                                   
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <h:form>
+                                    <h:commandLink class="btn btn-primary" 
+                                                   a:data-toggle="modal" 
+                                                   a:data-target="#mediumModal" 
+                                                   value="+ Agregar" 
+                                                   action="#{categoriaBean.newProducto()}" 
+                                                   >
+                                        <f:ajax render="mediumModal" onevent="indicador" />
+                                    </h:commandLink>
+
+                                </h:form>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+
+                            <div class="table-stats order-table ov-h">
+
+
+                                <h:form>
+                                    <h:dataTable  value="#{bodegaBean.bodegas}" var="b" styleClass="table w-100"
+                                                  headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar" >
+
+                                        <c:set var="localidad" value="#{b.localidad}" />
+
+
+                                        <h:column class="serial">
+                                            <f:facet name="header">Codigo</f:facet>#{b.codigo}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Nombre</f:facet>
+                                            <span class="name">
+                                                <h:inputText value="#{b.nombre}" size="10"
+                                                             rendered="#{b.editable}" />
+                                                <h:outputText value="#{b.nombre}" rendered="#{not b.editable}" />
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Ciudad</f:facet>  
+                                            <span class="name">
+                                                <h:inputText value="#{localidad.ciudad}" size="10"
+                                                             rendered="#{b.editable}" />
+                                                <h:outputText value="#{localidad.ciudad}" rendered="#{not b.editable}" />
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Direccion</f:facet> 
+                                            <span class="name">
+                                                <h:inputText value="#{b.localidad.direccion}" size="10"
+                                                             rendered="#{b.editable}" />
+                                                <h:outputText value="#{b.localidad.direccion}" rendered="#{not b.editable}" />
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Pais</f:facet>
+                                            <span class="name">
+                                                <h:inputText value="#{b.localidad.pais}" size="10"
+                                                             rendered="#{b.editable}" />
+                                                <h:outputText value="#{b.localidad.pais}" rendered="#{not b.editable}" /></span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Provincia</f:facet>
+                                            <span class="name">
+                                                <h:inputText value="#{localidad.provincia}" size="10"
+                                                             rendered="#{b.editable}" />
+                                                <h:outputText value="#{localidad.provincia}" rendered="#{not b.editable}" />
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Telefono</f:facet>
+                                            <span class="name">
+                                                <h:inputText value="#{localidad.telefono}" size="10"
+                                                             rendered="#{b.editable}" />
+                                                <h:outputText value="#{localidad.telefono}" rendered="#{not b.editable}" />
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Total Producto</f:facet>
+                                            <span class="name">
+
+                                                <h:outputText value="#{bodegaBean.TotalProductos(b)}" />
+                                            </span>
+                                        </h:column>
 
 
 
@@ -51,386 +181,116 @@
 
                                         <h:column>
                                             <f:facet name="header">Acciones</f:facet>
+                                            <h:commandButton class="btn btn-danger mr-3" value="Eliminar" action="#{bodegaBean.delete(b)}"/>
 
+                                            <h:commandButton  class="btn btn-primary mr-3" value="Editar" action="#{bodegaBean.edit(b)}"
+                                                              rendered="#{not b.editable}"/>
 
-
-                                            <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px;" value="Buscar" 
-                                                           rendered="" />
-                                            <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px; background-color: green;" value="Listar" 
-                                                           rendered="" />
-
-
-
+                                            <h:commandLink class="btn btn-success mr-3"  value="guardar" action="#{bodegaBean.save(b)}"
+                                                           rendered="#{b.editable}" />
                                         </h:column>
 
-                                    </h:form>
-                                </div>
-                            </div>
+
+
+
+                                    </h:dataTable>
+                                </h:form>
+                            </div> <!-- /.table-stats -->
                         </div>
-                        <div class="col-sm-4">
-                            <div class="page-header float-right">
-                                <div class="page-title">
-                                    <h:form>
-                                        <h:commandLink class="btn btn-primary" 
-                                                       a:data-toggle="modal" 
-                                                       a:data-target="#mediumModal" 
-                                                       value="+ Agregar" 
-                                                       action="#{bodegaBean.newProducto()}"
-
-                                                       >
-                                            <f:ajax render="mediumModal" onevent="indicador" />
-                                        </h:commandLink>
-
-                                    </h:form>
-
-
-                                </div>
-                            </div>
-                        </div>  
                     </div>
+
+
                 </div>
-            </div>
+            </div><!-- .animated -->
+        </div>  
 
+        <!-- Modal -->
 
-
-
-
-
-
-
-            <div class="content">
-                <div class="animated fadeIn">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-
-                                <div class="table-stats order-table ov-h">
-
-
-                                    <h:form>
-                                        <h:dataTable  value="#{bodegaBean.bodegas}" var="b" styleClass="table w-100"
-                                                      headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar" >
-
-                                            <c:set var="localidad" value="#{b.localidad}" />
-
-
-                                            <h:column class="serial">
-                                                <f:facet name="header">Codigo</f:facet>#{b.codigo}
-                                            </h:column>
-
-                                            <h:column>
-                                                <f:facet name="header">Nombre</f:facet>
-                                                <span class="name">
-                                                    <h:inputText value="#{b.nombre}" size="10"
-                                                                 rendered="#{b.editable}" />
-                                                    <h:outputText value="#{b.nombre}" rendered="#{not b.editable}" />
-                                                </span>
-                                            </h:column>
-
-                                            <h:column>
-                                                <f:facet name="header">Ciudad</f:facet>  
-                                                <span class="name">
-                                                    <h:inputText value="#{localidad.ciudad}" size="10"
-                                                                 rendered="#{b.editable}" />
-                                                    <h:outputText value="#{localidad.ciudad}" rendered="#{not b.editable}" />
-                                                </span>
-                                            </h:column>
-
-                                            <h:column>
-                                                <f:facet name="header">Direccion</f:facet> 
-                                                <span class="name">
-                                                    <h:inputText value="#{localidad.direccion} " size="10"
-                                                                 rendered="#{b.editable}" />
-                                                    <h:outputText value="#{localidad.direccion}" rendered="#{not b.editable}" />
-                                                </span>
-                                            </h:column>
-
-                                            <h:column>
-                                                <f:facet name="header">Pais</f:facet>
-                                                <span class="name">
-                                                    <h:inputText value="#{localidad.pais} " size="10"
-                                                                 rendered="#{b.editable}" />
-                                                    <h:outputText value="#{localidad.pais}" rendered="#{not b.editable}" />
-                                                </span>
-                                            </h:column>
-
-                                            <h:column>
-                                                <f:facet name="header">Provincia</f:facet>
-                                                <span class="name">
-                                                    <h:inputText value="#{localidad.provincia}" size="10"
-                                                                 rendered="#{b.editable}" />
-                                                    <h:outputText value="#{localidad.provincia}" rendered="#{not b.editable}" />
-                                                </span>
-                                            </h:column>
-
-                                            <h:column>
-                                                <f:facet name="header">Telefono</f:facet>
-                                                <span class="name">
-                                                    <h:inputText value="#{localidad.telefono}" size="10"
-                                                                 rendered="#{b.editable}" />
-                                                    <h:outputText value="#{localidad.telefono}" rendered="#{not b.editable}" />
-                                                </span>
-                                            </h:column>
-
-                                            <h:column>
-                                                <f:facet name="header">Total Producto</f:facet>
-                                                <span class="name">
-
-                                                    <h:outputText value="#{bodegaBean.TotalProductos(b)}" />
-                                                </span>
-                                            </h:column>
-
-
-
-
-
-                                            <h:column>
-                                                <f:facet name="header">Acciones</f:facet>
-                                                <h:commandButton class="btn btn-danger mr-3" value="Eliminar" action="#{bodegaBean.delete(b)}"/>
-
-                                                <h:commandButton  class="btn btn-primary mr-3" value="Editar" action="#{bodegaBean.edit(b)}"
-                                                                  rendered="#{not b.editable}"/>
-
-                                                <h:commandLink class="btn btn-success mr-3"  value="guardar" action="#{bodegaBean.save(b)}"
-                                                               rendered="#{b.editable}" />
-                                            </h:column>
-
-
-
-
-                                        </h:dataTable>
-                                    </h:form>
-                                </div> <!-- /.table-stats -->
-                            </div>
-                        </div>
-
-
+        <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumModalLabel">Agregar Bodega</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div><!-- .animated -->
-            </div>  
+                    <h:form>
+                        <div class="modal-body">
 
-            <!-- Modal -->
+                            <div class="form-row">
 
-            <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="mediumModalLabel">Agregar Bodega</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <h:form>
-                            <div class="modal-body">
+                                <div class="form-group col-md-4 ">
+                                    <label for="bodega-ciudad">Ciudad</label>
+                                    <h:inputText class="form-control" id="bodega-ciudad" value="#{bodegaBean.ciudad}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="bodega-ciudad" style="color:red" />
+                                </div>
 
-                                <div class="form-row">
-
-                                    <div class="form-group col-md-4 ">
-                                        <label for="bodega-ciudad">Ciudad</label>
-                                        <h:inputText class="form-control" id="bodega-ciudad" value="#{bodegaBean.ciudad}" required="true"
+                                <div class="form-group col-md-4">
+                                    <label for="bodega-direccion">Direccion</label>
+                                    <h:inputTextarea class="form-control" id="bodega-direccion" value="#{bodegaBean.direccion}" required="true"
                                                      requiredMessage="Campo Obligatorio"/>
-                                        <h:message for="bodega-ciudad" style="color:red" />
-                                    </div>
-
-                                    <div class="form-group col-md-4">
-                                        <label for="bodega-direccion">Direccion</label>
-                                        <h:inputTextarea class="form-control" id="bodega-direccion" value="#{bodegaBean.direccion}" required="true"
-                                                         requiredMessage="Campo Obligatorio"/>
-                                        <h:message for="bodega-direccion" style="color:red" />
-
-                                    </div>
-
-                                    <div class="form-group col-md-4">
-                                        <label for="bodega-nombre">Nombre</label>
-                                        <h:inputTextarea class="form-control" id="bodega-nombre" value="#{bodegaBean.nombre}" required="true"
-                                                         requiredMessage="Campo Obligatorio"/>
-                                        <h:message for="bodega-nombre" style="color:red" />   
-
-                                    </div>
+                                    <h:message for="bodega-direccion" style="color:red" />
 
                                 </div>
 
-                                <div class="form-row">
-
-                                    <div class="form-group col-md-4">
-                                        <label for="bodega-pais">Pais</label>
-                                        <h:inputTextarea class="form-control" id="bodega-pais" value="#{bodegaBean.pais}" required="true"
-                                                         requiredMessage="Campo Obligatorio"/>
-                                        <h:message for="bodega-pais" style="color:red" />
-
-                                    </div>
-
-                                    <div class="form-group col-md-4">
-
-                                        <label for="bodega-provincia">Provincia</label>
-                                        <h:inputTextarea class="form-control" id="bodega-provincia" value="#{bodegaBean.provincia}" required="true"
-                                                         requiredMessage="Campo Obligatorio"/>
-                                        <h:message for="bodega-provincia" style="color:red" />
-
-                                    </div>
-
-                                    <div class="form-group col-md-4">
-                                        <label for="bodega-telefono">Telefono</label>
-                                        <h:inputTextarea class="form-control" id="bodega-telefono" value="#{bodegaBean.telefono}" required="true"
-                                                         requiredMessage="Campo Obligatorio"/>
-                                        <h:message for="bodega-telefono" style="color:red" />
-
-                                    </div>
-
+                                <div class="form-group col-md-4">
+                                    <label for="bodega-nombre">Nombre</label>
+                                    <h:inputTextarea class="form-control" id="bodega-nombre" value="#{bodegaBean.nombre}" required="true"
+                                                     requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="bodega-nombre" style="color:red" />   
 
                                 </div>
 
-
-
-
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <h:commandButton class="btn btn-success" value="Crear Bodega" action="#{bodegaBean.guardarDatos}"/>
-                                </div>
                             </div>
-                        </h:form>
-                    </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group col-md-4">
+                                    <label for="bodega-pais">Pais</label>
+                                    <h:inputTextarea class="form-control" id="bodega-pais" value="#{bodegaBean.pais}" required="true"
+                                                     requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="bodega-pais" style="color:red" />
+
+                                </div>
+
+                                <div class="form-group col-md-4">
+
+                                    <label for="bodega-provincia">Provincia</label>
+                                    <h:inputTextarea class="form-control" id="bodega-provincia" value="#{bodegaBean.provincia}" required="true"
+                                                     requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="bodega-provincia" style="color:red" />
+
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="bodega-telefono">Telefono</label>
+                                    <h:inputTextarea class="form-control" id="bodega-telefono" value="#{bodegaBean.telefono}" required="true"
+                                                     requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="bodega-telefono" style="color:red" />
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <h:commandButton class="btn btn-success" value="Crear Bodega" action="#{bodegaBean.guardarDatos}"/>
+                            </div>
+                        </div>
+                    </h:form>
                 </div>
             </div>
-
-   
-
-
-  <!-- END Modal -->
-  
-    <!-- Mocha -->
-
-
-<h:body>
-                <h:form>
-                    <fieldset>
-                        <legend>Agregar Bodega</legend>
-
-                        <label>Ciudad</label>
-                        <h:inputText id="ciudad" value="#{bodegaBean.ciudad}" required="true"
-                                     requiredMessage="Campo Obligatorio"/>
-                        <h:message for="" style="color:red" />
-
-
-                        <label>Direccion</label>
-                        <h:inputText id="direccion" value="#{bodegaBean.direccion}" required="true"
-                                     requiredMessage="Campo Obligatorio"/>
-                        <h:message for="" style="color:red" />
-
-                        <label>Nombre</label>
-                        <h:inputText id="nombre" value="#{bodegaBean.nombre}" required="true"
-                                     requiredMessage="Campo Obligatorio"/>
-                        <h:message for="" style="color:red" />
-
-                        <label>Pais</label>
-                        <h:inputText id="pais" value="#{bodegaBean.pais}" required="true"
-                                     requiredMessage="Campo Obligatorio"/>
-                        <h:message for="" style="color:red" />
-
-                        <label>Provincia</label>
-                        <h:inputText id="provincia" value="#{bodegaBean.provincia}" required="true"
-                                     requiredMessage="Campo Obligatorio"/>
-                        <h:message for="" style="color:red" />
-
-                        <label>Telefono</label>
-                        <h:inputText id="telefono" value="#{bodegaBean.telefono}" required="true"
-                                     requiredMessage="Campo Obligatorio"/>
-                        <h:message for="" style="color:red" />
-
-                        <br></br>
-
-                        <h:commandButton value="Continuar" action="#{bodegaBean.guardarDatos}"></h:commandButton>
-
-                    </fieldset>
-                </h:form>
-
-                <br></br>
-                <br></br>
-                <br></br>
-
-                <h3>Listar Bodega</h3>
-                <h:form>
-                    <h:dataTable value="#{bodegaBean.bodegas}" var="b" styleClass="tabla"
-                                 headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
-
-                        <c:set var="localidad" value="#{b.localidad}" />
-
-                        <h:column>
-                            <f:facet name="header">Codigo</f:facet>#{b.codigo}
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">Nombre</f:facet>
-                            <h:inputText value="#{b.nombre}" size="10"
-                                         rendered="#{b.editable}" />
-                            <h:outputText value="#{b.nombre}" rendered="#{not b.editable}" />
-                        </h:column> 
-
-                        <h:column>
-                            <f:facet name="header">Ciudad</f:facet>  
-                            <h:inputText value="#{localidad.ciudad}" size="10"
-                                         rendered="#{b.editable}" />
-                            <h:outputText value="#{localidad.ciudad}" rendered="#{not b.editable}" />
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">Direccion</f:facet>
-                            <h:inputText value="#{localidad.direccion} " size="10"
-                                         rendered="#{b.editable}" />
-                            <h:outputText value="#{localidad.direccion}" rendered="#{not b.editable}" />
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">Pais</f:facet>
-                            <h:inputText value="#{localidad.pais} " size="10"
-                                         rendered="#{b.editable}" />
-                            <h:outputText value="#{localidad.pais}" rendered="#{not b.editable}" />
-                        </h:column> 
-                        <h:column>
-                            <f:facet name="header">Provincia</f:facet>
-                            <h:inputText value="#{localidad.provincia}" size="10"
-                                         rendered="#{b.editable}" />
-                            <h:outputText value="#{localidad.provincia}" rendered="#{not b.editable}" />
-                        </h:column> 
-                        <h:column>
-                            <f:facet name="header">Telefono</f:facet>
-                            <h:inputText value="#{localidad.telefono}" size="10"
-                                         rendered="#{b.editable}" />
-                            <h:outputText value="#{localidad.telefono}" rendered="#{not b.editable}" />
-                        </h:column> 
-
-                        <h:column>
-                            <f:facet name="header">Total Producto</f:facet>
-                            <h:outputText value="#{bodegaBean.TotalProductos(b)}" />
-                        </h:column> 
-
-
-                        <h:column>
-                            <f:facet name="header">Accion</f:facet>
-                            <h:commandButton value="Eliminar" action="#{bodegaBean.delete(b)}"></h:commandButton>
-
-                            <h:commandButton value="Editar" action="#{bodegaBean.edit(b)}"
-                                             rendered="#{not b.editable}"></h:commandButton>
-
-                            <h:commandLink value="guardar" action="#{bodegaBean.save(b)}"
-                                           rendered="#{b.editable}" />
-
-
-                        </h:column> 
-
-                    </h:dataTable>
-
-
-
-                </h:form>
-
-            </h:body>
-
-
-             </ui:define>
+        </div>
+    </ui:define>
 
 </ui:composition>
-            
-            
-      
+
+
+
