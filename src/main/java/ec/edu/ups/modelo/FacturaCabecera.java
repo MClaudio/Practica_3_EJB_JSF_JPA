@@ -77,23 +77,10 @@ public class FacturaCabecera implements  Serializable{
         return iva;
     }
 
-    public void setIva(double iva) {
-        this.iva = iva;
-    }
-
-    public double getTotal() {
-        this.total = Math.round(((this.subTotal*this.iva)+this.subTotal) * 100.0) / 100.0;
+    public double getTotal() {   
         return this.total;
     }
 
-    public void setSubTotal(double subTotal) {
-        this.subTotal = subTotal;
-    }
-    
-
-    public void setTotal(double total) {
-        this.total = total;
-    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -128,11 +115,6 @@ public class FacturaCabecera implements  Serializable{
     }  
     
     public double getSubTotal() {
-        double sum = 0;
-        for(FacturaDetalle fd : this.facturaDetalles)
-                sum += fd.getSubtotal();
-        this.subTotal = sum;
-        
         return this.subTotal;
     }
     
@@ -175,5 +157,25 @@ public class FacturaCabecera implements  Serializable{
             facturaDetalle.setFacturaCabecera(null);
         }
     }
+    
+    public void calcularSubTotal(){
+        double sum = 0;
+        for(FacturaDetalle fd : this.getFacturaDetalles())
+                sum += fd.getSubtotal();
+        this.subTotal = sum;
+    }
+    
+    public void calcularTotal(){
+        this.total = Math.round(((this.subTotal*this.iva)+this.subTotal) * 100.0) / 100.0;
+    }
+
+    @Override
+    public String toString() {
+        return "FacturaCabecera{" + "codigo=" + codigo + ", fecha=" + fecha + ", iva=" + iva + ", subTotal=" + subTotal + ", total=" + total + ", estado=" + estado + ", facturaDetalles=" + facturaDetalles + '}';
+    }
+
+    
+    
+    
        
 }

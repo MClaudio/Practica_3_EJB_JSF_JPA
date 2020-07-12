@@ -11,6 +11,7 @@ import ec.edu.ups.ejb.ProductoFacade;
 import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.modelo.FacturaCabecera;
 import ec.edu.ups.modelo.FacturaDetalle;
+import ec.edu.ups.modelo.Inventario;
 import ec.edu.ups.modelo.Localidad;
 import ec.edu.ups.modelo.Producto;
 import ec.edu.ups.modelo.Usuario;
@@ -23,7 +24,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.annotation.FacesConfig;
-import javax.faces.event.AjaxBehaviorEvent;
+
 
 /**
  *
@@ -42,6 +43,8 @@ public class NuevaFacturaBean implements Serializable {
     private ProductoFacade productoFacade;
     @EJB
     private FacturaCabeceraFacade facturaCabeceraFacade;
+    @EJB
+    private InventarioFacade inventarioFacade;
 
     private String cedula;
     private String productoNombre;
@@ -51,9 +54,8 @@ public class NuevaFacturaBean implements Serializable {
     private List<Producto> productos;
     private Producto producto;
     private FacturaCabecera facturaCabecera;
-
-    //mio...............................................
-    private String txt1;
+    private List<Inventario> inventarios;
+    private Inventario inventario;
 
     /**
      * Creates a new instance of NuevaFacturaBean
@@ -132,26 +134,16 @@ public class NuevaFacturaBean implements Serializable {
         this.productos = productos;
     }
 
-    //MIO..............................................................
-    public String getTxt1() {
-        return txt1;
+    public List<Inventario> getInventarios() {
+        return inventarios;
     }
 
-    public void setTxt1(String txt1) {
-        this.txt1 = txt1;
+    public void setInventarios(List<Inventario> inventarios) {
+        this.inventarios = inventarios;
     }
-
-    public List<String> completeText(String query) {
-        List<String> results = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            results.add(query + i);
-        }
-
-        return results;
-    }
-    //asta aqui.........................................................
 
     public void buscarUsuario() {
+        //System.out.println("usuario a buscar.."+this.cedula);
         try {
             this.usuario = usuarioFacade.find(this.cedula);
         } catch (Exception e) {
@@ -159,77 +151,113 @@ public class NuevaFacturaBean implements Serializable {
     }
 
     public void buscarProducto() {
-        this.productos = productoFacade.findByNameAndCount(this.productoNombre);
+        this.productos = productoFacade.findByName(this.productoNombre);
     }
 
     public void limpiarProductos() {
+        this.producto = null;
         this.productos = new ArrayList<>();
     }
 
-    /*
-    public String addProducto(Producto producto) {
-        //System.out.println("Producto: "+this.producto);
+    public int contarProductos(int codigo) {
+        return productoFacade.countAllProducts(codigo);
+    }
+
+    public void listarInventarios(Producto producto) {
+        this.producto = producto;
+        this.inventarios = producto.getInventarios();
+    }
+
+    public String addProducto(Inventario inventario) {
+        this.inventario = inventario;
         FacturaDetalle fd = new FacturaDetalle();
         fd.setCantidad(1);
         fd.setProducto(producto);
 
         if (this.facturaDetalles.contains(fd)) {
+            System.out.println("Es el mismo producto");
             this.addCantidad(facturaDetalles.get(facturaDetalles.indexOf(fd)));
             //System.out.println("Detalles mass: "+this.facturaDetalles);
         } else {
+            //System.out.println("Es un nuevo producto");
             this.facturaDetalles.add(fd);
             //System.out.println("Detalles agregado: "+this.facturaDetalles);
         }
         this.facturaCabecera.setFacturaDetalles(this.facturaDetalles);
+        this.facturaCabecera.calcularSubTotal();
+        this.facturaCabecera.calcularTotal();
         return null;
     }
-   */
-/*
+
     public void addCantidad(FacturaDetalle fd) {
-        if (fd.getProducto().getInventario().getCantidad() < fd.getCantidad()) {
+        System.out.println("Cantidad add cantidad.." + fd.getCantidad());
+        if (this.inventario.getCantidad() > fd.getCantidad()) {
             fd.setCantidad(fd.getCantidad() + 1);
             this.facturaCabecera.setFacturaDetalles(this.facturaDetalles);
+            this.facturaCabecera.calcularSubTotal();
+            this.facturaCabecera.calcularTotal();
         }
     }
-*/
+
     public void deleteCantidad(FacturaDetalle fd) {
+        System.out.println("Cantidad delete cantidad.." + fd.getCantidad());
         if (fd.getCantidad() - 1 == 0) {
             this.facturaDetalles.remove(fd);
         } else {
             fd.setCantidad(fd.getCantidad() - 1);
         }
+
         this.facturaCabecera.setFacturaDetalles(this.facturaDetalles);
+        this.facturaCabecera.calcularSubTotal();
+        this.facturaCabecera.calcularTotal();
     }
 
     public void deleteProducto(FacturaDetalle fd) {
         if (facturaDetalles.contains(fd)) {
             facturaDetalles.remove(fd);
         }
-        this.facturaCabecera.setFacturaDetalles(this.facturaDetalles);
-    }
-/*
-    public String generarFactura() {
-        this.facturaCabecera.setUsuario(this.usuario);
-        this.facturaCabecera.setFecha(new Date());
-        this.facturaCabecera.setLocalidad(this.localidad);
 
-        for (FacturaDetalle fd : this.facturaCabecera.getFacturaDetalles()) {
-            int inv = fd.getProducto().getInventario().getCantidad();
-            fd.getProducto().getInventario().setCantidad(inv - fd.getCantidad());
-            /*
-            for (Inventario inv : fd.getProducto().getInventarios()) {
-                inv.setCantidad(inv.getCantidad() - fd.getCantidad());
-                inventarioFacade.edit(inv);
+        this.facturaCabecera.setFacturaDetalles(this.facturaDetalles);
+        this.facturaCabecera.calcularSubTotal();
+        this.facturaCabecera.calcularTotal();
+    }
+
+    public String generarFactura() {
+
+        //System.out.println("Locaidad en guardar factura.." + this.localidad);
+        if (usuario != null && localidad != null && facturaDetalles.size() > 0) {
+
+            this.facturaCabecera.setUsuario(this.usuario);
+            this.facturaCabecera.setLocalidad(this.localidad);
+            this.facturaCabecera.setFecha(new Date());
+            this.facturaCabecera.calcularSubTotal();
+            this.facturaCabecera.calcularTotal();
+            try {
+                for (FacturaDetalle fd : this.facturaCabecera.getFacturaDetalles()) {
+                    fd.setFacturaCabecera(facturaCabecera);
+                    for (Inventario inv : fd.getProducto().getInventarios()) {
+                        inv.setCantidad(inv.getCantidad() - fd.getCantidad());
+                        inventarioFacade.edit(inv);
+                    }
+                    facturaCabeceraFacade.create(this.facturaCabecera);
+                }
+            } catch (Exception e) {
             }
-             
+
+            facturaCabecera = new FacturaCabecera();
+            usuario = null;
+            localidad = null;
+            facturaDetalles = new ArrayList<>();
         }
-        facturaCabeceraFacade.create(this.facturaCabecera);
 
         return null;
     }
-*/
-    public void changeTotal1(AjaxBehaviorEvent event) {
-        System.out.println("EVENTOOOO ON KEY PRESSS");
+
+    public void cancelarFactura() {
+        facturaCabecera = new FacturaCabecera();
+        usuario = null;
+        localidad = null;
+        facturaDetalles = new ArrayList<>();
     }
 
 }

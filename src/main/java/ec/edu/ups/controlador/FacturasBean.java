@@ -16,6 +16,9 @@ import ec.edu.ups.modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -33,33 +36,30 @@ import javax.faces.annotation.FacesConfig;
 @Named(value = "facturasBean")
 @SessionScoped
 public class FacturasBean implements Serializable {
+
     private static final long serialVersionUID = 1;
-            
-            
+
     @EJB
-    private UsuarioFacade usuarioFacade; 
-    
+    private UsuarioFacade usuarioFacade;
+
     @EJB
     private FacturaCabeceraFacade facturaCabeceraFacade;
-      
+
     private String cedula;
-    private int cantidad;
     private List<FacturaCabecera> facturasCabeceras;
-    private Producto producto;
+    private FacturaCabecera facturaCabecera;
     private List<FacturaDetalle> detalles;
     private Usuario usuario;
 
     public FacturasBean() {
     }
-    
+
     @PostConstruct
-    public void init(){
-        this.facturasCabeceras=facturaCabeceraFacade.findAll();
-        //System.out.println("Lista Factura Cabecera"+facturasCabeceras);
-        //this.producto=productoFacade.findAll();
-        this.detalles=new ArrayList<>();   
+    public void init() {
+        this.facturasCabeceras = facturaCabeceraFacade.findAll();
+        System.out.println("facturas  .." + this.facturasCabeceras);
+        this.detalles = new ArrayList<>();
     }
-    
 
     public List<FacturaDetalle> getDetalles() {
         return detalles;
@@ -70,30 +70,21 @@ public class FacturasBean implements Serializable {
     }
 
     public List<FacturaCabecera> getFacturasCabeceras() {
+        
+        /*Collections.sort(facturasCabeceras, new Comparator<FacturaCabecera>() {
+            @Override
+            public int compare(FacturaCabecera o1, FacturaCabecera o2) {
+                return o1.getFecha().compareTo(o2.getFecha());
+            }
+        });*/
+        //Collections.sort(facturasCabeceras, Collections.reverseOrder());
+        //facturasCabeceras.
         return facturasCabeceras;
     }
 
     public void setFacturasCabeceras(List<FacturaCabecera> facturasCabeceras) {
         this.facturasCabeceras = facturasCabeceras;
     }
-    
-  
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-    
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
 
     public String getCedula() {
         return cedula;
@@ -103,35 +94,44 @@ public class FacturasBean implements Serializable {
         this.cedula = cedula;
     }
 
-    public List<FacturaCabecera> getFacturaCabecera() {
-        return facturasCabeceras;
+    public FacturaCabecera getFacturaCabecera() {
+        return facturaCabecera;
     }
 
-    public void setFacturaCabecera(List<FacturaCabecera> facturaCabecera) {
-        this.facturasCabeceras = facturaCabecera;
+    public void setFacturaCabecera(FacturaCabecera facturaCabecera) {
+        this.facturaCabecera = facturaCabecera;
     }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-   
 
     public void buscarUsuario() {
         try {
-            this.usuario = usuarioFacade.find(this.cedula);
+            
+            if (cedula != null || !cedula.equals("")) {
+                usuario = usuarioFacade.find(cedula);
+                
+                this.facturasCabeceras = this.usuario.getFacturas();
+                System.out.println("Cedula usuario "+facturasCabeceras);
+            } else {
+                this.facturasCabeceras = facturaCabeceraFacade.findAll();
+            }
         } catch (Exception e) {
         }
     }
 
-    
-    public void detalles(FacturaCabecera factura){
-       this.detalles=factura.getFacturaDetalles();    
+    public void listarDetalles(FacturaCabecera factura) {
+        this.facturaCabecera = factura;
+        this.detalles = factura.getFacturaDetalles();
+        System.out.println("Detalles de factura " + this.detalles);
     }
     
+    public void facturar(){
+        facturaCabecera.setEstado("facturado");
+        facturaCabeceraFacade.edit(facturaCabecera);
+    }
+    
+    public void anular(){
+        facturaCabecera.setEstado("anulado");
+        facturaCabeceraFacade.edit(facturaCabecera);
+    }
 
 
 }

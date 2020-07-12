@@ -59,7 +59,8 @@ public class FacturaDetalle implements Serializable{
     }
 
     public double getSubtotal() {
-        return this.cantidad*this.producto.getPrecio();
+        this.subtotal = Math.round((this.cantidad*this.producto.getPrecio()) * 100.0) / 100.0;
+        return this.subtotal;
     }
 
     public int getCantidad() {

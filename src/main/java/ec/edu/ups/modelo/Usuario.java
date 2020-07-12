@@ -13,6 +13,7 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -121,8 +122,14 @@ public class Usuario implements  Serializable{
         this.localidades = localidades;
     }
 
-    
-    
+    public boolean isCambioPassword() {
+        return cambioPassword;
+    }
+
+    public void setCambioPassword(boolean cambioPassword) {
+        this.cambioPassword = cambioPassword;
+    }
+
      public boolean isEditable() {
         return editable;
     }
