@@ -115,13 +115,18 @@ public class BodegaBean implements Serializable {
     }
 
     public void guardarDatos() {
-        System.out.println("Telefonoo: "+this.telefono);
-        Localidad newLocalidad = new Localidad(this.Ciudad, this.direccion, this.pais, this.provincia, this.telefono);
         
+        System.out.println("llegando los datos.............................................................................................");
+        
+        Localidad newLocalidad = new Localidad(this.pais, this.provincia, this.Ciudad, this.direccion, this.telefono);
         Bodega bodega = new Bodega();
+        
         bodega.setNombre(this.nombre);
-        bodega.setLocalidad(newLocalidad);
         newLocalidad.setBodega(bodega);
+        bodega.setLocalidad(newLocalidad);
+        
+        
+        bodegaFacade.create(bodega);
         
         this.bodegas = bodegaFacade.findAll();
 

@@ -79,20 +79,36 @@
                                  rendered="#{b.editable}" />
                     <h:outputText value="#{localidad.ciudad}" rendered="#{not b.editable}" />
                 </h:column>
-
-                <h:column>
-                    <f:facet name="header">Direccion</f:facet>
-                    <h:inputText value="#{localidad.direccion} " size="10"
+          
+                  <h:column>
+                    <f:facet name="header">Direccion</f:facet>  
+                    <h:inputText value="#{b.localidad.direccion}" size="10"
                                  rendered="#{b.editable}" />
-                    <h:outputText value="#{localidad.direccion}" rendered="#{not b.editable}" />
+                    <h:outputText value="#{b.localidad.direccion}" rendered="#{not b.editable}" />
                 </h:column>
-
+                
                 <h:column>
-                    <f:facet name="header">Pais</f:facet>
-                    <h:inputText value="#{localidad.pais} " size="10"
+                    <f:facet name="header">Pais</f:facet>  
+                    <h:inputText value="#{b.localidad.pais}" size="10"
                                  rendered="#{b.editable}" />
-                    <h:outputText value="#{localidad.pais}" rendered="#{not b.editable}" />
-                </h:column> 
+                    <h:outputText value="#{b.localidad.pais}" rendered="#{not b.editable}" />
+                </h:column>
+               
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 <h:column>
                     <f:facet name="header">Provincia</f:facet>
                     <h:inputText value="#{localidad.provincia}" size="10"
