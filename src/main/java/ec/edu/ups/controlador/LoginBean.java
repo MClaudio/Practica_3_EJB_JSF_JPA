@@ -61,13 +61,11 @@ public class LoginBean implements Serializable {
         try {
             if (!correo.equals("") && !password.equals("")) {
                 usuario = usuarioFacade.finByEmailAndPass(correo, password);
-                if (usuario != null) {
-                    //System.out.println("Usuario... " + usuario);
+                if (usuario != null && usuario.isActivo()) {
+                    System.out.println("Usuario... " + usuario);
 
                     HttpSession session = Session.getSession();
                     session.setAttribute("usuario", usuario);
-                    session.setAttribute("cedula", usuario.getCedula());
-                    session.setAttribute("rol", usuario.getRol());
 
                     switch (usuario.getRol()) {
                         case "admin":
@@ -77,7 +75,9 @@ public class LoginBean implements Serializable {
                             //ystem.out.println("empleado");
                             return "/empleado/index.xhtml?faces-redirect=true";
                     }
-                } else {
+                }else if(!usuario.isActivo()){
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerta", "Su cuenta ah sido desactivada contacte con un administrador"));
+                }else {
                     //System.out.println("Usuario no es correcto");
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales incorrectas"));
                 }

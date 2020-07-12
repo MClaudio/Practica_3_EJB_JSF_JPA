@@ -42,10 +42,39 @@
         </navigation-case>		
     </navigation-rule>
     
+    
+    
+    <navigation-rule>
+        <from-view-id>/empleado/index.xhtml</from-view-id>
+        
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>empleado</from-outcome>
+            <to-view-id>/empleado/index.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>cliente</from-outcome>
+            <to-view-id>/empleado/cliente.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>facturas</from-outcome>
+            <to-view-id>/empleado/facturas.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>nuevaFactura</from-outcome>
+            <to-view-id>/empleado/nuevaFactura.xhtml</to-view-id>
+        </navigation-case>	
+    </navigation-rule>
+    
     <navigation-rule>
         <from-view-id>/admin/index.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>index</from-outcome>
+            <from-outcome>home</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
@@ -64,29 +93,5 @@
             <from-outcome>categoria</from-outcome>
             <to-view-id>/admin/categoria.xhtml</to-view-id>
         </navigation-case>		
-    </navigation-rule>
-    
-    <navigation-rule>
-        <from-view-id>/Empleado/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>index</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>empleado</from-outcome>
-            <to-view-id>/Empleado/index.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>cliente</from-outcome>
-            <to-view-id>/Empleado/cliente.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>facturas</from-outcome>
-            <to-view-id>/Empleado/facturas.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>nuevaFactura</from-outcome>
-            <to-view-id>/Empleado/nuevaFactura.xhtml</to-view-id>
-        </navigation-case>	
     </navigation-rule>
 </faces-config>
