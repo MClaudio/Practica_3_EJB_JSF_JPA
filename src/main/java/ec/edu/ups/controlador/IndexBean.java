@@ -8,9 +8,11 @@ package ec.edu.ups.controlador;
 import ec.edu.ups.ejb.BodegaFacade;
 import ec.edu.ups.ejb.CategoriaFacade;
 import ec.edu.ups.ejb.ProductoFacade;
+import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.modelo.Bodega;
 import ec.edu.ups.modelo.Categoria;
 import ec.edu.ups.modelo.Producto;
+import ec.edu.ups.modelo.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -18,15 +20,17 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.annotation.FacesConfig;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author criss
  */
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
-@Named(value = "productoBeanIndex")
+@Named(value = "indexBean")
 @SessionScoped
-public class ProductoBeanIndex implements Serializable {
+public class IndexBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,21 +40,20 @@ public class ProductoBeanIndex implements Serializable {
     private BodegaFacade bodegaFacade;
     @EJB
     private ProductoFacade productoFacade;
-    private String nombre;
-    private String medida;
+
     private List<Categoria> categorias;
     private Categoria categoria;
-    private double precio;
-    private int cantidad;
     private List<Bodega> bodegas;
     private Bodega bodega;
-    private Bodega bodegaItem;
     private List<Producto> productos;
+    private Producto producto;
+    private String nombre;
+
 
     /**
      * Creates a new instance of ProductoBeanIndex
      */
-    public ProductoBeanIndex() {
+    public IndexBean() {
     }
 
     @PostConstruct
@@ -58,14 +61,13 @@ public class ProductoBeanIndex implements Serializable {
 
         try {
             this.categorias = this.categoriaFacade.findAll();
-            this.cantidad = 1;
             this.productos = this.productoFacade.findAll();
+            System.out.println("Productos.. " + productos);
             this.bodegas = this.bodegaFacade.findAll();
 
         } catch (Exception e) {
             System.out.println("Error --- " + e);
         }
-
     }
 
     public String getNombre() {
@@ -82,22 +84,6 @@ public class ProductoBeanIndex implements Serializable {
 
     public void setCategorias(List<Categoria> categorias) {
         this.categorias = categorias;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
     }
 
     public List<Bodega> getBodegas() {
@@ -132,20 +118,13 @@ public class ProductoBeanIndex implements Serializable {
         this.productos = productos;
     }
 
-    public String getMedida() {
-        return medida;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setMedida(String medida) {
-        this.medida = medida;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
-    public Bodega getBodegaItem() {
-        return bodegaItem;
-    }
-
-    public void setBodegaItem(Bodega bodegaItem) {
-        this.bodegaItem = bodegaItem;
-    }
 
 }

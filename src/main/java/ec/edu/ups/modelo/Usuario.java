@@ -40,11 +40,13 @@ public class Usuario implements  Serializable{
     @Transient
     private boolean editable;
     private boolean cambioPassword;
+    private boolean activo;
     
     public Usuario(){
         this.rol = "cliente";
         this.password = "12345";
         this.cambioPassword = false;
+        this.activo = true;
         this.localidades = new ArrayList<>();
     }
 
@@ -55,6 +57,7 @@ public class Usuario implements  Serializable{
         this.correo = correo;
         this.password = password;
         this.rol = "cliente";
+        this.activo = true;
         this.localidades = new ArrayList<>();
     }
 
@@ -138,6 +141,14 @@ public class Usuario implements  Serializable{
         this.editable = editable;
     }
 
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

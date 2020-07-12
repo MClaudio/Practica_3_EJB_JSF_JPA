@@ -13,15 +13,16 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author Diego Duchimaza
  */
 @Stateless
-public class UsuarioFacade extends AbstractFacade<Usuario>{
-    
-     @PersistenceContext(unitName = "persistencia")
+public class UsuarioFacade extends AbstractFacade<Usuario> {
+
+    @PersistenceContext(unitName = "persistencia")
     private EntityManager em;
 
     public UsuarioFacade() {
@@ -30,31 +31,41 @@ public class UsuarioFacade extends AbstractFacade<Usuario>{
 
     @Override
     protected EntityManager getEntityManager() {
-       return em; 
+        return em;
     }
-    
-    public int contarFacturas(Usuario u){
-        
-        
-        String jpql = "SELECT COUNT(u.cedula) FROM Usuario u INNER JOIN FacturaCabecera f ON u.cedula = f.usuario.cedula WHERE u.cedula ='"+u.getCedula()+"' ";
-        
+
+    public int contarFacturas(Usuario u) {
+
+        String jpql = "SELECT COUNT(u.cedula) FROM Usuario u INNER JOIN FacturaCabecera f ON u.cedula = f.usuario.cedula WHERE u.cedula ='" + u.getCedula() + "' ";
+
         //System.out.println("Dato de base... " + em.createQuery(jpql).getSingleResult());
         Object obj = em.createQuery(jpql).getSingleResult();
-        if(obj != null){
+        if (obj != null) {
             return Integer.valueOf(String.valueOf(obj));
-        }else{
+        } else {
             return 0;
         }
-    
-        
-        
     }
-       public Usuario findByCedula(String cedula){
+
+    public Usuario findByCedula(String cedula) {
         //String jpql = "FROM PRODUCTO p INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO WHERE p.nombre LIKE '"+name+"%' AND i.CANTIDAD > 0";
-        String jpql = "SELECT FROM Usuario u WHERE u.cedula =  " +cedula+ ";";
+        String jpql = "SELECT FROM Usuario u WHERE u.cedula =  " + cedula + ";";
         return (Usuario) em.createQuery(jpql).getResultList();
     }
-    
-  
-    
+
+    public Usuario finByEmailAndPass(String correo, String pass) {
+        try {
+            String jpql = "FROM Usuario u WHERE u.correo =  ?1 AND u.password = ?2";
+            Query query = em.createQuery(jpql);
+            query.setParameter(1, correo);
+            query.setParameter(2, pass);
+            return (Usuario) query.getSingleResult();
+            
+        } catch (Exception e) {
+            System.out.println("Error: "+e);
+            return null;
+        }
+
+    }
+
 }

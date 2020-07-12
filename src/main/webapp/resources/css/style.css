@@ -2506,4 +2506,9 @@ footer.site-footer {
   #left-panel a{
       text-decoration: none;
   }
+  
+  header .header-menu .user-area .user-menu.dropdown-menu{
+      right: 1px;
+  }
+  
 /*# sourceMappingURL=style.css.map */

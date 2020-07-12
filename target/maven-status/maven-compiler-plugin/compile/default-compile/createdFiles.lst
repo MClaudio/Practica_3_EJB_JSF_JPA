@@ -1,4 +1,3 @@
-ec\edu\ups\controlador\ProductoBeanIndex.class
 ec\edu\ups\ejb\CategoriaFacade.class
 ec\edu\ups\controlador\ProductoBean.class
 ec\edu\ups\ejb\UsuarioFacade.class

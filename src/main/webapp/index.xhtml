@@ -10,17 +10,19 @@
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
     <ui:define name="head">
+        <f:event type="preRenderView" listener="#{loginBean.checkLogin('index')}" />
         <title>Index</title>
-        <h:outputStylesheet name="css/index/estilos.css"/>
+        
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"></link>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/css/mdb.min.css" rel="stylesheet"></link>
+    <h:outputStylesheet name="css/index/estilos.css"/>
     </ui:define>
 
 
     <ui:define name="body">
-        
-            <!-- Navbar -->
-            <header>
+
+        <!-- Navbar -->
+        <header>
             <nav class="navbar navbar-expand-lg navbar-dark gris row scrolling-navbar fixed-top">
                 <!-- logo -->
 
@@ -29,7 +31,6 @@
                         <img src="resources/img/favicon.png" height="55px" width="55px"/>
                     </a>
                 </div>
-
 
                 <!-- Search form -->
                 <form class=" col-xs-8 col-sm-4 col-md-4 col-mg-4 mr-sm-4"
@@ -43,87 +44,51 @@
 
                 <ul class="nav navbar-nav nav-flex-icons ml-auto  mr-sm-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="public/login.xhtml">
+                        <h:link class="nav-login" id="mi-cuenta" outcome="admin" rendered="#{loginBean.isLogin()}">
                             <i style="font-size: 17px;" class="fa fa-user"></i>
-
-                            <span class="clearfix d-none d-sm-inline-block" style="font-size: 17px;">Account</span>
-                        </a>
+                            <span class="clearfix d-none d-sm-inline-block ml-2" style="font-size: 17px;">Mi cuenta</span>
+                        </h:link> 
                     </li>
                 </ul>
             </nav>
         </header>
 
         <section class="zoom">
-            <img src="resources/img/index/text.jpg" class="text"/>
+            <h1>Distribuidora UPS</h1>
+            <!--<img src="resources/img/index/text.jpg" class="text"/>-->
         </section>
-        <!--Inicio de la tarjeta..........................................................................-->
 
-
-
-        <!--Inicio de tajertas volteables.................................................................-->
-
-        <div class="contenedor">
-            <c:forEach var="p" items="#{productoBeanIndex.productos}">
-                <div class="contenedor_tarjeta">
-
-
-                    <figure>
-                        <img class="frontal" src="https://www.landuum.com/wp-content/uploads/2019/03/cultura_paisajeiluminado_landuum5.jpg" alt=""/>
-
-                        <figcaption class="trasera">
-                            <h2 class="titulo">#{p.nombre}</h2>
-
-                            <hr>
-
-                                <p>
-                                    #{p.precio} $
-                                </p>
-                                <p>Categoria: #{p.categoria.nombre}</p>
-
-                            </hr>
-
-                            <a class="btn btn-danger btn-block" href="idenx2.html" type="submit" name="accion" value="">Comprar</a>
-                        </figcaption>
-                    </figure>
-
-                </div>
-            </c:forEach>
-        </div>
-        <!--Fin de tajertas volteables........................................................-->
-
-
-        <!--Inicio de tajertas de Boostrap.....................................................-->
         <div class="container"> 
-            <div class="row row-cols-1 row-cols-md-3">
-                <c:forEach var="p" items="#{productoBeanIndex.productos}">
+            <div class="row row-cols-1 row-cols-md-4">
+                <c:forEach var="p" items="#{indexBean.productos}">
                     <div class="col mb-4">
-
                         <!-- Card -->
                         <div class="card">
-
-
-
-
-
                             <!--Card image-->
                             <div class="view overlay">
-                                <h:graphicImage  class="card-img-top" style="width: 10em; height: 10em;"
+                                <h:graphicImage  class="card-img-top w-100 h-100" 
                                                  value = "https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap"/>
-
                             </div>
 
                             <!--Card content-->
                             <div class="card-body">
-
                                 <!--Title-->
                                 <h4 class="card-title">#{p.nombre}</h4>
                                 <!--Text-->
-                                <p class="card-text"> #{p.precio} $</p>
+
                                 <p class="card-text">Categoria: #{p.categoria.nombre}</p>
 
-
+                                <p class="text-right font-weight-bold h5 text-secondary"> #{p.precio} $</p>
                                 <!--   <button type="button" class="btn btn-light-blue btn-md"></button> -->
+                            </div>
+                            <div class="card-footer text-right">
+                                <h:form>
+                                    <h:commandLink id="btn-detalle"
+                                                   class="btn btn-primary w-100"
+                                                   value="Detalle">
 
+                                    </h:commandLink>
+                                </h:form>
                             </div>
 
 
@@ -135,9 +100,6 @@
 
             </div>
         </div>
-
-        <!--Inicio de tajertas de Boostrap........................................................-->
-
 
 
         <!-- Footer -->
@@ -206,22 +168,22 @@
 
                         <h5 class="font-weight-bold text-uppercase mb-4">Siguenos</h5>
 
-                        <!-- Facebook -->
+                        <div class="d-flex mt-5">
+                            <a href="https://www.facebook.com/christian.mocha.7" target="_black" class="fb-ic">
+                                <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
+                            </a>
 
-                        <a href="https://www.facebook.com/christian.mocha.7" target="_black" class="fb-ic">
-                            <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-                        </a>
-
-                        <!-- Instagram -->
-
-                        <a href="https://www.instagram.com/crissmocha/" target="_black" class="ins-ic">
-                            <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-                            <!-- Youtube -->
+                            <a href="https://www.instagram.com/crissmocha/" target="_black" class="ins-ic">
+                                <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
+                            </a>
 
                             <a href="https://www.youtube.com/channel/UCE6WWxqqeDaNhqOaRFSNXrA?view_as=subscriber" target="_black" class="ins-ic">
                                 <i class="fab fa-youtube fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
                             </a>
-                        </a>
+                        </div>
+
+
+
                     </div>
 
                     <!-- Grid column -->

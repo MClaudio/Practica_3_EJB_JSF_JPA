@@ -25,7 +25,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.annotation.FacesConfig;
 
-
 /**
  *
  * @author claum
@@ -258,6 +257,7 @@ public class NuevaFacturaBean implements Serializable {
         usuario = null;
         localidad = null;
         facturaDetalles = new ArrayList<>();
+        productos = null;
     }
 
 }

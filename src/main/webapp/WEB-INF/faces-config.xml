@@ -31,7 +31,27 @@
     </application>
     
     <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/public/login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>admin</from-outcome>
+            <to-view-id>/admin/index.xhtml</to-view-id>
+        </navigation-case>		
+    </navigation-rule>
+    
+    <navigation-rule>
         <from-view-id>/admin/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>admin</from-outcome>
+            <to-view-id>/admin/index.xhtml</to-view-id>
+        </navigation-case>
         <navigation-case>
             <from-outcome>producto</from-outcome>
             <to-view-id>/admin/producto.xhtml</to-view-id>
@@ -48,6 +68,14 @@
     
     <navigation-rule>
         <from-view-id>/Empleado/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>empleado</from-outcome>
+            <to-view-id>/Empleado/index.xhtml</to-view-id>
+        </navigation-case>
         <navigation-case>
             <from-outcome>cliente</from-outcome>
             <to-view-id>/Empleado/cliente.xhtml</to-view-id>
