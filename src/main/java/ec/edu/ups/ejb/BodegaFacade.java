@@ -42,5 +42,15 @@ public class BodegaFacade extends AbstractFacade<Bodega> {
             return 0;
         }
     }
+    
+    public List<Bodega> findByName(String name) {
+        System.out.println("llego al metodo de buscar...............................");
+        
+        System.out.println("nombre....... " + name.toString());
+        String jpql = "FROM Bodega b WHERE b.nombre LIKE '" + name + "%'";
+        
+        System.out.println("Lista================================== " +  em.createQuery(jpql).getResultList());
+        return (List<Bodega>) em.createQuery(jpql).getResultList();
+    }
 
 }
