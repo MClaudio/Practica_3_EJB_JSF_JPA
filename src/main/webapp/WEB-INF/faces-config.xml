@@ -45,7 +45,7 @@
     
     
     <navigation-rule>
-        <from-view-id>/empleado/index.xhtml</from-view-id>
+        <from-view-id>/empleado/*</from-view-id>
         
         <navigation-case>
             <from-outcome>home</from-outcome>
@@ -72,7 +72,7 @@
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>/admin/index.xhtml</from-view-id>
+        <from-view-id>/admin/*</from-view-id>
         <navigation-case>
             <from-outcome>home</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>

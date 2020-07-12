@@ -16,12 +16,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author criss
  */
 @Entity
+@XmlRootElement
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -90,6 +93,7 @@ public class Producto implements Serializable {
         this.precio = precio;
     }
 
+    @XmlTransient
     public List<FacturaDetalle> getFacturasDetalles() {
         return facturasDetalles;
     }
@@ -98,6 +102,7 @@ public class Producto implements Serializable {
         this.facturasDetalles = facturasDetalles;
     }
 
+    @XmlTransient
     public List<Inventario> getInventarios() {
         return inventarios;
     }

@@ -12,12 +12,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author criss
  */
 @Entity
+@XmlRootElement
 public class FacturaDetalle implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

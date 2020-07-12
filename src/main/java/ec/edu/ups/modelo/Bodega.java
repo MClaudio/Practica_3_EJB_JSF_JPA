@@ -15,12 +15,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author claum
  */
 @Entity
+@XmlRootElement
 public class Bodega implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,6 +72,7 @@ public class Bodega implements Serializable {
         this.localidad = localidad;
     }
 
+    @XmlTransient
     public List<Inventario> getInventarios() {
         return inventarios;
     }
