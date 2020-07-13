@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  *
@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 @Entity
-@XmlRootElement
+
 public class Localidad implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id

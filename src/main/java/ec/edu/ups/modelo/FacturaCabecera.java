@@ -18,14 +18,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
 /**
  *
  * @author Diego Duchimaza
  */
 @Entity
-@XmlRootElement
+
 public class FacturaCabecera implements  Serializable{
     private static final long serialVersionUID = 1;
     
@@ -93,7 +92,6 @@ public class FacturaCabecera implements  Serializable{
         this.usuario = usuario;
     }
 
-    @XmlTransient
     public List<FacturaDetalle> getFacturaDetalles() {
         return facturaDetalles;
     }

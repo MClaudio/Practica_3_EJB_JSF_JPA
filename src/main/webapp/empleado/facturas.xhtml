@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="content">
+
+        <script type="text/javascript">
+            function indicador(data) {
+                if (data.status == "begin") {
+
+                } else if (data.status == "success") {
+
+                }
+            }
+        </script>
+
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Facturas</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 d-flex">
+                        <div class="page-header float-left d-flex align-items-center">
+                            <div class="page-title ">
+                                <h:form id="f-buscar" class="d-flex">
+                                    <div class="form-group mr-3">
+                                        <label for="input-search" class="sr-only">Buscar</label>
+                                        <h:inputText class="form-control" id="input-search" a:placeholder="Buscar"
+                                                     value="#{facturasBean.cedula}"
+                                                     />
+                                    </div>
+                                    <h:commandButton class="btn btn-primary" value="Buscar"
+                                                     action="#{facturasBean.buscarUsuario}"
+                                                     /> 
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <h:link class="btn btn-primary" outcome="nuevaFactura" >
+                                    <i class="fas fa-edit"></i> Nueva Factura
+                                </h:link> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Lista de facturas</strong>
+
+                            </div>
+                            <div class="table-stats order-table ov-h">
+                                <h:form>
+                                    <h:dataTable value="#{facturasBean.facturasCabeceras}" var="fc" styleClass="tabla w-100"
+                                                 headerClass="cabeceraTabla" rowClasses="filaPar,filaImparar">
+
+                                        <h:column>
+                                            <f:facet name="header">Codigo</f:facet>
+                                            <h:outputText value="#{fc.codigo}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Cliente</f:facet>
+                                            <h:outputText value="#{fc.usuario.cedula}"/>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Fecha</f:facet>
+                                            <h:outputText value="#{fc.fecha}">
+                                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                                            </h:outputText>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Iva</f:facet>
+                                            <h:outputText value="#{fc.iva*100}%"/>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Sub-Total</f:facet>
+                                            <h:outputText value="#{fc.subTotal}"/>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Total</f:facet>
+                                            <h:outputText value="#{fc.total}"/>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Estado</f:facet>
+                                            <h:outputText value="#{fc.estado}"/>
+                                        </h:column>
+
+                                        <h:column>
+
+                                            <f:facet name="header">Detalles</f:facet>
+
+                                            <h:commandLink id="btn-detalles"
+                                                           class="btn btn-primary mr-3" 
+                                                           value="Detalles"
+                                                           a:data-toggle="modal" 
+                                                           a:data-target="#mediumModal" 
+                                                           action="#{facturasBean.listarDetalles(fc)}"
+                                                           >
+                                                <f:ajax execute="btn-detalles" render="mediumModal tab-detalles txt-estado" />
+                                            </h:commandLink>
+
+
+                                        </h:column>
+
+                                    </h:dataTable>
+                                </h:form>
+
+                            </div> <!-- /.table-stats -->
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .animated -->
+        </div>
+
+
+        <!-- Modal Agregar producto-->
+        <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div>
+                            <h5 class="modal-title" id="mediumModalLabel">Agregar Producto</h5>
+                            <h5>Estado: </h5><h:outputText id="txt-estado" value="#{facturasBean.facturaCabecera.estado}"/>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <h:form id="tab-detalles">
+                            <h:dataTable  styleClass="table w-100"  value="#{facturasBean.detalles}" var="d"
+                                          headerClass="cabeceraTabla" rowClasses="filaPar,filaImparar">
+                                <h:column>
+                                    <f:facet name="header">Producto</f:facet> 
+                                    <h:outputText value="#{d.producto.nombre}"/>               
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Precio Unitario</f:facet> 
+                                    <h:outputText value="#{d.producto.precio}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Categoria</f:facet> 
+                                    <h:outputText value="#{d.producto.categoria.nombre}"/>      
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Cantidad</f:facet> 
+                                    <h:outputText value="#{d.cantidad}"/>    
+                                </h:column>
+                                
+                                 <h:column>
+                                    <f:facet name="header">Subtotal</f:facet> 
+                                    <h:outputText value="#{d.subtotal}"/>   
+                                </h:column>
+
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <h:form>
+                            <h:commandLink class="btn btn-danger" value="Anular" action="#{facturasBean.anular()}"/>
+                            <h:commandLink class="btn btn-success" value="Facturar" action="#{facturasBean.facturar()}"/>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </h:form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- END Modal -->
+
+
+    </ui:define>
+</ui:composition>

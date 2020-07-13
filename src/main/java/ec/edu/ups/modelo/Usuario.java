@@ -17,15 +17,14 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
 
 /**
  *
  * @author Diego Duchimaza
  */
 @Entity
-@XmlRootElement
+
 public class Usuario implements  Serializable{
     
     @Id
@@ -104,7 +103,6 @@ public class Usuario implements  Serializable{
         this.password = password;
     }
 
-    @XmlTransient
     public List<FacturaCabecera> getFacturas() {
         return facturas;
     }
@@ -121,7 +119,7 @@ public class Usuario implements  Serializable{
         this.rol = rol;
     }
 
-    @XmlTransient
+
     public List<Localidad> getLocalidades() {
         return localidades;
     }

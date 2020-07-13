@@ -1,5 +1,7 @@
 ec\edu\ups\ejb\CategoriaFacade.class
 ec\edu\ups\controlador\ProductoBean.class
+ec\edu\ups\controlador\IndexBean.class
+ec\edu\ups\utilities\Session.class
 ec\edu\ups\ejb\UsuarioFacade.class
 ec\edu\ups\ejb\FacturaDetalleFacade.class
 ec\edu\ups\ejb\InventarioFacade.class
@@ -19,7 +21,9 @@ ec\edu\ups\modelo\Inventario.class
 ec\edu\ups\ejb\BodegaFacade.class
 ec\edu\ups\controlador\BodegaBean.class
 ec\edu\ups\ejb\ProductoFacade.class
+ec\edu\ups\servicios\ProductoRest.class
 ec\edu\ups\utilities\SelectOneMenuConverter.class
+ec\edu\ups\controlador\LoginBean.class
 ec\edu\ups\controlador\ClienteBean.class
 ec\edu\ups\modelo\Producto.class
 ec\edu\ups\ejb\LocalidadFacade.class

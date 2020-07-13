@@ -1,28 +1,29 @@
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\NuevaFacturaBean.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\ProductoBean.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\LocalidadFacade.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\ProductoFacade.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\FacturaCabeceraFacade.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Bodega.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\CategoriaBean.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\InventarioFacade.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\CategoriaFacade.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Producto.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Localidad.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Categoria.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\utilities\SelectOneMenuConverter.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\InventarioBean.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\LoginBean.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\AbstractFacade.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\ClienteBean.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\FacturasBean.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Inventario.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\FacturaCabecera.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\FacturaDetalle.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\FacturaDetalleFacade.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\BodegaBean.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\UsuarioFacade.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\IndexBean.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\BodegaFacade.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Usuario.java
-E:\Proyectos\NetBeansProjects\Practica3EJB_JSF_JPA\src\main\java\ec\edu\ups\utilities\Session.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\controlador\CategoriaBean.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\ejb\FacturaDetalleFacade.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\ejb\CategoriaFacade.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\controlador\FacturasBean.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\modelo\Usuario.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\controlador\BodegaBean.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\ejb\InventarioFacade.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\ejb\UsuarioFacade.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\modelo\Localidad.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\ejb\BodegaFacade.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\ejb\AbstractFacade.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\controlador\IndexBean.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\ejb\LocalidadFacade.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\utilities\Session.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\controlador\ClienteBean.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\utilities\SelectOneMenuConverter.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\servicios\ProductoRest.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\modelo\FacturaDetalle.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\modelo\Producto.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\controlador\NuevaFacturaBean.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\controlador\LoginBean.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\ejb\ProductoFacade.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\ejb\FacturaCabeceraFacade.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\modelo\Bodega.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\modelo\FacturaCabecera.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\controlador\ProductoBean.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\controlador\InventarioBean.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\modelo\Categoria.java
+C:\Users\Diego Duchimaza\Dropbox\Mi PC (DESKTOP-K70GRRJ)\Documents\NetBeansProjects\Practica_3_EJB_JSF_JPA_final\src\main\java\ec\edu\ups\modelo\Inventario.java
