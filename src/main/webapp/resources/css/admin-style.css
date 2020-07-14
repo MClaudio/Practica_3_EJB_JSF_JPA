@@ -1,0 +1,48 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 03-jul-2020, 15:36:59
+    Author     : claum
+*/
+
+#weatherWidget .currentDesc {
+    color: #ffffff!important;
+}
+.traffic-chart {
+    min-height: 335px;
+}
+#flotPie1  {
+    height: 150px;
+}
+#flotPie1 td {
+    padding:3px;
+}
+#flotPie1 table {
+    top: 20px!important;
+    right: -10px!important;
+}
+.chart-container {
+    display: table;
+    min-width: 270px ;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#flotLine5  {
+    height: 105px;
+}
+
+#flotBarChart {
+    height: 150px;
+}
+#cellPaiChart{
+    height: 160px;
+}
+
+.breadcrumbs breadcrumbs-inner row{
+    
+}
+

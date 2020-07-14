@@ -5,11 +5,8 @@
  */
 package ec.edu.ups.ejb;
 
-import ec.edu.ups.modelo.Categoria;
-import ec.edu.ups.modelo.Inventario;
-import ec.edu.ups.modelo.Producto;
+
 import ec.edu.ups.modelo.Usuario;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

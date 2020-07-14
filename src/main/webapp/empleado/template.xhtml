@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/include/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="head">
+        <f:event type="preRenderView" listener="#{loginBean.isEmpleado()}"/>
+        <title>Empleado</title>
+        <meta name="description" content="Ela Admin - HTML5 Admin Template"/>
+        <h:outputStylesheet name="css/empleado-style.css"/>
+    </ui:define>
+
+    <ui:define name="body">
+        <ui:include src="../imports/empleado-nav.xhtml"/>
+
+        <div id="right-panel" class="right-panel">
+            <!-- Header-->
+            <header id="header" class="header">
+                <div class="top-left">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="./"><h:graphicImage name="img/logo.png" alt="Logo"/></a>
+                        <a class="navbar-brand hidden" href="./"><h:graphicImage name="img/logo2.png" alt="Logo"/></a>
+                        <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                </div>
+                <div class="top-right">
+                    <div class="header-menu">
+                        <div class="header-left">
+                            <button class="search-trigger"><i class="fa fa-search"></i></button>
+                            <div class="form-inline">
+                                <form class="search-form">
+                                    <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search"/>
+                                    <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="user-area dropdown float-right">
+                            <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <h:graphicImage class="user-avatar rounded-circle" name="img/avatar/2.jpg" alt="User Avatar"/>
+                            </a>
+
+                            <div class="user-menu dropdown-menu">
+                                <a class="nav-link" href="#"><i class="fa fa-user"></i>My Profile</a>
+
+                                <a class="nav-link" href="#"><i class="fa fa-cog"></i>Settings</a>
+                                <h:form>
+                                    <h:commandLink class="nav-link" action="#{loginBean.logout()}">
+                                        <i class="fa fa-power-off"></i>Logout
+                                    </h:commandLink>
+                                </h:form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+
+            <ui:insert name="content"/>
+
+            <div class="clearfix"></div>
+            <ui:include src="../imports/footer.xhtml"/>
+        </div>
+
+    </ui:define>
+</ui:composition>
+
+

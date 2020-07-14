@@ -234,3 +234,4 @@ public class ClienteBean implements Serializable {
     }
 
 }
+

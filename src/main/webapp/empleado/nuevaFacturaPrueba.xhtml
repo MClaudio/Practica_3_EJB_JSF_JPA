@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Agregar Factura</title>
+    </h:head>
+
+    <h:form id="cabecera">
+        <label>Buscar usuario</label>
+        <h:inputText id="cedula" value="#{nuevaFacturaBean.cedula}" required="true"/>
+        <p>
+            <h:commandButton value="Buscar" action="#{nuevaFacturaBean.buscarUsuario}" />
+        </p>
+    </h:form>
+    <h:outputText value="#{nuevaFacturaBean.usuario.cedula}"/>
+    <h:outputText value="#{nuevaFacturaBean.usuario.nombre}"/>
+    <h:outputText value="#{nuevaFacturaBean.usuario.apellido}"/>
+    <h:outputText value="#{nuevaFacturaBean.usuario.correo}"/>
+
+    <br />
+    <h:form>
+        <label>Buscar producto</label>
+        <h:inputText id="producto" value="#{nuevaFacturaBean.productoNombre}" required="true" />
+        <h:outputText value="#{nuevaFacturaBean.producto.nombre}"/>
+        <h:commandButton value="AgregarProducto" action="#{nuevaFacturaBean.addProducto}" />
+    </h:form>
+    <br />
+    
+<!--
+    <h2>Primefaces AutoComplete example</h2>
+    <h:form id="form">
+        <h:panelGrid columns="2" cellpadding="5">
+            <p:outputLabel value="asdadasd" for="acSimple" /> 
+                <p:autoComplete id="acSimple" value="" completeMethod=""  />
+        </h:panelGrid>
+    </h:form>
+-->
+
+    <br />
+    <h3>JSF 2.3: dataTable</h3>
+    <h:form>
+        <h:dataTable value="#{nuevaFacturaBean.facturaDetalles}" var="detalle" styleClass="tabla"
+                     headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+            <h:column>
+                <f:facet name="header">Nombre</f:facet>
+                <h:outputText value="#{detalle.producto.nombre}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Precio unitario</f:facet>
+                <h:outputText value="#{detalle.producto.precio}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cantidad</f:facet>
+                <h:commandButton value="-" action="#{nuevaFacturaBean.deleteCantidad(detalle)}" />
+                <h:outputText value="#{detalle.cantidad}" />
+                <h:commandButton value="+" action="#{nuevaFacturaBean.addCantidad(detalle)}" />
+            </h:column>               
+            <h:column>
+                <f:facet name="header">Sub Total</f:facet>
+                <h:outputText value="#{detalle.subtotal}" />
+            </h:column>
+
+        </h:dataTable>
+    </h:form>
+
+
+    <br />
+    <!-- primera fila -->
+    <h:outputText value="Sub Total:"/>
+    <h:outputText id="subTotal" value="#{nuevaFacturaBean.facturaCabecera.subTotal}"/>
+    <br />
+    <!-- segunda fila -->
+    <h:outputText value="Iva:"/>
+    <h:outputText id="iva" value="#{nuevaFacturaBean.facturaCabecera.iva*100} %"/>
+    <br />
+    <h:outputText value="Total:"/>
+    <h:outputText id="total" value="#{nuevaFacturaBean.facturaCabecera.total}"/>
+    <br />
+    <h:form>
+        <h:commandButton id="guardar" value="Generar factura" action="#{nuevaFacturaBean.generarFactura}" />
+    </h:form>
+
+</html>

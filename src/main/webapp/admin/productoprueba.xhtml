@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        
+        <div class="form-group col-md-4">
+                                    <label for="bodega">Bodega</label>
+                                    <h:selectOneMenu class="form-control" id="bodega" converter="selectOneMenuConverter" value="#{productoBean.bodega}">
+                                        <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  />
+                                        <f:selectItems  value="#{productoBean.bodegas}" var="bodegaItem" 
+                                                        itemLabel="#{bodegaItem.nombre}" itemValue="#{bodegaItem}"/>
+                                    </h:selectOneMenu>
+                                    <h:message for="bodega" style="color:red" />
+                                </div>
+        
+        
+        <div class="form-group col-md-2">
+                                    <label for="producto-cantidad">Cantidad</label>
+                                    <h:inputText class="form-control" id="producto-cantidad" value="#{productoBean.cantidad}" converter="javax.faces.Integer" />
+                                    <h:message for="cantidad" style="color:red" />
+                                </div>
+        
+        
+        <h:form>
+            <fieldset>
+                <legend>Agregar Producto</legend>
+                <label>Nombre:</label>
+                <h:inputText id="producto-nombre" value="#{productoBean.nombre}" required="true"
+                             requiredMessage="Campo Obligatorio"/>
+                <h:message for="producto-nombre" style="color:red" />
+
+                <label>Unidad de medida:</label>
+                <h:selectOneMenu value="#{productoBean.medida}">
+                    <f:selectItems value="#{productoBean.unidadMedida}" />
+                </h:selectOneMenu>
+
+
+                <label>Categoria:</label>
+                <h:selectOneMenu id="categoria" converter="selectOneMenuConverter" value="#{productoBean.categoria}">
+                    <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  />
+                    <f:selectItems  value="#{productoBean.categorias}" var="categoriaItem" 
+                                    itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
+                </h:selectOneMenu>
+                <h:message for="categoria" style="color:red" />
+
+                <label>Precio unitario:</label>
+                <h:inputText id="precio" value="#{productoBean.precio}" converter="javax.faces.Double" />
+                <h:message for="precio" style="color:red" />
+
+                <label>Cantidad:</label>
+                <h:inputText id="cantidad" value="#{productoBean.cantidad}" converter="javax.faces.Integer" />
+                <h:message for="cantidad" style="color:red" />
+
+                <label>Bodega:</label>
+                <h:selectOneMenu id="bodega" converter="selectOneMenuConverter" value="#{productoBean.bodega}">
+                    <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  />
+                    <f:selectItems  value="#{productoBean.bodegas}" var="bodegaItem" 
+                                    itemLabel="#{bodegaItem.nombre}" itemValue="#{bodegaItem}"/>
+                </h:selectOneMenu>
+                <h:message for="bodega" style="color:red" />
+
+                <h:commandButton value="Crear Producto" action="#{productoBean.add}"></h:commandButton>
+
+            </fieldset>
+        </h:form>
+
+        <h:form>
+            <fieldset>
+                <legend>Lista de productos</legend>
+                <label>Bodega:</label>
+                <h:selectOneMenu id="bodega-productos" converter="selectOneMenuConverter" value="#{productoBean.bodegaItem}" >
+                    <f:selectItem  itemLabel="Todo" itemValue="#{null}" noSelectionOption="true"  />
+                    <f:selectItems  value="#{productoBean.bodegas}" var="bodegaIte" 
+                                    itemLabel="#{bodegaIte.nombre}" itemValue="#{bodegaIte}"/>
+                </h:selectOneMenu>
+                <h:commandButton value="Filtar" action="#{productoBean.buscarPorBodega}" />
+
+                <h:dataTable value="#{productoBean.productos}" var="p" styleClass="tabla"
+                             headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+
+                    <h:column>
+                        <f:facet name="header">Codigo</f:facet>#{p.codigo}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Imagen</f:facet>#{p.imagen}
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">Nombre</f:facet>
+                        <h:inputText value="#{p.nombre}" size="10"
+                                     rendered="#{p.editable}" />
+                        <h:outputText value="#{p.nombre}" rendered="#{not p.editable}" />
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">Medida</f:facet>
+                        <h:selectOneMenu value="#{productoBean.medida}" rendered="#{p.editable}">
+                            <f:selectItems value="#{productoBean.unidadMedida}" rendered="#{p.editable}"/>
+                        </h:selectOneMenu>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">Precio</f:facet>
+                        <h:inputText value="#{p.precio}" size="10"
+                                     rendered="#{p.editable}" converter="javax.faces.Double" />
+                        <h:outputText value="#{p.precio}" rendered="#{not p.editable}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Categoria</f:facet>
+                        <h:selectOneMenu id="categoria-seleccion" converter="selectOneMenuConverter" value="#{productoBean.categoria}" rendered="#{p.editable}">
+                            <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  rendered="#{p.editable}"/>
+                            <f:selectItems  value="#{productoBean.categorias}" var="categoriaItem"  rendered="#{p.editable}"
+                                            itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="#{p.categoria.nombre}" rendered="#{not p.editable}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Acciones</f:facet>
+                        <h:commandLink value="Eliminar" action="#{productoBean.delete(p)}" />
+                        <h:commandLink value="Editar" action="#{productoBean.edit(p)}"
+                                       rendered="#{not p.editable}" />
+                        <h:commandLink value="guardar" action="#{productoBean.save(p)}"
+                                       rendered="#{p.editable}" />
+                    </h:column>
+                </h:dataTable>
+            </fieldset>
+        </h:form>
+
+        
+    </h:body>
+</html>
+<!-- </h:form>
+                             <h:form>
+                                 <div class="form-row">
+                                     <div class="form-group col-md-6">
+     
+                                         <div class="form-row">
+                                             <div class="form-group col-md-6">
+                                                 <label for="bodega-add">Agregar una bodega</label>
+     
+     
+                                                 <h:selectOneMenu class="form-control" id="bodega-add" converter="selectOneMenuConverter" value="#{productoBean.newBodega}" >
+                                                     <f:selectItem  itemLabel="Todo" itemValue="#{null}" noSelectionOption="true"  />
+                                                     <f:selectItems  value="#{productoBean.bodegas}" var="bodegaIte" 
+                                                                     itemLabel="#{bodegaIte.nombre}" itemValue="#{bodegaIte}"/>
+                                                 </h:selectOneMenu>
+     
+                                                 <h:commandButton id="btnAddBodega" class="btn btn-primary" value="Agregar" action="#{productoBean.addBodega}"  >
+     
+                                                     <f:ajax event="click" execute="@this" render="list-bodegas" />
+                                                 </h:commandButton>
+     
+     
+                                             </div>
+                                             <div class="form-group col-md-3 ">
+     
+                                             </div>
+                                         </div>
+     
+                                     </div>
+                                     <div class="form-group col-md-6">
+     
+                                         <label>Bodegas</label>
+     
+                                         <h:outputText id="list-bodegas">
+                                             listado de bodegas
+                                             <ul>
+                                                                                    
+                                                 <c:forEach  var="b" items="">
+                                                     <li><i class="fas fa-trash-alt"></i> </li>
+                                                 </c:forEach>
+                                             </ul>
+                                         </h:outputText>
+     
+     
+     
+                                     </div>
+     
+                                 </div>
+                             </h:form>-->
+                            <!--</div>-->
+                            <!--<h:form>-->

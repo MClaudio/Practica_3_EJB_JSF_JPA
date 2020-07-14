@@ -1,0 +1,343 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="content">
+
+        <script type="text/javascript">
+            function indicador(data) {
+                if (data.status == "begin") {
+
+                } else if (data.status == "success") {
+
+                }
+            }
+        </script>
+
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Productos</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 d-flex">
+                        <div class="page-header float-left d-flex align-items-center">
+                            <div class="page-title ">
+                                <h:form id="f-buscar" class="d-flex">
+                                    <div class="form-group mr-3">
+                                        <label for="input-search" class="sr-only">Buscar</label>
+                                        <h:inputText class="form-control" 
+                                                     id="input-search" 
+                                                     a:placeholder="Buscar"
+                                                     value="#{productoBean.nombre}"
+                                                     />
+                                    </div>
+                                    <h:commandButton id="btn-buscar"
+                                                     class="btn btn-primary" value="Buscar"
+                                                     action="#{productoBean.buscarPorNombre}">
+                                        <f:ajax execute="btn-buscar input-search" 
+                                                render="form-tab-productos table-productos" />   
+                                    </h:commandButton>   
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <h:form>
+                                    <h:commandLink class="btn btn-primary" 
+                                                   id="btn-modal-crear"
+                                                   a:data-toggle="modal" 
+                                                   a:data-target="#mediumModal" 
+                                                   value="+ Agregar" 
+                                                   action="#{productoBean.newProducto}" 
+                                                   >
+                                        <f:ajax execute="btn-modal-crear" render="mediumModal" />
+                                    </h:commandLink>
+
+                                </h:form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Lista de productos</strong>
+                                <h:form class="mt-2 d-flex justify-content-between w-25">
+                                    <h:selectOneMenu class="form-control" id="bodega-productos" converter="selectOneMenuConverter" value="#{productoBean.bodega}" >
+                                        <f:selectItem  itemLabel="Todo" itemValue="#{null}" noSelectionOption="true"  />
+                                        <f:selectItems  value="#{productoBean.bodegas}" var="bodegaIte" 
+                                                        itemLabel="#{bodegaIte.nombre}" itemValue="#{bodegaIte}"/>
+                                    </h:selectOneMenu>
+                                    <h:commandButton class="btn btn-primary ml-2"
+                                                     id="btn-buscar-bodega"
+                                                     value="Filtar bodega" 
+                                                     action="#{productoBean.buscarPorBodega}"  
+                                                     >
+                                        
+                                    </h:commandButton>
+                                </h:form>
+                            </div>
+                            <div class="table-stats order-table ov-h">
+                                <h:form id="form-tab-productos">
+                                    <h:dataTable id="table-productos" value="#{productoBean.productos}" var="p" styleClass="tabla w-100"
+                                                 headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+
+
+                                        <h:column class="serial">
+                                            <f:facet class="serial" name="header">Codigo</f:facet>#{p.codigo}
+                                        </h:column>
+
+                                        <!--
+                                                                                <h:column class="avatar">
+                                                                                    <f:facet class="avatar" name="header">Imagen</f:facet>
+                                                                                    <div class="round-img">
+                                                                                        <h:graphicImage class="rounded-circle" alt=""/>
+                                                                                    </div>
+                                                                                </h:column>
+                                        -->
+                                        <h:column>
+                                            <f:facet name="header">Nombre</f:facet>
+                                            <span class="name">
+                                                <h:inputText class="form-control" value="#{p.nombre}" 
+                                                             rendered="#{p.editable}" />
+                                                <h:outputText value="#{p.nombre}" rendered="#{not p.editable}" />
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Unidad de medida</f:facet>
+                                            <h:selectOneMenu class="form-control" id="medida-seleccion" converter="selectOneMenuConverter" value="#{productoBean.medida}" rendered="#{p.editable}">
+                                                <f:selectItems  value="#{productoBean.unidadMedidas}" var="medidaItem"  rendered="#{p.editable}"
+                                                                itemLabel="#{medidaItem}" itemValue="#{medidaItem}"/>
+
+                                            </h:selectOneMenu>
+                                            <h:outputText value="#{p.unidadMedida}" rendered="#{not p.editable}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Precio</f:facet>
+                                            <h:inputText class="form-control" value="#{p.precio}" size="4" 
+                                                         rendered="#{p.editable}" converter="javax.faces.Double" />
+                                            <h:outputText value="#{p.precio} $" rendered="#{not p.editable}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Categoria</f:facet>
+                                            <h:selectOneMenu class="form-control" id="categoria-seleccion" converter="selectOneMenuConverter" value="#{productoBean.categoria}" rendered="#{p.editable}">
+                                                <f:selectItems  value="#{productoBean.categorias}" var="categoriaItem"  rendered="#{p.editable}"
+                                                                itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
+                                            </h:selectOneMenu>
+                                            <h:outputText value="#{p.categoria.nombre}" rendered="#{not p.editable}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Cantidad</f:facet>
+                                            <span class="count">
+                                                <h:outputText value="#{productoBean.cantidadProductos(p.codigo)}" />
+                                            </span>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Acciones</f:facet>
+                                            <h:commandLink class="btn btn-danger mr-3" 
+                                                           value="Eliminar" 
+                                                           action="#{productoBean.delete(p)}" />
+
+
+                                            <h:commandLink class="btn btn-primary mr-3" 
+                                                           value="Editar" 
+                                                           action="#{productoBean.edit(p)}"
+                                                           rendered="#{not p.editable}" />
+                                            <h:commandLink class="btn btn-success mr-3" 
+                                                           value="guardar" 
+                                                           action="#{productoBean.save(p)}"
+                                                           rendered="#{p.editable}" />
+
+                                            <h:commandLink id="btn-inventario" 
+                                                           class="btn btn-primary" 
+                                                           value="Inventario"
+                                                           a:data-toggle="modal" 
+                                                           a:data-target="#modalInvetario" 
+                                                           action="#{inventarioBean.inventarioProducto(p)}"
+                                                           >
+                                                <f:ajax execute="btn-inventario" render="modalInvetario form-tab-inventarios txt-producto-nombre" />
+                                            </h:commandLink>
+
+                                        </h:column>
+
+                                    </h:dataTable>
+                                </h:form>
+                            </div> <!-- /.table-stats -->
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .animated -->
+        </div>
+
+        <!-- Modal Agregar producto-->
+        <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumModalLabel">Agregar Producto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <h:form>
+                        <div class="modal-body">
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="producto-nombre">Nombre</label>
+                                    <h:inputText class="form-control" id="producto-nombre" value="#{productoBean.nombre}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="producto-nombre" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="producto-categoria">Categoria</label>
+                                    <h:selectOneMenu class="form-control" id="producto-categoria" converter="selectOneMenuConverter" value="#{productoBean.categoria}">
+                                        <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  />
+                                        <f:selectItems  value="#{productoBean.categorias}" var="categoriaItem" 
+                                                        itemLabel="#{categoriaItem.nombre}" itemValue="#{categoriaItem}"/>
+                                    </h:selectOneMenu>
+                                    <h:message for="producto-categoria" style="color:red" />
+                                </div>  
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <label for="producto-unidad">Unidad de medida</label>
+                                    <h:selectOneMenu class="form-control" id="producto-unidad" value="#{productoBean.medida}">
+                                        <f:selectItems value="#{productoBean.unidadMedidas}" />
+                                    </h:selectOneMenu>
+                                    <h:message for="producto-unidad" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="producto-precio">Precio unitario</label>
+                                    <h:inputText class="form-control" id="producto-precio" value="#{productoBean.precio}" converter="javax.faces.Double" />
+                                    <h:message for="precio" style="color:red" />
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <h:commandButton class="btn btn-success" value="Crear Producto" action="#{productoBean.add}"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- END Modal -->
+
+
+
+        <!-- Modal inventario-->
+        <div class="modal fade" id="modalInvetario" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <div>
+                            <h5 class="modal-title" id="mediumModalLabel">Inventario - <h:outputText id="txt-producto-nombre" value="#{inventarioBean.producto.nombre}"/> </h5>
+                            <h:form class="form-inline mt-2">
+                                <div class="form-group mb-1">
+                                    <label for="bodega-inventario">Bodega: </label>
+
+                                    <h:selectOneMenu class="form-control" id="bodega-inventario" converter="selectOneMenuConverter" value="#{inventarioBean.bodega}" >
+                                        <f:selectItems  value="#{productoBean.bodegas}" var="bodegaIte" 
+                                                        itemLabel="#{bodegaIte.nombre}" itemValue="#{bodegaIte}"/>
+                                    </h:selectOneMenu>
+                                </div>
+
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <label for="new-inventario-cantidad" >Cantidad: </label>
+                                    <h:inputText id="new-inventario-cantidad" class="form-control" value="#{inventarioBean.cantidad}" required="true"/>
+                                </div>
+                                <h:commandButton id="btn-new-inventario" class="btn btn-primary mb-2" value="Nuevo inventario" action="#{inventarioBean.add()}" >
+                                    <f:ajax execute="btn-new-inventario new-inventario-cantidad bodega-inventario" 
+                                            render="form-tab-inventarios form-tab-productos new-inventario-cantidad" />
+                                </h:commandButton>
+                            </h:form>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-body">
+                        <h:form id="form-tab-inventarios"> 
+                            <h:dataTable id="table-inventarios" value="#{inventarioBean.inventarios}" var="i" styleClass="tabla w-100"
+                                         headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+
+                                <h:column class="serial">
+                                    <f:facet class="serial" name="header">Codigo</f:facet>#{i.codigo}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Bodega</f:facet>
+                                    <h:selectOneMenu class="form-control" id="inventario-bodega" converter="selectOneMenuConverter" value="#{inventarioBean.bodega}" rendered="#{i.editable}">
+                                        <f:selectItems  value="#{productoBean.bodegas}" var="bodegaItem"  
+                                                        itemLabel="#{bodegaItem.nombre}" itemValue="#{bodegaItem}"/>
+                                    </h:selectOneMenu>
+                                    <h:outputText id="txt-inventario-bodega" value="#{i.bodega.nombre}"  rendered="#{not i.editable}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Cantidad</f:facet>
+                                    <span class="name">
+                                        <h:inputText class="form-control" id="inventario-cantidad" rendered="#{i.editable}" value="#{i.cantidad}"/>
+                                        <h:outputText id="txt-inventario-cantidad" value="#{i.cantidad}" rendered="#{not i.editable}"/>
+                                    </span>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Acciones</f:facet>
+                                    <h:commandLink id="btn-eliminar-inventario" class="btn btn-danger mr-3" value="Eliminar" action="#{inventarioBean.delete(i)}" >
+                                        <f:ajax execute="btn-eliminar-inventario" 
+                                                render="form-tab-inventarios form-tab-productos" />
+                                    </h:commandLink>
+                                    <h:commandLink id="btn-editar-inventario" class="btn btn-primary mr-3" value="Editar" action="#{inventarioBean.edit(i)}"  rendered="#{not i.editable}">
+                                        <f:ajax execute="btn-editar-inventario" 
+                                                render="form-tab-inventarios inventario-bodega inventario-cantidad txt-inventario-bodega txt-inventario-cantidad btn-editar-inventario btn-guardar-inventario" />
+                                    </h:commandLink>
+                                    <h:commandLink id="btn-guardar-inventario" class="btn btn-success mr-3" value="guardar" action="#{inventarioBean.save(i)}" rendered="#{i.editable}">
+                                        <f:ajax execute="btn-guardar-inventario inventario-bodega inventario-cantidad" 
+                                                render="form-tab-inventarios form-tab-productos txt-inventario-bodega txt-inventario-cantidad btn-editar-inventario btn-guardar-inventario" />
+                                    </h:commandLink>
+
+                                </h:column>
+
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Modal -->
+    </ui:define>
+</ui:composition>
+
