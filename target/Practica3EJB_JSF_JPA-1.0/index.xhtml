@@ -10,7 +10,7 @@
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
     <ui:define name="head">
-        <!--  <f:event type="preRenderView" listener="{loginBean.checkLogin('index')}" /> -->
+        <f:event type="preRenderView" listener="#{loginBean.checkLogin('index')}" /> 
        
         <title>Index</title>
 
@@ -45,10 +45,10 @@
 
                 <ul class="nav navbar-nav nav-flex-icons ml-auto  mr-sm-2">
                     <li class="nav-item">
-                        <h:link class="nav-login" id="mi-cuenta" outcome="admin" rendered="#{loginBean.isLogin()}">
+               <         <h:link class="nav-login" id="mi-cuenta" outcome="admin" rendered="#{loginBean.isLogin()}">
                             <i style="font-size: 17px;" class="fa fa-user"></i>
                             <span class="clearfix d-none d-sm-inline-block ml-2" style="font-size: 17px;">Mi cuenta</span>
-                        </h:link> 
+                        </h:link>  
                     </li>
                 </ul>
             </nav>
