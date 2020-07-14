@@ -7,6 +7,7 @@ package ec.edu.ups.controlador;
 
 import ec.edu.ups.ejb.BodegaFacade;
 import ec.edu.ups.ejb.CategoriaFacade;
+import ec.edu.ups.ejb.InventarioFacade;
 import ec.edu.ups.ejb.ProductoFacade;
 import ec.edu.ups.modelo.Bodega;
 import ec.edu.ups.modelo.Categoria;
@@ -15,6 +16,8 @@ import ec.edu.ups.modelo.Producto;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -39,32 +42,41 @@ public class ProductoBean implements Serializable {
     private BodegaFacade bodegaFacade;
     @EJB
     private ProductoFacade productoFacade;
+
     private String nombre;
     private String medida;
     private List<Categoria> categorias;
     private Categoria categoria;
     private double precio;
-    private int cantidad;
     private List<Bodega> bodegas;
     private Bodega bodega;
     private List<Producto> productos;
+    private List<String> unidadMedidas;
+
 
     /**
      * Creates a new instance of ProductoBean
      */
     public ProductoBean() {
-        
+
     }
 
     @PostConstruct
     public void init() {
+        this.unidadMedidas = new ArrayList<>();
+        this.unidadMedidas = Arrays.asList(
+                "unidad",
+                "lb",
+                "kg",
+                "l"
+        );
 
         try {
             this.categorias = this.categoriaFacade.findAll();
-            this.cantidad = 1;
-            this.productos = this.productoFacade.findAll();
-            this.bodegas = this.bodegaFacade.findAll();
+            //System.out.println("lista de categorias en el init.."+this.categorias);
             
+            this.bodegas = this.bodegaFacade.findAll();
+            this.productos = this.productoFacade.findAll();
         } catch (Exception e) {
             System.out.println("Error --- " + e);
         }
@@ -95,13 +107,6 @@ public class ProductoBean implements Serializable {
         this.precio = precio;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
 
     public List<Bodega> getBodegas() {
         return bodegas;
@@ -128,6 +133,7 @@ public class ProductoBean implements Serializable {
     }
 
     public List<Producto> getProductos() {
+        
         return productos;
     }
 
@@ -142,36 +148,72 @@ public class ProductoBean implements Serializable {
     public void setMedida(String medida) {
         this.medida = medida;
     }
-    
-    
+
+    public List<String> getUnidadMedidas() {
+        return unidadMedidas;
+    }
+
+    public void newProducto() {
+        this.nombre = null;
+        this.medida = null;
+    }
 
     public String add() {
 
-        if (this.categoria != null && this.bodega != null) {
-            //System.out.println("Categoria: "+this.categoria.getNombre());
-            Inventario inventario = new Inventario(this.cantidad);
-            inventario.setBodega(this.bodega);
+        if (this.categoria != null) {
+            //Inventario inventario = new Inventario(this.cantidad);
+            //inventario.setBodega(this.bodega);
 
             Producto producto = new Producto();
             producto.setNombre(this.nombre);
             producto.setPrecio(this.precio);
-            producto.setImagen("/imagen.gpg");
+            producto.setImagen("imagen.gpg");
             producto.setUnidadMedida(this.medida);
             producto.setCategoria(this.categoria);
-            producto.addInventario(inventario);
+            //producto.addInventario(inventario);
 
             productoFacade.create(producto);
-        }else{
+        } else {
             FacesMessage message = new FacesMessage("Debe seleccionar una categoria y una bodega");
-	    throw new ValidatorException(message);
+            throw new ValidatorException(message);
         }
 
+        this.productos = this.productoFacade.findAll();
         return null;
+
     }
 
     public String delete(Producto producto) {
         this.productoFacade.remove(producto);
+        this.productos = this.productoFacade.findAll();
         return null;
+    }
+
+    public void buscarPorBodega() {
+        if (bodega != null) {
+            //System.out.println("Cambio de item em bodega..." +bodegaItem.toString());
+            this.productos = productoFacade.findByBodega(this.bodega.getCodigo());
+        } else {
+            //System.out.println("Es nulo... ");
+            this.productos = this.productoFacade.findAll();
+        }
+    }
+
+    public int cantidadProductos(int codigo) {
+        return productoFacade.countAllProducts(codigo);
+    }
+
+    public void buscarPorNombre() {
+        
+        if (nombre != null && !nombre.equals("")) {
+            //System.out.println("Cambio de item em bodega..." + nombre);
+            this.productos = productoFacade.findByName(this.nombre);
+        } else {
+            //System.out.println("Es nulo... ");
+            this.productos = this.productoFacade.findAll();
+        }
+        System.out.println("Nombre a buscar ..." +this.productos);
+        nombre = null;
     }
 
     public String edit(Producto producto) {
@@ -180,8 +222,12 @@ public class ProductoBean implements Serializable {
     }
 
     public String save(Producto producto) {
+       //System.out.println("Medida a editar..." + medida);
+        producto.setUnidadMedida(medida);
+        producto.setCategoria(this.categoria);
         productoFacade.edit(producto);
         producto.setEditable(false);
+        this.productos = this.productoFacade.findAll();
         return null;
     }
 

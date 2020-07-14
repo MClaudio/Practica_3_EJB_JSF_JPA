@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<faces-config version="2.3"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
+    
+    <application>
+        <resource-handler>
+            org.omnifaces.resourcehandler.UnmappedResourceHandler
+        </resource-handler>
+    </application>
+    
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/public/login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>admin</from-outcome>
+            <to-view-id>/admin/index.xhtml</to-view-id>
+        </navigation-case>		
+    </navigation-rule>
+    
+    
+    
+    <navigation-rule>
+        <from-view-id>/empleado/*</from-view-id>
+        
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>empleado</from-outcome>
+            <to-view-id>/empleado/index.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>cliente</from-outcome>
+            <to-view-id>/empleado/cliente.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>facturas</from-outcome>
+            <to-view-id>/empleado/facturas.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>nuevaFactura</from-outcome>
+            <to-view-id>/empleado/nuevaFactura.xhtml</to-view-id>
+        </navigation-case>	
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/admin/*</from-view-id>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>admin</from-outcome>
+            <to-view-id>/admin/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>producto</from-outcome>
+            <to-view-id>/admin/producto.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bodega</from-outcome>
+            <to-view-id>/admin/bodega.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>categoria</from-outcome>
+            <to-view-id>/admin/categoria.xhtml</to-view-id>
+        </navigation-case>		
+    </navigation-rule>
+</faces-config>

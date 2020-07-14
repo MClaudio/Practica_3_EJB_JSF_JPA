@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <fieldset>
+                <legend>Agregar Categoria</legend>
+                <label>Nombre:</label>
+                <h:inputText id="categoria-nombre" value="#{categoriaBean.nombre}" required="true"
+                             requiredMessage="Campo Obligatorio"/>
+                <h:message for="categoria-nombre" style="color:red" />
+                 
+                <label>Descripcion:</label>
+                <h:inputTextarea id="categoria-descripcion" value="#{categoriaBean.decripcion}" required="true"
+                             requiredMessage="Campo Obligatorio"/>
+                <h:message for="categoria-descripcion" style="color:red" />
+                
+           
+                
+                <h:commandButton value="Crear Categoria" action="#{categoriaBean.guardarDatos}"></h:commandButton>
+
+            </fieldset>
+        </h:form>
+
+        <h:form>
+            <fieldset>
+                <legend>Lista de Categorias</legend>
+   
+                <h:dataTable value="#{categoriaBean.categorias}" var="c" styleClass="tabla"
+                             headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+
+                    <h:column>
+                        <f:facet name="header">Codigo</f:facet>#{c.codigo}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Nombre</f:facet>
+                        <h:inputText value="#{c.nombre}" size="10"
+                                     rendered="#{c.editable}" />
+                        <h:outputText value="#{c.nombre}" rendered="#{not c.editable}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Descripcion</f:facet>
+                        <h:inputTextarea value="#{c.descripcion}" rows="5" cols="30" 
+                                     rendered="#{c.editable}"/>
+                        <h:outputText value="#{c.descripcion}" rendered="#{not c.editable}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Acciones</f:facet>
+                        <h:commandLink value="Eliminar" action="#{categoriaBean.delete(c)}" />
+
+
+                        <h:commandLink value="Editar" action="#{categoriaBean.edit(c)}"
+                                       rendered="#{not c.editable}" />
+                        <h:commandLink value="guardar" action="#{categoriaBean.save(c)}"
+                                       rendered="#{c.editable}" />
+                    </h:column>
+                </h:dataTable>
+            </fieldset>
+        </h:form>
+    </h:body>
+</html>
