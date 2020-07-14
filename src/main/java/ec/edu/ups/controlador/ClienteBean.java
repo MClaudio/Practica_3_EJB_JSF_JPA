@@ -29,13 +29,13 @@ import javax.faces.annotation.FacesConfig;
 public class ClienteBean implements Serializable {
 
     private static final long serialVersionUID = 1;
-    
+
     @EJB
     private UsuarioFacade usuarioFacade;
-    
+
     @EJB
     private LocalidadFacade localidadFacade;
-    
+
     private String nombre;
     private String apellido;
     private String cedula;
@@ -46,29 +46,26 @@ public class ClienteBean implements Serializable {
     private String pais;
     private String provincia;
     private List<Usuario> usuarios;
-    private List<Localidad>localidades;
+    private List<Localidad> localidades;
     private String clienteCedula;
-   
-    
 
     public ClienteBean() {
-        
+
     }
 
     @PostConstruct
     public void init() {
         try {
-              System.out.println("Lista usuarios"+ this.usuarios);
+            System.out.println("Lista usuarios" + this.usuarios);
             this.usuarios = usuarioFacade.findAll();
-          
+
             //this.localidad=localidadFacade.findAll();
-            this.localidades=new ArrayList<>();
-            
-            
+            this.localidades = new ArrayList<>();
+
         } catch (Exception e) {
-            System.out.println("Error---"+e);
+            System.out.println("Error---" + e);
         }
-    }  
+    }
 
     public List<Localidad> getLocalidades() {
         return localidades;
@@ -77,10 +74,6 @@ public class ClienteBean implements Serializable {
     public void setLocalidades(List<Localidad> localidades) {
         this.localidades = localidades;
     }
-
-    
-    
-    
 
     public String getCedula() {
         return cedula;
@@ -169,76 +162,75 @@ public class ClienteBean implements Serializable {
     public void setClienteCedula(String clienteCedula) {
         this.clienteCedula = clienteCedula;
     }
-    
-    
+
     public String guardarDatos() {
         Usuario usuario = new Usuario();
         usuario.setNombre(this.nombre);
         usuario.setApellido(this.apellido);
         usuario.setCedula(this.cedula);
         usuario.setCorreo(this.correo);
-        
-        
 
         Localidad localidad = new Localidad(this.pais, this.provincia, this.ciudad, this.direccion, this.telefono);
         //localidad.setTelefono(this.telefono);
         usuario.addLocalidad(localidad);
         localidad.setUsuario(usuario);
-        
-        System.out.println("Usuario: "+usuario.toString());
+
+        System.out.println("Usuario: " + usuario.toString());
 
         usuarioFacade.create(usuario);
-        
+
         this.usuarios = usuarioFacade.findAll();
         return null;
 
     }
-    
-     public String delete(Usuario usuario) {
+
+    public String delete(Usuario usuario) {
         this.usuarioFacade.remove(usuario);
         return null;
     }
-     
-     public String edit(Usuario usuario) {
-       usuario.setEditable(true);
+
+    public String edit(Usuario usuario) {
+        usuario.setEditable(true);
         return null;
     }
-     
-       public void listarLocalidad(Usuario usuario){
-           
-       //this.localidad=new ArrayList<>();    
-       this.localidades=usuario.getLocalidades();
-        System.out.println("Localidades"+this.localidades);
-       }
-       
-       public String save(Usuario usuario) {
+
+    public void listarLocalidad(Usuario usuario) {
+
+        //this.localidad=new ArrayList<>();    
+        this.localidades = usuario.getLocalidades();
+        System.out.println("Localidades" + this.localidades);
+    }
+
+    public String save(Usuario usuario) {
         //bodegaFacade.edit(b);
         usuarioFacade.edit(usuario);
-       // System.out.println("Guardar Usuario: "+b.getLocalidad().toString());
+        // System.out.println("Guardar Usuario: "+b.getLocalidad().toString());
         usuario.setEditable(false);
         this.usuarios = usuarioFacade.findAll();
         return null;
     }
-       
-       public int totalFactura(Usuario u){
-           
-          return usuarioFacade.contarFacturas(u);    
-           
-       }
-          public void newCliente() {
-     
-   }
-         public void buscarPorCedula() {
-        if (clienteCedula!= null) {
+
+    public int totalFactura(Usuario u) {
+
+        return usuarioFacade.contarFacturas(u);
+
+    }
+
+    public void newCliente() {
+
+    }
+
+    public void buscarPorCedula() {
+        if (clienteCedula != null) {
             //System.out.println("Cambio de item em bodega..." +bodegaItem.toString());
-           Usuario usuario = new Usuario();
-            usuario = usuarioFacade.findByCedula(this.clienteCedula);  
-                 System.out.println(usuario);
+            Usuario usuario = new Usuario();
+            usuario = usuarioFacade.find(this.clienteCedula);
+            System.out.println(usuario);
         } else {
             //System.out.println("Es nulo... ");
-            this.usuarios= this.usuarioFacade.findAll();    
+            this.usuarios = this.usuarioFacade.findAll();
         }
-        clienteCedula= null;
+        clienteCedula = null;
     }
 
 }

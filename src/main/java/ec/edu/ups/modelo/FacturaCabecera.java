@@ -6,10 +6,10 @@
 package ec.edu.ups.modelo;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,23 +24,24 @@ import javax.persistence.OneToOne;
  * @author Diego Duchimaza
  */
 @Entity
-
 public class FacturaCabecera implements  Serializable{
     private static final long serialVersionUID = 1;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
-    private Date fecha;
+    private LocalDate fecha;
     private double iva;
     private double subTotal;
     private double total;
     private String estado;
-   
+    @JsonbTransient
     @ManyToOne
     private Usuario usuario;
+    @JsonbTransient
     @OneToMany(mappedBy = "facturaCabecera", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaDetalle> facturaDetalles;
+    @JsonbTransient
     @OneToOne
     private Localidad localidad;
 
@@ -50,7 +51,7 @@ public class FacturaCabecera implements  Serializable{
         this.estado = "pendiente";
     }
 
-    public FacturaCabecera(Date fecha,double total, Usuario usuario, List<FacturaDetalle> facturaDetalles) {
+    public FacturaCabecera(LocalDate fecha,double total, Usuario usuario, List<FacturaDetalle> facturaDetalles) {
         this.fecha = fecha;
         this.total = total;
         this.usuario = usuario;
@@ -67,11 +68,11 @@ public class FacturaCabecera implements  Serializable{
         this.codigo = codigo;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

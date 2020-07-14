@@ -18,6 +18,7 @@ import ec.edu.ups.modelo.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -228,7 +229,7 @@ public class NuevaFacturaBean implements Serializable {
 
             this.facturaCabecera.setUsuario(this.usuario);
             this.facturaCabecera.setLocalidad(this.localidad);
-            this.facturaCabecera.setFecha(new Date());
+            this.facturaCabecera.setFecha(LocalDate.now());
             this.facturaCabecera.calcularSubTotal();
             this.facturaCabecera.calcularTotal();
             try {

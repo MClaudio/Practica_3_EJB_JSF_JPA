@@ -47,12 +47,6 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         }
     }
 
-    public Usuario findByCedula(String cedula) {
-        //String jpql = "FROM PRODUCTO p INNER JOIN INVENTARIO i ON i.PRODUCTO_CODIGO = p.CODIGO WHERE p.nombre LIKE '"+name+"%' AND i.CANTIDAD > 0";
-        String jpql = "SELECT FROM Usuario u WHERE u.cedula =  " + cedula + ";";
-        return (Usuario) em.createQuery(jpql).getResultList();
-    }
-
     public Usuario finByEmailAndPass(String correo, String pass) {
         try {
             String jpql = "FROM Usuario u WHERE u.correo =  ?1 AND u.password = ?2";

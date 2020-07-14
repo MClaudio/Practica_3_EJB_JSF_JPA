@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,14 +36,19 @@ public class Usuario implements  Serializable{
     private String correo;
     private String password;
     private String rol;
+    @JsonbTransient
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaCabecera> facturas;
+    //@JsonbTransient
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Localidad> localidades;
-    @Transient
-    private boolean editable;
     private boolean cambioPassword;
     private boolean activo;
+    
+    @JsonbTransient
+    @Transient
+    private boolean editable;
+    
     
     public Usuario(){
         this.rol = "cliente";
@@ -59,6 +65,7 @@ public class Usuario implements  Serializable{
         this.correo = correo;
         this.password = password;
         this.rol = "cliente";
+        this.password = "12345";
         this.activo = true;
         this.localidades = new ArrayList<>();
     }
