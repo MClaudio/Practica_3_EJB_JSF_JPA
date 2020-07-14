@@ -196,6 +196,7 @@ public class ClienteBean implements Serializable {
     
      public String delete(Usuario usuario) {
         this.usuarioFacade.remove(usuario);
+        this.usuarios = usuarioFacade.findAll();
         return null;
     }
      
@@ -240,5 +241,13 @@ public class ClienteBean implements Serializable {
         }
         clienteCedula= null;
     }
+         
+         public String deleteLocalidad(Localidad localidad){
+             LocalidadBean localidadbean = new LocalidadBean();
+             localidadbean.delete(localidad);
+             this.localidadFacade.remove(localidad);
+        return null;
+         }
+         
 
 }

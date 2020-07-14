@@ -54,6 +54,7 @@ public class Localidad implements Serializable{
         this.ciudad = ciudad;
         this.direccion = direccion;
         this.telefono = telefono;
+
     }
 
     public String getPais() {
