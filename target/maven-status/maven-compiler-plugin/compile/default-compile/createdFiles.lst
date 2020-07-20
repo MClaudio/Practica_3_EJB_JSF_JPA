@@ -5,7 +5,9 @@ ec\edu\ups\utilities\Session.class
 ec\edu\ups\ejb\UsuarioFacade.class
 ec\edu\ups\ejb\FacturaDetalleFacade.class
 ec\edu\ups\ejb\InventarioFacade.class
+ec\edu\ups\servicios\FacturasRest.class
 ec\edu\ups\modelo\Usuario.class
+ec\edu\ups\servicios\UsuarioRest.class
 ec\edu\ups\ejb\FacturaCabeceraFacade.class
 ec\edu\ups\modelo\Bodega.class
 ec\edu\ups\modelo\Categoria.class
@@ -15,6 +17,7 @@ ec\edu\ups\modelo\FacturaDetalle.class
 ec\edu\ups\controlador\LocalidadBean.class
 ec\edu\ups\controlador\NuevaFacturaBean.class
 ec\edu\ups\controlador\CategoriaBean.class
+ec\edu\ups\servicios\LocalidadRest.class
 ec\edu\ups\controlador\FacturasBean.class
 ec\edu\ups\modelo\FacturaCabecera.class
 ec\edu\ups\ejb\AbstractFacade.class
