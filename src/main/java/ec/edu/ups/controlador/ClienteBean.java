@@ -48,6 +48,8 @@ public class ClienteBean implements Serializable {
     private List<Usuario> usuarios;
     private List<Localidad> localidades;
     private String clienteCedula;
+    
+    private Localidad localidad;
 
     public ClienteBean() {
 
@@ -163,6 +165,15 @@ public class ClienteBean implements Serializable {
         this.clienteCedula = clienteCedula;
     }
 
+    public Localidad getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
+    }
+
+    
     public String guardarDatos() {
         Usuario usuario = new Usuario();
         usuario.setNombre(this.nombre);

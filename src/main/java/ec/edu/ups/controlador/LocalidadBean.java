@@ -42,6 +42,7 @@ public class LocalidadBean implements Serializable {
     private String direccion;
     private String telefono;
     private List<Localidad> localidades;
+    private Localidad localidad;
     
        @PostConstruct
     public void init() {
@@ -129,6 +130,16 @@ public class LocalidadBean implements Serializable {
     public void setLocalidades(List<Localidad> localidades) {
         this.localidades = localidades;
     }
+
+    public Localidad getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
+    }
+    
+    
     
   
       public String guardarDatos() {
@@ -138,6 +149,7 @@ public class LocalidadBean implements Serializable {
         localidad.setCiudad(this.ciudad);
         localidad.setDireccion(this.direccion);
         localidad.setTelefono(this.telefono);
+        localidad.setUsuario(this.usuario);
 
         System.out.println("Localidad: " + localidad.toString());
 

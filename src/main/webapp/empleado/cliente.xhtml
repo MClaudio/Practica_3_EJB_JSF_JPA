@@ -262,6 +262,43 @@
 
                     <div class="modal-body">
                         <h:form id="form-tab-localidad"> 
+                              <div class="form-row" >
+                                <div class="form-group col-md-4">
+                                    <label for="ttelefono">Telefono</label>
+                                    <h:inputText class="form-control" id="ttelefono" value="#{clienteBean.telefono}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="ttelefono" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="ppais">Pais</label>
+                                    <h:inputText class="form-control" id="ppais" value="#{clienteBean.pais}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="ppais" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="pprovincia">Provincia</label>
+                                    <h:inputText class="form-control" id="pprovincia" value="#{clienteBean.provincia}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="pprovincia" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="cpciudad">Ciudad</label>
+                                    <h:inputText class="form-control" id="cpciudad" value="#{clienteBean.ciudad}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="cciudad" style="color:red" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="ddireccion">Direccion</label>
+                                    <h:inputText class="form-control" id="ddireccion" value="#{clienteBean.direccion}" required="true"
+                                                 requiredMessage="Campo Obligatorio"/>
+                                    <h:message for="ddireccion" style="color:red" />
+                                </div>
+
+                            </div>
+                               <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <h:commandButton class="btn btn-success" value="Guardar" action="#{localidadBean.guardarDatos()}"/>
+                            </div>
                             <h:dataTable id="table-inventarios" value="#{clienteBean.localidades}" var="l" styleClass="tabla w-100"
                                          headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 
@@ -300,14 +337,15 @@
 
                                 <h:column>
                                     <f:facet name="header">Acciones</f:facet>
+                                    <h:commandLink class="btn btn-danger mr-3" value="Eliminar" action="#{localidadBean.delete(l)}" />
                               
-                                    <h:commandLink id="btn-editar-localidad" class="btn btn-primary mr-3" value="Editar" action="#{clienteBean.edit(l)}"  rendered="#{not l.editable}">
+                                    <h:commandLink id="btn-editar-localidad" class="btn btn-primary mr-3" value="Editar" action="#{localidadBean.edit(l)}"  rendered="#{not l.editable}">
                                         <f:ajax execute="btn-editar-localidad" 
-                                                render="form-tab-localidad  txt-inventario-cantidad btn-editar-localidad btn-guardar-localidad" />
+                                                render="form-tab-localidad  txt-inventario-cantidad table-inventarios txt-pais txt-provincia txt-ciudad txt-direccion btn-editar-localidad btn-guardar-localidad" />
                                     </h:commandLink>
-                                    <h:commandLink id="btn-guardar-localidad" class="btn btn-success mr-3" value="guardar" action="#{clienteBean.save(l)}" rendered="#{l.editable}">
+                                    <h:commandLink id="btn-guardar-localidad" class="btn btn-success mr-3" value="guardar" action="#{localidadBean.save(l)}" rendered="#{l.editable}">
                                         <f:ajax execute="btn-guardar-localidad" 
-                                                render="form-tab-localidad  btn-editar-localidad btn-guardar-localidad" />
+                                                render="form-tab-localidad  btn-editar-localidad table-inventarios txt-pais txt-provincia txt-ciudad txt-direccion btn-guardar-localidad" />
                                     </h:commandLink>
 
                                 </h:column>
