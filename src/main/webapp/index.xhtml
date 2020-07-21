@@ -23,36 +23,7 @@
     <ui:define name="body">
 
         <!-- Navbar -->
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark gris row scrolling-navbar fixed-top">
-                <!-- logo -->
-
-                <div class="col-xs-9 col-sm-8 col-md-4 col-mg-4 letter">
-                    <a href="index.html" id="prin">
-                        <h:graphicImage name="img/favicon.png" alt="Logo" height="55px" width="55px"/>
-                    </a>
-                </div>
-
-                <!-- Search form -->
-                <form class=" col-xs-8 col-sm-4 col-md-4 col-mg-4 mr-sm-4"
-                      id="formulario"
-                      action="/AgendaTelefonica/Search">
-                    <input class="form-control my-0 py-1" type="text" name="usuario"
-                           placeholder="Search" aria-label="Search" id="buscar"/>
-                </form>
-
-                <!-- Datos extras -->
-
-                <ul class="nav navbar-nav nav-flex-icons ml-auto  mr-sm-2">
-                    <li class="nav-item">
-                        <h:link class="nav-login" id="mi-cuenta" outcome="admin" rendered="#{loginBean.isLogin()}">
-                            <i style="font-size: 17px;" class="fa fa-user"></i>
-                            <span class="clearfix d-none d-sm-inline-block ml-2" style="font-size: 17px;">Mi cuenta</span>
-                        </h:link>  
-                    </li>
-                </ul>
-            </nav>
-        </header>
+     
 
         <section class="zoom">
             <h1>Distribuidora UPS</h1>
