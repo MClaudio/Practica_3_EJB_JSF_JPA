@@ -7,6 +7,7 @@
 package ec.edu.ups.modelo;
 
 import java.io.Serializable;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,15 +17,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-
 /**
  *
  * @author Diego Duchimaza
  */
-
 @Entity
 
-public class Localidad implements Serializable{
+public class Localidad implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,17 +35,24 @@ public class Localidad implements Serializable{
     private String direccion;
     private String telefono;
     
+    @JsonbTransient
     @OneToOne
-    private Bodega bodega;  
+    private Bodega bodega;
+    
+    @JsonbTransient
     @ManyToOne
     private Usuario usuario;
+    
+    @JsonbTransient
     @OneToOne(mappedBy = "localidad", cascade = CascadeType.ALL, orphanRemoval = true)
     private FacturaCabecera facturaCabecera;
-       @Transient
-    private boolean editable;
     
-    public Localidad(){
-              
+    @JsonbTransient
+    @Transient
+    private boolean editable;
+
+    public Localidad() {
+
     }
 
     public Localidad(String pais, String provincia, String ciudad, String direccion, String telefono) {
@@ -72,7 +79,8 @@ public class Localidad implements Serializable{
     public void setProvincia(String provincia) {
         this.provincia = provincia;
     }
-     public boolean isEditable() {
+
+    public boolean isEditable() {
         return editable;
     }
 
@@ -135,7 +143,7 @@ public class Localidad implements Serializable{
     public void setFacturaCabecera(FacturaCabecera facturaCabecera) {
         this.facturaCabecera = facturaCabecera;
     }
-        
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -160,11 +168,10 @@ public class Localidad implements Serializable{
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
         return "Localidad{" + "pais=" + pais + ", provincia=" + provincia + ", ciudad=" + ciudad + ", direccion=" + direccion + '}';
     }
-     
-}
 
+}

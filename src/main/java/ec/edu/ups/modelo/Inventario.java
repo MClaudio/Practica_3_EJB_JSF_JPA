@@ -8,6 +8,7 @@ package ec.edu.ups.modelo;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +32,7 @@ public class Inventario implements Serializable{
     private int codigo;
     private int cantidad;
     
+    @JsonbTransient
     @ManyToOne
     private Bodega bodega;
     

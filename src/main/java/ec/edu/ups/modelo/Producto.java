@@ -8,6 +8,7 @@ package ec.edu.ups.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,15 +37,19 @@ public class Producto implements Serializable {
     private String imagen;
     private double precio;
 
+    @JsonbTransient
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaDetalle> facturasDetalles;
     
+    @JsonbTransient
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inventario> inventarios;
     
+
     @ManyToOne
     private Categoria categoria;
     
+    @JsonbTransient
     @Transient
     private boolean editable;
 

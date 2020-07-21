@@ -56,12 +56,13 @@ public class FacturasBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.facturasCabeceras = facturaCabeceraFacade.findAll();
+        this.facturasCabeceras = facturaCabeceraFacade.findByStatuNotPendiente();
         System.out.println("facturas  .." + this.facturasCabeceras);
         this.detalles = new ArrayList<>();
     }
 
     public List<FacturaDetalle> getDetalles() {
+        this.facturasCabeceras = facturaCabeceraFacade.findByStatuNotPendiente();
         return detalles;
     }
 
@@ -122,14 +123,9 @@ public class FacturasBean implements Serializable {
         this.detalles = factura.getFacturaDetalles();
         System.out.println("Detalles de factura " + this.detalles);
     }
-    
-    public void facturar(){
-        facturaCabecera.setEstado("facturado");
-        facturaCabeceraFacade.edit(facturaCabecera);
-    }
-    
-    public void anular(){
-        facturaCabecera.setEstado("anulado");
+
+    public void enviarPedido(){
+        facturaCabecera.setEstado("enviado");
         facturaCabeceraFacade.edit(facturaCabecera);
     }
 

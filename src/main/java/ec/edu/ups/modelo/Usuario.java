@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,33 +19,44 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-
 /**
  *
  * @author Diego Duchimaza
  */
 @Entity
 
-public class Usuario implements  Serializable{
-    
+public class Usuario implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     private String cedula;
     private String nombre;
     private String apellido;
     @Column(unique = true)
     private String correo;
+    
+    @JsonbTransient
     private String password;
+    
+    @JsonbTransient
     private String rol;
+
+    @JsonbTransient
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaCabecera> facturas;
+
+    @JsonbTransient
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Localidad> localidades;
-    @Transient
-    private boolean editable;
     private boolean cambioPassword;
     private boolean activo;
     
-    public Usuario(){
+    @JsonbTransient
+    @Transient
+    private boolean editable;
+
+
+    public Usuario() {
         this.rol = "cliente";
         this.password = "12345";
         this.cambioPassword = false;
@@ -119,7 +131,6 @@ public class Usuario implements  Serializable{
         this.rol = rol;
     }
 
-
     public List<Localidad> getLocalidades() {
         return localidades;
     }
@@ -136,7 +147,7 @@ public class Usuario implements  Serializable{
         this.cambioPassword = cambioPassword;
     }
 
-     public boolean isEditable() {
+    public boolean isEditable() {
         return editable;
     }
 
@@ -151,7 +162,7 @@ public class Usuario implements  Serializable{
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -176,7 +187,7 @@ public class Usuario implements  Serializable{
         }
         return true;
     }
-    
+
     public void addLocalidad(Localidad localidad) {
         if (!this.localidades.contains(localidad)) {
             this.localidades.add(localidad);
@@ -196,7 +207,4 @@ public class Usuario implements  Serializable{
         return "Usuario{" + "cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo + ", password=" + password + ", rol=" + rol + ", editable=" + editable + ", cambioPassword=" + cambioPassword + ", activo=" + activo + '}';
     }
 
-    
-     
-    
 }

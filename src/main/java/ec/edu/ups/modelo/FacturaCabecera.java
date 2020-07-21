@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,11 +38,15 @@ public class FacturaCabecera implements  Serializable{
     private double subTotal;
     private double total;
     private String estado;
-   
+    
+    @JsonbTransient
     @ManyToOne
     private Usuario usuario;
+    
+    @JsonbTransient
     @OneToMany(mappedBy = "facturaCabecera", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacturaDetalle> facturaDetalles;
+    
     @OneToOne
     private Localidad localidad;
 

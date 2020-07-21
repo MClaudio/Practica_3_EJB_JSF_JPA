@@ -13,7 +13,7 @@
 
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
-                <div class="row m-0">
+                <div class="row m-0 d-flex justify-content-between">
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
@@ -21,23 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4 d-flex">
-                        <div class="page-header float-left d-flex align-items-center">
-                            <div class="page-title ">
-                                <h:form id="f-buscar" class="d-flex">
-                                    <div class="form-group mr-3">
-                                        <label for="input-search" class="sr-only">Buscar</label>
-                                        <h:inputText class="form-control" id="input-search" a:placeholder="Buscar"
-                                                     value="#{facturasBean.cedula}"
-                                                     />
-                                    </div>
-                                    <h:commandButton class="btn btn-primary" value="Buscar"
-                                                     action="#{facturasBean.buscarUsuario}"
-                                                     /> 
-                                </h:form>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col-sm-4">
                         <div class="page-header float-right">
                             <div class="page-title">
@@ -57,12 +41,12 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Lista de facturas</strong>
+                                <strong class="card-title">Lista de pedidos</strong>
 
                             </div>
                             <div class="table-stats order-table ov-h">
                                 <h:form>
-                                    <h:dataTable value="#{facturasBean.facturasCabeceras}" var="fc" styleClass="tabla w-100"
+                                    <h:dataTable value="#{pedidoBean.facturasCabeceras}" var="fc" styleClass="tabla w-100"
                                                  headerClass="cabeceraTabla" rowClasses="filaPar,filaImparar">
 
                                         <h:column>
@@ -77,7 +61,6 @@
                                         <h:column>
                                             <f:facet name="header">Fecha</f:facet>
                                             <h:outputText value="#{fc.fecha}">
-                                                
                                             </h:outputText>
                                         </h:column>
 
@@ -110,7 +93,7 @@
                                                            value="Detalles"
                                                            a:data-toggle="modal" 
                                                            a:data-target="#mediumModal" 
-                                                           action="#{facturasBean.listarDetalles(fc)}"
+                                                           action="#{pedidoBean.listarDetalles(fc)}"
                                                            >
                                                 <f:ajax execute="btn-detalles" render="mediumModal tab-detalles txt-estado" />
                                             </h:commandLink>
@@ -134,10 +117,11 @@
             <div class="modal-dialog modal-lg" role="document">
                 <h:form id="tab-detalles">
                     <div class="modal-content">
+
                         <div class="modal-header">
                             <div>
                                 <h5 class="modal-title" id="mediumModalLabel">Agregar Producto</h5>
-                                <h5>Estado: </h5><h:outputText id="txt-estado" value="#{facturasBean.facturaCabecera.estado}"/>
+                                <h5>Estado: </h5><h:outputText id="txt-estado" value="#{pedidoBean.facturaCabecera.estado}"/>
                             </div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -146,7 +130,7 @@
 
                         <div class="modal-body">
 
-                            <h:dataTable  styleClass="table w-100"  value="#{facturasBean.detalles}" var="d"
+                            <h:dataTable  styleClass="table w-100"  value="#{pedidoBean.detalles}" var="d"
                                           headerClass="cabeceraTabla" rowClasses="filaPar,filaImparar">
                                 <h:column>
                                     <f:facet name="header">Producto</f:facet> 
@@ -178,11 +162,13 @@
                         </div>
 
                         <div class="modal-footer">
-                            <h:commandLink rendered="#{facturasBean.facturaCabecera.estado == 'facturado'}" class="btn btn-success" value="Enviar" action="#{facturasBean.enviarPedido()}"/>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-
+                          
+                            <h:commandLink class="btn btn-danger" value="Anular" action="#{pedidoBean.anularFactura()}"/>
+                            <h:commandLink class="btn btn-success" value="Facturar" action="#{pedidoBean.facturar()}"/>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                       
                         </div>
-                    </div>   
+                    </div>
                 </h:form>
             </div>
         </div>

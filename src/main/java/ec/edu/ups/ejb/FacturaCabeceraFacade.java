@@ -6,6 +6,7 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.modelo.FacturaCabecera;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,7 +30,15 @@ public class FacturaCabeceraFacade extends AbstractFacade<FacturaCabecera>{
        return em; 
     }
     
-   
+    public List<FacturaCabecera> findByStatuPendiente() {
+        String jpql = "FROM FacturaCabecera fc WHERE fc.estado = 'pendiente' ORDER BY fc.codigo DESC"; 
+        return (List<FacturaCabecera>) em.createQuery(jpql).getResultList();
+    }
     
+    public List<FacturaCabecera> findByStatuNotPendiente() {
+        String jpql = "FROM FacturaCabecera fc WHERE fc.estado <> 'pendiente' ORDER BY fc.codigo DESC";
+        return (List<FacturaCabecera>) em.createQuery(jpql).getResultList();
+    }
+ 
     
 }

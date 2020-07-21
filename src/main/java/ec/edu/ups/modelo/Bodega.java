@@ -7,6 +7,7 @@ package ec.edu.ups.modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,9 @@ public class Bodega implements Serializable {
     
     @OneToOne(mappedBy = "bodega", cascade = CascadeType.ALL, orphanRemoval = true)
     private Localidad localidad;
-
+    
+    
+    @JsonbTransient
     @OneToMany(mappedBy = "bodega", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inventario> inventarios;
 
