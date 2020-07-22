@@ -42,69 +42,73 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Lista de pedidos</strong>
-
                             </div>
-                            <div class="table-stats order-table ov-h">
-                                <h:form>
-                                    <h:dataTable value="#{pedidoBean.facturasCabeceras}" var="fc" styleClass="tabla w-100"
-                                                 headerClass="cabeceraTabla" rowClasses="filaPar,filaImparar">
 
-                                        <h:column>
-                                            <f:facet name="header">Codigo</f:facet>
-                                            <h:outputText value="#{fc.codigo}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">Cliente</f:facet>
-                                            <h:outputText value="#{fc.usuario.cedula}"/>
-                                        </h:column>
+                            <c:if test="${pedidoBean.facturasCabeceras.size() > 0}">
+                                <div class="table-stats order-table ov-h">
+                                    <h:form>
+                                        <h:dataTable value="#{pedidoBean.facturasCabeceras}" var="fc" styleClass="tabla w-100"
+                                                     headerClass="cabeceraTabla" rowClasses="filaPar,filaImparar">
 
-                                        <h:column>
-                                            <f:facet name="header">Fecha</f:facet>
-                                            <h:outputText value="#{fc.fecha}">
-                                            </h:outputText>
-                                        </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Codigo</f:facet>
+                                                <h:outputText value="#{fc.codigo}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Cliente</f:facet>
+                                                <h:outputText value="#{fc.usuario.cedula}"/>
+                                            </h:column>
 
-                                        <h:column>
-                                            <f:facet name="header">Iva</f:facet>
-                                            <h:outputText value="#{fc.iva*100}%"/>
-                                        </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Fecha</f:facet>
+                                                <h:outputText value="#{fc.fecha}">
+                                                </h:outputText>
+                                            </h:column>
 
-                                        <h:column>
-                                            <f:facet name="header">Sub-Total</f:facet>
-                                            <h:outputText value="#{fc.subTotal}"/>
-                                        </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Iva</f:facet>
+                                                <h:outputText value="#{fc.iva*100}%"/>
+                                            </h:column>
 
-                                        <h:column>
-                                            <f:facet name="header">Total</f:facet>
-                                            <h:outputText value="#{fc.total}"/>
-                                        </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Sub-Total</f:facet>
+                                                <h:outputText value="#{fc.subTotal}"/>
+                                            </h:column>
 
-                                        <h:column>
-                                            <f:facet name="header">Estado</f:facet>
-                                            <h:outputText value="#{fc.estado}"/>
-                                        </h:column>
+                                            <h:column>
+                                                <f:facet name="header">Total</f:facet>
+                                                <h:outputText value="#{fc.total}"/>
+                                            </h:column>
 
-                                        <h:column>
+                                            <h:column>
+                                                <f:facet name="header">Estado</f:facet>
+                                                <h:outputText value="#{fc.estado}"/>
+                                            </h:column>
 
-                                            <f:facet name="header">Detalles</f:facet>
+                                            <h:column>
 
-                                            <h:commandLink id="btn-detalles"
-                                                           class="btn btn-primary mr-3" 
-                                                           value="Detalles"
-                                                           a:data-toggle="modal" 
-                                                           a:data-target="#mediumModal" 
-                                                           action="#{pedidoBean.listarDetalles(fc)}"
-                                                           >
-                                                <f:ajax execute="btn-detalles" render="mediumModal tab-detalles txt-estado" />
-                                            </h:commandLink>
+                                                <f:facet name="header">Detalles</f:facet>
+
+                                                <h:commandLink id="btn-detalles"
+                                                               class="btn btn-primary mr-3" 
+                                                               value="Detalles"
+                                                               a:data-toggle="modal" 
+                                                               a:data-target="#mediumModal" 
+                                                               action="#{pedidoBean.listarDetalles(fc)}"
+                                                               >
+                                                    <f:ajax execute="btn-detalles" render="mediumModal tab-detalles txt-estado" />
+                                                </h:commandLink>
 
 
-                                        </h:column>
+                                            </h:column>
 
-                                    </h:dataTable>
-                                </h:form>
-
-                            </div> <!-- /.table-stats -->
+                                        </h:dataTable>
+                                    </h:form>
+                                </div> <!-- /.table-stats -->
+                            </c:if>
+                            <c:otherwise>
+                                <p class="mt-3 ml-3">No hay pedidos pendientes que mostrar</p>
+                            </c:otherwise>
                         </div>
                     </div>
                 </div>
@@ -162,11 +166,11 @@
                         </div>
 
                         <div class="modal-footer">
-                          
+
                             <h:commandLink class="btn btn-danger" value="Anular" action="#{pedidoBean.anularFactura()}"/>
                             <h:commandLink class="btn btn-success" value="Facturar" action="#{pedidoBean.facturar()}"/>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                       
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
                         </div>
                     </div>
                 </h:form>

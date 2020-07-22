@@ -28,12 +28,23 @@
                                     <div class="form-group mr-3">
                                         <label for="input-search" class="sr-only">Buscar</label>
                                         <h:inputText class="form-control" id="input-search" a:placeholder="Buscar"
-                                                     value="#{clienteBean.cedula}"
+                                                     value="#{clienteBean.clienteCedula}"
                                                      />
                                     </div>
-                                    <h:commandButton class="btn btn-primary" value="Buscar"
-                                                     action="#{clienteBean.buscarPorCedula()}"
-                                                     />   
+
+                                    <h:commandLink class="btn btn-primary mr-3" 
+                                                   style="width: 100px; height: 40px;" 
+                                                   value="Buscar" 
+                                                   action="#{clienteBean.buscarPorCedula()}"
+                                                   rendered="#{clienteBean.clienteCedula == null}" />
+
+                                    <h:commandLink class="btn btn-primary mr-3" 
+                                                   style="width: 100px; height: 40px; 
+                                                   background-color: green;" 
+                                                   value="Listar" 
+                                                   action="#{clienteBean.listarClientes()}"
+                                                   rendered="#{clienteBean.clienteCedula != null}" />
+
                                 </h:form>
                             </div>
                         </div>
@@ -70,7 +81,7 @@
                         <div class="card">
 
                             <div class="table-stats order-table ov-h">
-                                <h:form>
+                                <h:form id="table-usuarios">
                                     <h:dataTable class="table" value="#{clienteBean.usuarios}" var="c" styleClass="table w-100"
                                                  headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 
@@ -102,40 +113,43 @@
                                             </span>
                                         </h:column>
 
-
-
                                         <h:column>
                                             <f:facet name="header">Correo</f:facet>
                                             <span class="name">
                                                 <h:inputText class="form-control" value="#{c.correo}" 
                                                              rendered="#{c.editable}" />
-                                                <h:outputText value="#{c.correo}" rendered="#{not c.editable}" />
+                                                <h:outputText style="text-transform: lowercase" value="#{c.correo}" rendered="#{not c.editable}" />
                                             </span>
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">Acciones</f:facet>
-                                            <h:commandLink class="btn btn-danger mr-3" value="Eliminar" action="#{clienteBean.delete(c)}" />
+                                            <h:commandLink class="btn btn-danger mr-3" 
+                                                           value="Eliminar" 
+                                                           action="#{clienteBean.delete(c)}" />
 
 
-                                            <h:commandLink class="btn btn-primary mr-3" value="Editar" action="#{clienteBean.edit(c)}"
+                                            <h:commandLink class="btn btn-primary mr-3" 
+                                                           value="Editar" 
+                                                           action="#{clienteBean.edit(c)}"
                                                            rendered="#{not c.editable}" />
-                                            <h:commandLink class="btn btn-success mr-3" value="guardar" action="#{clienteBean.save(c)}"
+
+                                            <h:commandLink class="btn btn-success mr-3" 
+                                                           value="guardar" 
+                                                           action="#{clienteBean.save(c)}"
                                                            rendered="#{c.editable}" />
-                                           <h:commandLink id="btn-localidad" 
+
+                                            <h:commandLink id="btn-localidad" 
                                                            class="btn btn-success mr-3" 
                                                            value="Localidad"
                                                            a:data-toggle="modal" 
                                                            a:data-target="#modalLocalidad" 
-                                                           action="#{clienteBean.listarLocalidad(c)}"
+                                                           action="#{localidadBean.listarLocalidad(c)}"
                                                            >
-                                                <f:ajax execute="btn-localidad" render="modalLocalidad form-tab-localidad txt-cliente-nombre" />
+                                                <f:ajax execute="btn-localidad" render="modalLocalidad form-localidades" />
                                             </h:commandLink>
 
                                         </h:column>
-
-
-
 
                                     </h:dataTable>
                                 </h:form>
@@ -182,14 +196,15 @@
                                                  requiredMessage="Campo Obligatorio"/>
                                     <h:message for="cliente-apellido" style="color:red" />
                                 </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="cliente-correo">Correo</label>
                                     <h:inputText class="form-control" id="cliente-correo" value="#{clienteBean.correo}" required="true"
                                                  requiredMessage="Campo Obligatorio"/>
                                     <h:message for="cliente-correo" style="color:red" />
                                 </div>
-                            </div>
-                            <div class="form-row">
+
                                 <div class="form-group col-md-4">
                                     <label for="cliente-telefono">Telefono</label>
                                     <h:inputText class="form-control" id="cliente-telefono" value="#{clienteBean.telefono}" required="true"
@@ -202,6 +217,9 @@
                                                  requiredMessage="Campo Obligatorio"/>
                                     <h:message for="cliente-pais" style="color:red" />
                                 </div>
+                            </div>
+
+                            <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="cliente-provincia">Provincia</label>
                                     <h:inputText class="form-control" id="cliente-provincia" value="#{clienteBean.provincia}" required="true"
@@ -216,7 +234,9 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="cliente-direccion">Direccion</label>
-                                    <h:inputText class="form-control" id="cliente-direccion" value="#{clienteBean.direccion}" required="true"
+                                    <h:inputText class="form-control" 
+                                                 id="cliente-direccion" 
+                                                 value="#{clienteBean.direccion}" required="true"
                                                  requiredMessage="Campo Obligatorio"/>
                                     <h:message for="cliente-direccion" style="color:red" />
                                 </div>
@@ -233,118 +253,158 @@
                 </div>
             </div>
         </div>
-        
-        
-        
+
+
+
         <!-- Modal Localidad-->
         <div class="modal fade" id="modalLocalidad" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <h:form id="form-localidades">
+                        <div class="modal-header">
 
-                        <div>
-                            <h5 class="modal-title" id="mediumModalLabel">Inventario - <h:outputText id="txt-cliente-nombre" value="#{clienteBean.nombre}"/> </h5>
-                      
+                            <div>
+                                <h5 class="modal-title" id="mediumModalLabel">Cliente - <h:outputText id="txt-cliente-nombre" value="#{localidadBean.usuario.cedula}"/> </h5>
+
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="modal-body">
+                            <div id="form-tab-localidad"> 
+                                <div class="form-row" >
+                                    <div class="form-group col-md-2">
+                                        <label for="ttelefono">Telefono</label>
+                                        <h:inputText class="form-control" 
+                                                     id="ttelefono" 
+                                                     value="#{localidadBean.telefono}" 
+                                                     required="true"
+                                                     requiredMessage="Campo Obligatorio"/>
+                                        
+                                        <h:message for="ttelefono" style="color:red" />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="ppais">Pais</label>
+                                        <h:inputText 
+                                            class="form-control" 
+                                            id="ppais" 
+                                            value="#{localidadBean.pais}" 
+                                            required="true"
+                                                     requiredMessage="Campo Obligatorio"/>
+                                        
+                                        <h:message for="ppais" style="color:red" />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="pprovincia">Provincia</label>
+                                        <h:inputText class="form-control" 
+                                                     id="pprovincia" 
+                                                     value="#{localidadBean.provincia}" 
+                                                     required="true"
+                                                     requiredMessage="Campo Obligatorio"/>
+                                        <h:message for="pprovincia" style="color:red" />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="cpciudad">Ciudad</label>
+                                        <h:inputText class="form-control" 
+                                                     id="cpciudad" 
+                                                     value="#{localidadBean.ciudad}" 
+                                                     required="true"
+                                                     requiredMessage="Campo Obligatorio"/>
+                                        <h:message for="cciudad" style="color:red" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="ddireccion">Direccion</label>
+                                        <h:inputText class="form-control" 
+                                                     id="ddireccion" 
+                                                     value="#{localidadBean.direccion}" 
+                                                     required="true"
+                                                     requiredMessage="Campo Obligatorio"/>
+                                        
+                                        <h:message for="ddireccion" style="color:red" />
+                                    </div>
+
+                                </div>
+                                <div class="w-100 text-right">
+                                    <h:commandButton class="btn btn-success" 
+                                                     value="Guardar" 
+                                                     action="#{localidadBean.guardarDatos()}">
+                                    <f:ajax execute="ttelefono ppais pprovincia cpciudad ddireccion" 
+                                                render="form-localidades" /> 
+                                    </h:commandButton>
+                                </div>
+
+                                <h:dataTable id="table-inventarios" 
+                                             value="#{localidadBean.localidades}" 
+                                             var="l" styleClass="tabla w-100"
+                                             headerClass="cabeceraTabla" 
+                                             rowClasses="filaPar,filaImpar">
 
 
-                    <div class="modal-body">
-                        <h:form id="form-tab-localidad"> 
-                              <div class="form-row" >
-                                <div class="form-group col-md-4">
-                                    <label for="ttelefono">Telefono</label>
-                                    <h:inputText class="form-control" id="ttelefono" value="#{clienteBean.telefono}" required="true"
-                                                 requiredMessage="Campo Obligatorio"/>
-                                    <h:message for="ttelefono" style="color:red" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="ppais">Pais</label>
-                                    <h:inputText class="form-control" id="ppais" value="#{clienteBean.pais}" required="true"
-                                                 requiredMessage="Campo Obligatorio"/>
-                                    <h:message for="ppais" style="color:red" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="pprovincia">Provincia</label>
-                                    <h:inputText class="form-control" id="pprovincia" value="#{clienteBean.provincia}" required="true"
-                                                 requiredMessage="Campo Obligatorio"/>
-                                    <h:message for="pprovincia" style="color:red" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="cpciudad">Ciudad</label>
-                                    <h:inputText class="form-control" id="cpciudad" value="#{clienteBean.ciudad}" required="true"
-                                                 requiredMessage="Campo Obligatorio"/>
-                                    <h:message for="cciudad" style="color:red" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="ddireccion">Direccion</label>
-                                    <h:inputText class="form-control" id="ddireccion" value="#{clienteBean.direccion}" required="true"
-                                                 requiredMessage="Campo Obligatorio"/>
-                                    <h:message for="ddireccion" style="color:red" />
-                                </div>
+                                    <h:column>
+                                        <f:facet name="header">Pais</f:facet>
+                                        <span class="name">
+                                            <h:inputText class="form-control" id="in-pais" rendered="#{l.editable}" value="#{l.pais}"/>
+                                            <h:outputText id="txt-pais" value="#{l.pais}" rendered="#{not l.editable}"/>
+                                        </span>
+                                    </h:column>
 
+                                    <h:column>
+                                        <f:facet name="header">Provincia</f:facet>
+                                        <span class="name">
+                                            <h:inputText class="form-control" id="in-provincia" rendered="#{l.editable}" value="#{l.provincia}"/>
+                                            <h:outputText id="txt-provincia" value="#{l.provincia}" rendered="#{not l.editable}"/>
+                                        </span>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Ciuadad</f:facet>
+                                        <span class="name">
+                                            <h:inputText class="form-control" id="in-ciudad" rendered="#{l.editable}" value="#{l.ciudad}"/>
+                                            <h:outputText id="txt-ciudad" value="#{l.ciudad}" rendered="#{not l.editable}"/>
+                                        </span>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Direccion</f:facet>
+                                        <span class="name">
+                                            <h:inputText class="form-control" id="in-direccion" rendered="#{l.editable}" value="#{l.direccion}"/>
+                                            <h:outputText id="txt-direccion" value="#{l.direccion}" rendered="#{not l.editable}"/>
+                                        </span>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Acciones</f:facet>
+                                        <h:commandLink id="btn-eliminar-localidad"
+                                            class="btn btn-danger mr-3" 
+                                                       value="Eliminar" 
+                                                       action="#{localidadBean.delete(l)}" >
+                                        <f:ajax execute="btn-eliminar-localidad" 
+                                                    render="form-localidades table-inventarios" />
+                                        </h:commandLink>
+
+                                        <h:commandLink id="btn-editar-localidad" 
+                                                       class="btn btn-primary mr-3" 
+                                                       value="Editar" 
+                                                       action="#{localidadBean.edit(l)}"  
+                                                       rendered="#{not l.editable}">
+                                            
+                                            <f:ajax execute="btn-editar-localidad" 
+                                                    render="form-localidades table-inventarios in-pais in-provincia in-ciudad in-direccion btn-guardar-localidad" />
+                                        </h:commandLink>
+                                        
+                                        <h:commandLink id="btn-guardar-localidad" class="btn btn-success mr-3" value="guardar" action="#{localidadBean.save(l)}" rendered="#{l.editable}">
+                                            <f:ajax execute="btn-guardar-localidad in-pais in-provincia in-ciudad in-direccion btn-guardar-localidad" 
+                                                    render="form-localidades table-inventarios btn-editar-localidad txt-pais txt-provincia txt-ciudad txt-direccion" />
+                                        </h:commandLink>
+
+                                    </h:column>
+
+                                </h:dataTable>
                             </div>
-                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <h:commandButton class="btn btn-success" value="Guardar" action="#{localidadBean.guardarDatos()}"/>
-                            </div>
-                            <h:dataTable id="table-inventarios" value="#{clienteBean.localidades}" var="l" styleClass="tabla w-100"
-                                         headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
-
-
-                                <h:column>
-                                    <f:facet name="header">Pais</f:facet>
-                                    <span class="name">
-                                        <h:inputText class="form-control" id="pais" rendered="#{l.editable}" value="#{l.pais}"/>
-                                        <h:outputText id="txt-pais" value="#{l.pais}" rendered="#{not l.editable}"/>
-                                    </span>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">Provincia</f:facet>
-                                    <span class="name">
-                                        <h:inputText class="form-control" id="provincia" rendered="#{l.editable}" value="#{l.provincia}"/>
-                                        <h:outputText id="txt-provincia" value="#{l.provincia}" rendered="#{not l.editable}"/>
-                                    </span>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">Ciuadad</f:facet>
-                                    <span class="name">
-                                        <h:inputText class="form-control" id="ciudad" rendered="#{l.editable}" value="#{l.ciudad}"/>
-                                        <h:outputText id="txt-ciudad" value="#{l.ciudad}" rendered="#{not l.editable}"/>
-                                    </span>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">Direccion</f:facet>
-                                    <span class="name">
-                                        <h:inputText class="form-control" id="direccion" rendered="#{l.editable}" value="#{l.direccion}"/>
-                                        <h:outputText id="txt-direccion" value="#{l.direccion}" rendered="#{not l.editable}"/>
-                                    </span>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Acciones</f:facet>
-                                    <h:commandLink class="btn btn-danger mr-3" value="Eliminar" action="#{localidadBean.delete(l)}" />
-                              
-                                    <h:commandLink id="btn-editar-localidad" class="btn btn-primary mr-3" value="Editar" action="#{localidadBean.edit(l)}"  rendered="#{not l.editable}">
-                                        <f:ajax execute="btn-editar-localidad" 
-                                                render="form-tab-localidad  txt-inventario-cantidad table-inventarios txt-pais txt-provincia txt-ciudad txt-direccion btn-editar-localidad btn-guardar-localidad" />
-                                    </h:commandLink>
-                                    <h:commandLink id="btn-guardar-localidad" class="btn btn-success mr-3" value="guardar" action="#{localidadBean.save(l)}" rendered="#{l.editable}">
-                                        <f:ajax execute="btn-guardar-localidad" 
-                                                render="form-tab-localidad  btn-editar-localidad table-inventarios txt-pais txt-provincia txt-ciudad txt-direccion btn-guardar-localidad" />
-                                    </h:commandLink>
-
-                                </h:column>
-
-                            </h:dataTable>
-                        </h:form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </h:form>
                 </div>
             </div>
         </div>

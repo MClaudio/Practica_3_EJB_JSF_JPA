@@ -11,16 +11,6 @@
 
     <ui:define name="content">
 
-        <script type="text/javascript">
-            function indicador(data) {
-                if (data.status == "begin") {
-
-                } else if (data.status == "success") {
-
-                }
-            }
-        </script>
-
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
                 <div class="row m-0 d-flex justify-content-between">
@@ -67,40 +57,44 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Cliente</strong>
-
                             </div>
                             <div class="card-body">
-                                <div>
+                                <c:if test="${nuevaFacturaBean.usuario != null}">
+                                    <div>
 
-                                    <p> 
-                                        <h:outputText value="Cedula:"/>
-                                        <span class="font-weight-bold" ><h:outputText value="#{nuevaFacturaBean.usuario.cedula}"/></span>
-                                    </p>
-                                    <p> 
-                                        <h:outputText value="Nombre:"/>
-                                        <span class="font-weight-bold" ><h:outputText value="#{nuevaFacturaBean.usuario.nombre}"/></span>
-                                    </p>
-                                    <p> 
-                                        <h:outputText value="Apellido:"/>
-                                        <span class="font-weight-bold" ><h:outputText value="#{nuevaFacturaBean.usuario.apellido}"/></span>
-                                    </p>
-                                    <p> 
-                                        <h:outputText value="Correo:"/>
-                                        <span class="font-weight-bold" ><h:outputText value="#{nuevaFacturaBean.usuario.correo}"/></span>
-                                    </p>
-                                    <p> 
-                                        <h:form> 
-                                            <h:outputText value="Direccion:"/>
-                                            <h:selectOneMenu class="form-control" id="usuario-direccion" converter="selectOneMenuConverter" value="#{nuevaFacturaBean.localidad}">
-                                                <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  />
-                                                <f:selectItems  value="#{nuevaFacturaBean.usuario.localidades}" var="localidad" 
-                                                                itemLabel="#{localidad.pais}-#{localidad.provincia}-#{localidad.ciudad}-#{localidad.direccion}" itemValue="#{localidad}"/>
-                                                <f:ajax execute="usuario-direccion" />
-                                            </h:selectOneMenu>
-                                        </h:form>
-                                    </p>
-                                </div>
+                                        <p> 
+                                            <h:outputText value="Cedula:"/>
+                                            <span class="font-weight-bold" ><h:outputText value="#{nuevaFacturaBean.usuario.cedula}"/></span>
+                                        </p>
+                                        <p> 
+                                            <h:outputText value="Nombre:"/>
+                                            <span class="font-weight-bold" ><h:outputText value="#{nuevaFacturaBean.usuario.nombre}"/></span>
+                                        </p>
+                                        <p> 
+                                            <h:outputText value="Apellido:"/>
+                                            <span class="font-weight-bold" ><h:outputText value="#{nuevaFacturaBean.usuario.apellido}"/></span>
+                                        </p>
+                                        <p> 
+                                            <h:outputText value="Correo:"/>
+                                            <span class="font-weight-bold" ><h:outputText value="#{nuevaFacturaBean.usuario.correo}"/></span>
+                                        </p>
+                                        <p> 
+                                            <h:form> 
+                                                <h:outputText value="Direccion:"/>
+                                                <h:selectOneMenu class="form-control" id="usuario-direccion" converter="selectOneMenuConverter" value="#{nuevaFacturaBean.localidad}">
+                                                    <f:selectItem  itemLabel="Seleccione..." itemValue="#{null}" noSelectionOption="true"  />
+                                                    <f:selectItems  value="#{nuevaFacturaBean.usuario.localidades}" var="localidad" 
+                                                                    itemLabel="#{localidad.pais}-#{localidad.provincia}-#{localidad.ciudad}-#{localidad.direccion}" itemValue="#{localidad}"/>
+                                                    <f:ajax execute="usuario-direccion" />
+                                                </h:selectOneMenu>
+                                            </h:form>
+                                        </p>
+                                    </div>
 
+                                </c:if>
+                                <c:otherwise>
+                                    <p>Seleccione un cliente</p>
+                                </c:otherwise>
                             </div>
 
                         </div>
@@ -254,12 +248,19 @@
                                     </p>
                                 </div>
                                 <h:form class="text-right">
-                                    <h:commandLink class="btn btn-danger mr-2" value="Cancelar"
-                                                     action="#{nuevaFacturaBean.cancelarFactura()}"
-                                                     /> 
-                                    <h:commandButton class="btn btn-primary" value="Guardar"
-                                                     action="#{nuevaFacturaBean.generarFactura()}"
-                                                     /> 
+
+
+                                    <c:if test="${nuevaFacturaBean.usuario != null}">
+
+                                        <h:commandLink class="btn btn-danger mr-2" value="Cancelar"
+                                                       action="#{nuevaFacturaBean.cancelarFactura()}"
+                                                       /> 
+
+                                        <h:commandButton class="btn btn-primary" value="Guardar"
+                                                         action="#{nuevaFacturaBean.generarFactura()}"
+                                                         /> 
+
+                                    </c:if>
                                 </h:form>
                             </div>
 
