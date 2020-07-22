@@ -7,9 +7,11 @@ package ec.edu.ups.servicios;
 
 import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.modelo.Usuario;
+import ec.edu.ups.utilities.Session;
 import javax.ejb.EJB;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -39,21 +41,38 @@ public class UsuarioRest {
     public String getUsuario() {
         return "Hola Mundo desde el path Productos";
     }
-*/
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response createUsuario(String jsonUsuario) {
         jsonb = JsonbBuilder.create();
-        Usuario newUsuaio = jsonb.fromJson(jsonUsuario, Usuario.class);
+        System.out.println("Usuario en registro " + jsonUsuario);
+
         try {
+            Usuario newUsuaio = jsonb.fromJson(jsonUsuario, Usuario.class);
+            newUsuaio.setCambioPassword(true);
             usuarioFacade.create(newUsuaio);
-            return Response.ok().build();
+
+            return Response.ok().entity(newUsuaio)
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Credentials", "true")
+                    .allow("OPTIONS").build();
+
         } catch (Exception e) {
-            return Response.status(500).entity("Usuario no creado: " + e).build();
+
+            return Response.status(500).entity("Usuario no creado: " + e)
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Credentials", "true")
+                    .allow("OPTIONS").build();
+
         }
     }
-    
+
     @PUT
     @Path("/{usuarioID}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -68,17 +87,32 @@ public class UsuarioRest {
                     usuarioFacade.edit(jsonb.fromJson(jsonLocalidad, Usuario.class));
                     return Response.ok().entity("Usuario actualizado").build();
                 } catch (Exception e) {
-                    return Response.status(500).entity("Error al actualizar: " + e).build();
+                    return Response.status(500).entity("Error al actualizar: " + e)
+                            .header("Access-Control-Allow-Origin", "*")
+                            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                            .header("Access-Control-Allow-Credentials", "true")
+                            .allow("OPTIONS").build();
                 }
             } else {
-                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
+                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado")
+                        .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
+                        .allow("OPTIONS").build();
             }
-            
+
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes")
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Credentials", "true")
+                    .allow("OPTIONS").build();
         }
     }
-    
+
     @DELETE
     @Path("/{usuarioID}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -89,19 +123,40 @@ public class UsuarioRest {
             Usuario usuario = usuarioFacade.find(usuarioID);
 
             if (usuario != null) {
-                try { 
-                    usuarioFacade.remove(usuario);
-                    return Response.ok().entity("Usuario eliminado").build();
-                    
+                try {
+                    usuario.setActivo(false);
+                    usuarioFacade.edit(usuario);
+                    return Response.ok().entity("Usuario eliminado")
+                            .header("Access-Control-Allow-Origin", "*")
+                            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                            .header("Access-Control-Allow-Credentials", "true")
+                            .allow("OPTIONS").build();
+
                 } catch (Exception e) {
-                    return Response.status(500).entity("Error al eliminar: " + e).build();
+                    return Response.status(500).entity("Error al eliminar: " + e)
+                            .header("Access-Control-Allow-Origin", "*")
+                            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                            .header("Access-Control-Allow-Credentials", "true")
+                            .allow("OPTIONS").build();
                 }
             } else {
-                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
+                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado")
+                        .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
+                        .allow("OPTIONS").build();
             }
-            
+
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes")
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Credentials", "true")
+                    .allow("OPTIONS").build();
         }
     }
 
@@ -109,24 +164,38 @@ public class UsuarioRest {
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     public Response loginUsuario(@FormParam("correo") String correo, @FormParam("password") String password) {
-        
+
         if (correo != null && password != null) {
             jsonb = JsonbBuilder.create();
             Usuario usuario = usuarioFacade.finByEmailAndPass(correo, password);
-            
-            System.out.println("Usuario en en rest "+usuario.getFacturas());
-            //System.out.println("Json Usuario "+jsonb.toJson(usuario));
 
+            //System.out.println("Json Usuario "+jsonb.toJson(usuario));
             if (usuario != null) {
-                return Response.ok(jsonb.toJson(usuario)).build();
+
+                if (usuario.getRol().equals("cliente")) {
+                    try {
+                        //HttpSession session = Session.getSession();
+                        //session.setAttribute("token", session.getId());
+                        //session.setAttribute("usuario", usuario);
+
+                        //System.out.println("Session iniciada con " + session.getId());
+                    } catch (Exception e) {
+                        System.out.println("Error en la sesion: " + e);
+                    }
+
+                    return Response.ok(jsonb.toJson(usuario)).build();
+
+                } else {
+                    return Response.status(Response.Status.NOT_FOUND).entity("Usuario no existe").build();
+                }
+
             } else {
-                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
+                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no existe").build();
             }
+
         } else {
             return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes").build();
         }
     }
 
-        
-    
 }

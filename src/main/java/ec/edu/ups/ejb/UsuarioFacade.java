@@ -7,6 +7,7 @@ package ec.edu.ups.ejb;
 
 
 import ec.edu.ups.modelo.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -58,5 +59,9 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         }
 
     }
-
+    
+    public List<Usuario> findClientes() {
+        String jpql = "FROM Usuario u WHERE u.rol = 'cliente' ORDER BY u.nombre DESC";
+        return (List<Usuario>) em.createQuery(jpql).getResultList();
+    }
 }

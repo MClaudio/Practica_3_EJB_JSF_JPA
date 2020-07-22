@@ -59,7 +59,7 @@ public class ClienteBean implements Serializable {
     public void init() {
         try {
             System.out.println("Lista usuarios" + this.usuarios);
-            this.usuarios = usuarioFacade.findAll();
+            this.usuarios = usuarioFacade.findClientes();
 
             //this.localidad=localidadFacade.findAll();
             this.localidades = new ArrayList<>();
@@ -190,7 +190,9 @@ public class ClienteBean implements Serializable {
 
         usuarioFacade.create(usuario);
 
-        this.usuarios = usuarioFacade.findAll();
+        this.usuarios = usuarioFacade.findClientes();
+        
+        resetValues();
         return null;
 
     }
@@ -217,12 +219,11 @@ public class ClienteBean implements Serializable {
         usuarioFacade.edit(usuario);
         // System.out.println("Guardar Usuario: "+b.getLocalidad().toString());
         usuario.setEditable(false);
-        this.usuarios = usuarioFacade.findAll();
+        this.usuarios = usuarioFacade.findClientes();
         return null;
     }
 
     public int totalFactura(Usuario u) {
-
         return usuarioFacade.contarFacturas(u);
 
     }
@@ -239,9 +240,20 @@ public class ClienteBean implements Serializable {
             System.out.println(usuario);
         } else {
             //System.out.println("Es nulo... ");
-            this.usuarios = this.usuarioFacade.findAll();
+            this.usuarios = usuarioFacade.findClientes();
         }
-        clienteCedula = null;
+        clienteCedula = "";
+    }
+    
+    private void resetValues(){
+        nombre = "";
+        apellido = "";
+        cedula = "";
+        ciudad = "";
+        pais = "";
+        provincia = "";
+        telefono = "";
+        direccion = "";
     }
 
 }
