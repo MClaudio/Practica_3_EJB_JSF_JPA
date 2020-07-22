@@ -183,7 +183,7 @@ public class UsuarioRest {
                         System.out.println("Error en la sesion: " + e);
                     }
 
-                    return Response.ok(jsonb.toJson(usuario)).build();
+                    return Response.ok(jsonb.toJson(usuario)).header("Access-Control-Allow-Origin", "*").build();
 
                 } else {
                     return Response.status(Response.Status.NOT_FOUND).entity("Usuario no existe").build();
