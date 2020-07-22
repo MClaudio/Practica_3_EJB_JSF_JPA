@@ -65,10 +65,10 @@ public class LocalidadRest {
             if (localidad != null) {
                 return Response.ok(jsonb.toJson(localidad)).header("Access-Control-Allow-Origin", "*").build();
             } else {
-                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").header("Access-Control-Allow-Origin", "*").build();
+                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
             }
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes").header("Access-Control-Allow-Origin", "*").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes").build();
         }
     }
 
