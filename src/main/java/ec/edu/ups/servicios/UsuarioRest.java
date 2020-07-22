@@ -85,7 +85,7 @@ public class UsuarioRest {
             if (usuario != null) {
                 try {
                     usuarioFacade.edit(jsonb.fromJson(jsonLocalidad, Usuario.class));
-                    return Response.ok().entity("Usuario actualizado").build();
+                    return Response.ok().entity("Usuario actualizado").header("Access-Control-Allow-Origin", "*").build();
                 } catch (Exception e) {
                     return Response.status(500).entity("Error al actualizar: " + e)
                             .header("Access-Control-Allow-Origin", "*")
