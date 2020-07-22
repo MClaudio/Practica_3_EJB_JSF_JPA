@@ -91,7 +91,7 @@ public class LocalidadRest {
                     usuario.addLocalidad(newLocalidad);
                     usuarioFacade.edit(usuario);
 
-                    return Response.ok().entity("Localidad creada").build();
+                    return Response.ok().entity("Localidad creada").header("Access-Control-Allow-Origin", "*").build();
                 } catch (Exception e) {
                     return Response.status(500).entity("Localidad no creada: " + e).build();
                 }

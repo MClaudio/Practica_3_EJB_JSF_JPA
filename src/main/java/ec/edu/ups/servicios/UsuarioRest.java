@@ -46,6 +46,7 @@ public class UsuarioRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createUsuario(String jsonUsuario) {
+        System.out.println("entrando al metodo de crear usuario.............................. " );
         jsonb = JsonbBuilder.create();
         System.out.println("Usuario en registro " + jsonUsuario);
 
