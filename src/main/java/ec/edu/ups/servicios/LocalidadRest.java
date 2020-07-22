@@ -93,13 +93,13 @@ public class LocalidadRest {
 
                     return Response.ok().entity("Localidad creada").header("Access-Control-Allow-Origin", "*").build();
                 } catch (Exception e) {
-                    return Response.status(500).entity("Localidad no creada: " + e).build();
+                    return Response.status(500).entity("Localidad no creada: " + e).header("Access-Control-Allow-Origin", "*").build();
                 }
             } else {
-                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
+                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").header("Access-Control-Allow-Origin", "*").build();
             }
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes").header("Access-Control-Allow-Origin", "*").build();
         }
     }
 
