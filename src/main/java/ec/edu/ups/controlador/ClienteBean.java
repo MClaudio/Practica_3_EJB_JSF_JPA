@@ -33,9 +33,6 @@ public class ClienteBean implements Serializable {
     @EJB
     private UsuarioFacade usuarioFacade;
 
-    @EJB
-    private LocalidadFacade localidadFacade;
-
     private String nombre;
     private String apellido;
     private String cedula;
@@ -46,7 +43,7 @@ public class ClienteBean implements Serializable {
     private String pais;
     private String provincia;
     private List<Usuario> usuarios;
-    private List<Localidad> localidades;
+    private Usuario usuario;
     private String clienteCedula;
     
     private Localidad localidad;
@@ -58,25 +55,23 @@ public class ClienteBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            System.out.println("Lista usuarios" + this.usuarios);
+            //System.out.println("Lista usuarios" + this.usuarios);
             this.usuarios = usuarioFacade.findClientes();
-
-            //this.localidad=localidadFacade.findAll();
-            this.localidades = new ArrayList<>();
-
+            clienteCedula = null;
+            
         } catch (Exception e) {
             System.out.println("Error---" + e);
         }
     }
 
-    public List<Localidad> getLocalidades() {
-        return localidades;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setLocalidades(List<Localidad> localidades) {
-        this.localidades = localidades;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
-
+    
     public String getCedula() {
         return cedula;
     }
@@ -186,7 +181,7 @@ public class ClienteBean implements Serializable {
         usuario.addLocalidad(localidad);
         localidad.setUsuario(usuario);
 
-        System.out.println("Usuario: " + usuario.toString());
+       // System.out.println("Usuario: " + usuario.toString());
 
         usuarioFacade.create(usuario);
 
@@ -199,19 +194,13 @@ public class ClienteBean implements Serializable {
 
     public String delete(Usuario usuario) {
         this.usuarioFacade.remove(usuario);
+        this.usuarios = usuarioFacade.findClientes();
         return null;
     }
 
     public String edit(Usuario usuario) {
         usuario.setEditable(true);
         return null;
-    }
-
-    public void listarLocalidad(Usuario usuario) {
-
-        //this.localidad=new ArrayList<>();    
-        this.localidades = usuario.getLocalidades();
-        System.out.println("Localidades" + this.localidades);
     }
 
     public String save(Usuario usuario) {
@@ -228,21 +217,15 @@ public class ClienteBean implements Serializable {
 
     }
 
-    public void newCliente() {
-
-    }
-
     public void buscarPorCedula() {
+        System.out.println("Cedula de cliente  "+clienteCedula);
         if (clienteCedula != null) {
-            //System.out.println("Cambio de item em bodega..." +bodegaItem.toString());
-            Usuario usuario = new Usuario();
-            usuario = usuarioFacade.find(this.clienteCedula);
-            System.out.println(usuario);
+            usuarios = usuarioFacade.findByCedula(clienteCedula);
+            System.out.println("Lista de clientes "+usuarios);
         } else {
-            //System.out.println("Es nulo... ");
-            this.usuarios = usuarioFacade.findClientes();
+
+            usuarios = usuarioFacade.findClientes();
         }
-        clienteCedula = "";
     }
     
     private void resetValues(){
@@ -254,6 +237,11 @@ public class ClienteBean implements Serializable {
         provincia = "";
         telefono = "";
         direccion = "";
+    }
+    
+    public void listarClientes(){
+        this.usuarios = usuarioFacade.findClientes();
+        clienteCedula = null;
     }
 
 }

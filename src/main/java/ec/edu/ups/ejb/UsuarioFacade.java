@@ -64,4 +64,9 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         String jpql = "FROM Usuario u WHERE u.rol = 'cliente' ORDER BY u.nombre DESC";
         return (List<Usuario>) em.createQuery(jpql).getResultList();
     }
+    
+    public List<Usuario> findByCedula(String cedula) {
+        String jpql = "FROM Usuario u WHERE u.cedula = '"+cedula+"' AND u.rol = 'cliente' ORDER BY u.nombre DESC";
+        return (List<Usuario>) em.createQuery(jpql).getResultList();
+    }
 }
