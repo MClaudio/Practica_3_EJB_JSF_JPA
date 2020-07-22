@@ -57,7 +57,7 @@ public class FacturasRest {
             jsonb = JsonbBuilder.create();
             Usuario usuario = usuarioFacade.find(usuarioID);
             if (usuario != null) {
-                return Response.ok(jsonb.toJson(usuario.getFacturas())).build();
+                return Response.ok(jsonb.toJson(usuario.getFacturas())).header("Access-Control-Allow-Origin", "*").build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
             }
