@@ -77,7 +77,7 @@ public class LocalidadRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public Response addDireccion(@PathParam("usuarioID") String usuarioID, String jsonLocalidad) {
-        //System.out.println("usuario cedula "+id);
+        System.out.println("entrando al metodo para editar ");
         if (usuarioID != null) {
             jsonb = JsonbBuilder.create();
             Usuario usuario = usuarioFacade.find(usuarioID);
