@@ -4,6 +4,7 @@ E:\Proyectos\Practica_3_EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\IndexBe
 E:\Proyectos\Practica_3_EJB_JSF_JPA\src\main\java\ec\edu\ups\servicios\FacturasRest.java
 E:\Proyectos\Practica_3_EJB_JSF_JPA\src\main\java\ec\edu\ups\ejb\ProductoFacade.java
 E:\Proyectos\Practica_3_EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Localidad.java
+E:\Proyectos\Practica_3_EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\PedidoBean.java
 E:\Proyectos\Practica_3_EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\CategoriaBean.java
 E:\Proyectos\Practica_3_EJB_JSF_JPA\src\main\java\ec\edu\ups\controlador\FacturasBean.java
 E:\Proyectos\Practica_3_EJB_JSF_JPA\src\main\java\ec\edu\ups\modelo\Producto.java
