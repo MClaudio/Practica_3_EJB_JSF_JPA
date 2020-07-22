@@ -63,7 +63,7 @@ public class LocalidadRest {
             jsonb = JsonbBuilder.create();
             Localidad localidad = localidadFacade.find(direccionID);
             if (localidad != null) {
-                return Response.ok(jsonb.toJson(localidad)).header("Access-Control-Allow-Origin", "*").build();
+                return Response.ok(jsonb.toJson(localidad)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
             }
