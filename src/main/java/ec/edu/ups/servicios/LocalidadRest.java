@@ -63,7 +63,7 @@ public class LocalidadRest {
             jsonb = JsonbBuilder.create();
             Localidad localidad = localidadFacade.find(direccionID);
             if (localidad != null) {
-                return Response.ok(jsonb.toJson(localidad)).build();
+                return Response.ok(jsonb.toJson(localidad)).header("Access-Control-Allow-Origin", "*").build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
             }
@@ -77,7 +77,7 @@ public class LocalidadRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public Response addDireccion(@PathParam("usuarioID") String usuarioID, String jsonLocalidad) {
-        //System.out.println("usuario cedula "+id);
+        System.out.println("entrando al metodo para editar ");
         if (usuarioID != null) {
             jsonb = JsonbBuilder.create();
             Usuario usuario = usuarioFacade.find(usuarioID);
@@ -91,15 +91,15 @@ public class LocalidadRest {
                     usuario.addLocalidad(newLocalidad);
                     usuarioFacade.edit(usuario);
 
-                    return Response.ok().entity("Localidad creada").build();
+                    return Response.ok().entity("Localidad creada").header("Access-Control-Allow-Origin", "*").build();
                 } catch (Exception e) {
-                    return Response.status(500).entity("Localidad no creada: " + e).build();
+                    return Response.status(500).entity("Localidad no creada: " + e).header("Access-Control-Allow-Origin", "*").build();
                 }
             } else {
-                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
+                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").header("Access-Control-Allow-Origin", "*").build();
             }
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes").header("Access-Control-Allow-Origin", "*").build();
         }
     }
 
