@@ -117,14 +117,14 @@ public class LocalidadRest {
                 try {
                     localidadFacade.edit(jsonb.fromJson(jsonLocalidad, Localidad.class));
                     return Response.ok().entity("Localidad actualizada")
-                            .header("Access-Control-Allow-Origin", "http://40.84.223.180/Practica_3_EJB_JSF_JPA-1.0")
+                            .header("Access-Control-Allow-Origin", "*")
                             .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                             .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
                             .header("Access-Control-Allow-Credentials", "true")
                             .allow("OPTIONS").build();
                 } catch (Exception e) {
                     return Response.status(500).entity("Error al actualizar: " + e)
-                            .header("Access-Control-Allow-Origin", "http://40.84.223.180/Practica_3_EJB_JSF_JPA-1.0")
+                            .header("Access-Control-Allow-Origin", "*")
                             .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                             .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
                             .header("Access-Control-Allow-Credentials", "true")
@@ -132,7 +132,7 @@ public class LocalidadRest {
                 }
             } else {
                 return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado")
-                        .header("Access-Control-Allow-Origin", "http://40.84.223.180/Practica_3_EJB_JSF_JPA-1.0")
+                        .header("Access-Control-Allow-Origin", "*")
                         .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                         .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
                         .header("Access-Control-Allow-Credentials", "true")
@@ -141,7 +141,7 @@ public class LocalidadRest {
 
         } else {
             return Response.status(Response.Status.NOT_FOUND).entity("Datos insuficientes")
-                    .header("Access-Control-Allow-Origin", "http://40.84.223.180/Practica_3_EJB_JSF_JPA-1.0")
+                    .header("Access-Control-Allow-Origin", "*")
                     .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                     .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
                     .header("Access-Control-Allow-Credentials", "true")
