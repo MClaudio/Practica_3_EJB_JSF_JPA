@@ -77,6 +77,10 @@
         <navigation-case>
             <from-outcome>pedidos</from-outcome>
             <to-view-id>/empleado/pedidos.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>micuenta</from-outcome>
+            <to-view-id>/empleado/micuenta.xhtml</to-view-id>
         </navigation-case>	
     </navigation-rule>
     
@@ -101,6 +105,14 @@
         <navigation-case>
             <from-outcome>categoria</from-outcome>
             <to-view-id>/admin/categoria.xhtml</to-view-id>
-        </navigation-case>		
+        </navigation-case>	
+        <navigation-case>
+            <from-outcome>empleados</from-outcome>
+            <to-view-id>/admin/empleados.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>micuenta</from-outcome>
+            <to-view-id>/admin/micuenta.xhtml</to-view-id>
+        </navigation-case>	
     </navigation-rule>
 </faces-config>

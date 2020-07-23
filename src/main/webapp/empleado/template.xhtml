@@ -44,9 +44,12 @@
                             </a>
 
                             <div class="user-menu dropdown-menu">
-                                <a class="nav-link" href="#"><i class="fa fa-user"></i>My Profile</a>
+                                
+                                <h:link class="nav-link" outcome="micuenta" >
+                                    <i class="fa fa-user"></i> Mi Cuenta
+                                </h:link> 
 
-                                <a class="nav-link" href="#"><i class="fa fa-cog"></i>Settings</a>
+                                <!--<a class="nav-link" href="#"><i class="fa fa-cog"></i>Settings</a>-->
                                 <h:form>
                                     <h:commandLink class="nav-link" action="#{loginBean.logout()}">
                                         <i class="fa fa-power-off"></i>Logout
