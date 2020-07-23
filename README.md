@@ -66,8 +66,28 @@ Luego esta la parte del administrador, para la gestion de los productos, bodegas
 
 ![image](https://user-images.githubusercontent.com/34308601/88237005-e8460700-cc43-11ea-8328-cd0a91d2cd8e.png)
 
+2. Desarrollar las aplicaciones JEE y Angular basado en EJB, JSF, JPA, y WS para el intercambio de datos en una aplicación empresarial. 
+
+Para desplegar la aplicación en angular se hace los siguiente: npm install se utiliza para instalar las dependencias, luego ng build permite construir el proyecto, y la ultima linea se utiiza para mover la carpeta de deployed de angular hacia el servidor apache. 
+
+![image](https://user-images.githubusercontent.com/34308601/88298941-65ff2680-ccc7-11ea-8338-602f0f79803a.png)
+
+En la siguiente imagen se muestra el index con la lista de productos que se recuperan de la base de datos
+
+![image](https://user-images.githubusercontent.com/34308601/88298968-70212500-ccc7-11ea-8c2b-b13c0cd7098e.png)
+
+Luego, se muestra la interfaz de la lista de los pedidos que se han realizado. 
+
+![image](https://user-images.githubusercontent.com/34308601/88298988-78796000-ccc7-11ea-962d-57edb161323d.png)
+
+Tambien se muestra la lista de los clientes con sus localidades respectivas:
+
+![image](https://user-images.githubusercontent.com/34308601/88299024-829b5e80-ccc7-11ea-91b0-e91e48050ffb.png)
+
 
 3. Alojar la aplicación web que permita presentar servicios web Restful en una plataforma en la nube usando como front-end JSF y Angular 
+
+Estamos utilizando la plataforma de Azure para crear un servidor Ubuntu
 
 Lo primero que se hace es desplegar el servidor con la siguiente línea de comando
 
