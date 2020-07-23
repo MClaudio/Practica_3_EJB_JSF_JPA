@@ -111,6 +111,7 @@ public class ProductoBean implements Serializable {
 
 
     public List<Bodega> getBodegas() {
+        this.bodegas = this.bodegaFacade.findAll();
         return bodegas;
     }
 
