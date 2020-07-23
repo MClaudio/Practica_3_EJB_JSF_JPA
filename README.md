@@ -65,3 +65,40 @@ Luego esta la parte del administrador, para la gestion de los productos, bodegas
 ![image](https://user-images.githubusercontent.com/34308601/88236986-e11ef900-cc43-11ea-8011-063863b08c27.png)
 
 ![image](https://user-images.githubusercontent.com/34308601/88237005-e8460700-cc43-11ea-8328-cd0a91d2cd8e.png)
+
+
+3. Alojar la aplicación web que permita presentar servicios web Restful en una plataforma en la nube usando como front-end JSF y Angular 
+
+Lo primero que se hace es desplegar el servidor con la siguiente línea de comando
+
+![image](https://user-images.githubusercontent.com/34308601/88244090-3bc25000-cc58-11ea-8a23-1793c5df30d5.png)
+
+Lo que se debe hacer  es editar archivo xml del domain pare editar los archivos de la base de datos con la cual estamos trabajando.
+
+![image](https://user-images.githubusercontent.com/34308601/88244093-40870400-cc58-11ea-8978-a4e40ac1cef4.png)
+
+En Jenkins se debe configurar el archivo Maven para luego con la línea de comando que se muestra se mueve la aplicación al servidor de glassfish.
+
+![image](https://user-images.githubusercontent.com/34308601/88244098-441a8b00-cc58-11ea-97b0-b7caaaa021cf.png)
+
+La siguiente configuración hace que Jenkins pueda escuchar los cambios de push que tenemos en github.
+
+![image](https://user-images.githubusercontent.com/34308601/88244102-48df3f00-cc58-11ea-852d-204b0ef1cce3.png)
+
+
+CONCLUSIONES: 
+
+La aplicación web se ha creado exitosamente, hemos cumplido con los requerimientos solicitados por nuestro docente, de la misa forma, cada integrante ha trabajado para generar un trabajo en equipo. 
+
+La implementación de JSF se ha implementado correctamente y hemos creado nuestro proyecto con el servidor de glassfish. 
+
+Tambien hemos implementado Angular para la parte publica del cliente, para la gestión de la compra de los productos. 
+
+Finalmente, hemos desplegado nuestro proyecto en la web exitosamente desde una maquina virtual con servidor. 
+
+INTEGRANTES:
+
+Claudio Maldonado
+Christian Mocha
+Jonnathan Ochoa
+Diego Duchimaza

@@ -39,6 +39,8 @@ public class CategoriaBean implements Serializable {
     private String decripcion;
     private List<Categoria> categorias;
     private String nombreCategoria;
+    
+    
 
     @PostConstruct
     public void init() {
