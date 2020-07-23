@@ -117,8 +117,8 @@ public class LocalidadRest {
                 try {
                     localidadFacade.edit(jsonb.fromJson(jsonLocalidad, Localidad.class));
                     return Response.ok().entity("Localidad actualizada")
-                            .header("Access-Control-Allow-Origin", "*")
-                            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                            .header("Access-Control-Allow-Origin", "http://40.84.223.180/Practica_3_EJB_JSF_JPA-1.0")
+                            .header("Access-Control-Allow-Methods", "PUT")
                             .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
                             .header("Access-Control-Allow-Credentials", "true")
                             .allow("OPTIONS").build();
