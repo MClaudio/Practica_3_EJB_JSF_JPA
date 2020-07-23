@@ -87,6 +87,8 @@ Tambien se muestra la lista de los clientes con sus localidades respectivas:
 
 3. Alojar la aplicación web que permita presentar servicios web Restful en una plataforma en la nube usando como front-end JSF y Angular 
 
+Estamos utilizando la plataforma de Azure para crear un servidor Ubuntu
+
 Lo primero que se hace es desplegar el servidor con la siguiente línea de comando
 
 ![image](https://user-images.githubusercontent.com/34308601/88244090-3bc25000-cc58-11ea-8a23-1793c5df30d5.png)
