@@ -11,16 +11,6 @@
 
     <ui:define name="content">
 
-        <script type="text/javascript">
-            function indicador(data) {
-                if (data.status == "begin") {
-
-                } else if (data.status == "success") {
-
-                }
-            }
-        </script>
-
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
                 <div class="row m-0">
@@ -41,25 +31,21 @@
                                                      value="#{categoriaBean.nombreCategoria}"
                                                      />
                                     </div>
-                                   <!-- <h:commandButton class="btn btn-primary" value="Buscar"
-                                                     action=""
-                                                     />   -->
-                                   
+                                    <!-- <h:commandButton class="btn btn-primary" value="Buscar"
+                                                      action=""
+                                                      />   -->
+
 
                                     <h:column>
                                         <f:facet name="header">Acciones</f:facet>
-                                        
-
 
                                         <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px;" value="Buscar" action="#{categoriaBean.buscarPorNombre()}"
-                                                       rendered="#{categoriaBean.nombreCategoria != null}" />
-                                        <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px; background-color: green;" value="Listar" action="#{categoriaBean.listar()}"
                                                        rendered="#{categoriaBean.nombreCategoria == null}" />
-                                        
-                                        
-                                        
+                                        <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px; background-color: green;" value="Listar" action="#{categoriaBean.listar()}"
+                                                       rendered="#{categoriaBean.nombreCategoria != null}" />
+
                                     </h:column>
-                                   
+
                                 </h:form>
                             </div>
                         </div>
@@ -79,18 +65,12 @@
 
                                 </h:form>
 
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
-
 
         <div class="content">
             <div class="animated fadeIn">
@@ -128,9 +108,6 @@
                                             </span>
                                         </h:column>
 
-
-
-
                                         <h:column>
                                             <f:facet name="header">Acciones</f:facet>
                                             <h:commandLink class="btn btn-danger mr-3" value="Eliminar" action="#{categoriaBean.delete(c)}" />
@@ -142,16 +119,11 @@
                                                            rendered="#{c.editable}" />
                                         </h:column>
 
-
-
-
                                     </h:dataTable>
                                 </h:form>
                             </div> <!-- /.table-stats -->
                         </div>
                     </div>
-
-
                 </div>
             </div><!-- .animated -->
         </div>
@@ -184,13 +156,8 @@
                                     <h:inputTextarea class="form-control" id="categoria-descripcion" value="#{categoriaBean.decripcion}" required="true"
                                                      requiredMessage="Campo Obligatorio"/>
                                     <h:message for="categoria-descripcion" style="color:red" />
-
                                 </div>
-
-
                             </div>
-
-
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

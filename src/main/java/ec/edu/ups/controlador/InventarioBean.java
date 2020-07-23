@@ -5,6 +5,7 @@
  */
 package ec.edu.ups.controlador;
 
+import ec.edu.ups.ejb.BodegaFacade;
 import ec.edu.ups.ejb.InventarioFacade;
 import ec.edu.ups.modelo.Bodega;
 import ec.edu.ups.modelo.Inventario;
@@ -15,8 +16,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
-import javax.faces.application.FacesMessage;
-import javax.faces.validator.ValidatorException;
+
 
 /**
  *
@@ -31,12 +31,15 @@ public class InventarioBean implements Serializable {
 
     @EJB
     private InventarioFacade inventarioFacade;
+    @EJB
+    private BodegaFacade bodegaFacade;
 
     private List<Inventario> inventarios;
     private Inventario inventario;
     private Bodega bodega;
     private Producto producto;
     private int cantidad;
+    private List<Bodega> bodegas;
 
     /**
      * Creates a new instance of InventarioBean
@@ -61,7 +64,7 @@ public class InventarioBean implements Serializable {
     }
 
     public void inventarioProducto(Producto producto) {
-        //System.out.println("Inventario Producto..."+producto.toString());
+
         this.producto = producto;
         this.inventarios = producto.getInventarios();
     }
@@ -89,6 +92,15 @@ public class InventarioBean implements Serializable {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    public List<Bodega> getBodegas() {
+        return bodegaFacade.findAll();
+    }
+
+    public void setBodegas(List<Bodega> bodegas) {
+        this.bodegas = bodegas;
+    }
+    
 
     public String add() {
         try {

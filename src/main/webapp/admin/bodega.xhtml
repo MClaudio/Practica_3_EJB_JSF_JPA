@@ -10,16 +10,6 @@
 
     <ui:define name="content">
 
-        <script type="text/javascript">
-            function indicador(data) {
-                if (data.status == "begin") {
-
-                } else if (data.status == "success") {
-
-                }
-            }
-        </script>
-
 
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
@@ -53,9 +43,9 @@
 
 
                                         <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px;" value="Buscar" action="#{bodegaBean.buscarPorNombre()}"
-                                                       rendered="#{bodegaBean.nombreBodega!= null}" />
-                                        <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px; background-color: green;" value="Listar" action="#{bodegaBean.listar()}"
                                                        rendered="#{bodegaBean.nombreBodega == null}" />
+                                        <h:commandLink class="btn btn-primary mr-3" style="width: 100px; height: 40px; background-color: green;" value="Listar" action="#{bodegaBean.listar()}"
+                                                       rendered="#{bodegaBean.nombreBodega != null}" />
                                         
                                         
                                         

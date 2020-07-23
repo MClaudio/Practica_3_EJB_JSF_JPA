@@ -61,23 +61,27 @@ public class LoginBean implements Serializable {
         try {
             if (!correo.equals("") && !password.equals("")) {
                 usuario = usuarioFacade.finByEmailAndPass(correo, password);
-                if (usuario != null && usuario.isActivo()) {
-                    System.out.println("Usuario... " + usuario);
+                if (usuario != null) {
 
-                    HttpSession session = Session.getSession();
-                    session.setAttribute("usuario", usuario);
+                    if (usuario.isActivo()) {
+                        //System.out.println("Usuario... " + usuario);
 
-                    switch (usuario.getRol()) {
-                        case "admin":
-                            //System.out.println("admin");
-                            return "/admin/index.xhtml?faces-redirect=true";
-                        case "empleado":
-                            //ystem.out.println("empleado");
-                            return "/empleado/index.xhtml?faces-redirect=true";
+                        HttpSession session = Session.getSession();
+                        session.setAttribute("usuario", usuario);
+
+                        switch (usuario.getRol()) {
+                            case "admin":
+                                //System.out.println("admin");
+                                return "/admin/index.xhtml?faces-redirect=true";
+                            case "empleado":
+                                //ystem.out.println("empleado");
+                                return "/empleado/index.xhtml?faces-redirect=true";
+                        }
+                    } else {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerta", "Su cuenta ah sido desactivada contacte con un administrador"));
                     }
-                }else if(!usuario.isActivo()){
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerta", "Su cuenta ah sido desactivada contacte con un administrador"));
-                }else {
+
+                } else{
                     //System.out.println("Usuario no es correcto");
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales incorrectas"));
                 }
@@ -106,7 +110,7 @@ public class LoginBean implements Serializable {
         try {
             if (usuarioLogin == null && page.equals("index")) {
                 context.getExternalContext().redirect("public/login.xhtml");
-            }else if(usuarioLogin != null && page.equals("login")){
+            } else if (usuarioLogin != null && page.equals("login")) {
                 context.getExternalContext().redirect("../index.xhtml");
             }
         } catch (Exception e) {

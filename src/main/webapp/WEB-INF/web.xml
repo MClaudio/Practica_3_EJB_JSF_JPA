@@ -42,4 +42,9 @@
     <welcome-file-list>
         <welcome-file>faces/public/login.xhtml</welcome-file>
     </welcome-file-list>
+    <error-page>
+        <!-- Missing resource -->
+        <error-code>404</error-code>
+        <location>/public/404error.xhtml</location>
+    </error-page>
 </web-app>

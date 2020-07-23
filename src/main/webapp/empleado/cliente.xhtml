@@ -370,6 +370,14 @@
                                             <h:outputText id="txt-direccion" value="#{l.direccion}" rendered="#{not l.editable}"/>
                                         </span>
                                     </h:column>
+                                    
+                                    <h:column>
+                                        <f:facet name="header">Direccion</f:facet>
+                                        <span class="name">
+                                            <h:inputText class="form-control" id="in-telefono" rendered="#{l.editable}" value="#{l.direccion}"/>
+                                            <h:outputText id="txt-telefono" value="#{l.direccion}" rendered="#{not l.editable}"/>
+                                        </span>
+                                    </h:column>
 
                                     <h:column>
                                         <f:facet name="header">Acciones</f:facet>
@@ -388,12 +396,12 @@
                                                        rendered="#{not l.editable}">
                                             
                                             <f:ajax execute="btn-editar-localidad" 
-                                                    render="form-localidades table-inventarios in-pais in-provincia in-ciudad in-direccion btn-guardar-localidad" />
+                                                    render="form-localidades table-inventarios in-telefono in-pais in-provincia in-ciudad in-direccion btn-guardar-localidad" />
                                         </h:commandLink>
                                         
                                         <h:commandLink id="btn-guardar-localidad" class="btn btn-success mr-3" value="guardar" action="#{localidadBean.save(l)}" rendered="#{l.editable}">
                                             <f:ajax execute="btn-guardar-localidad in-pais in-provincia in-ciudad in-direccion btn-guardar-localidad" 
-                                                    render="form-localidades table-inventarios btn-editar-localidad txt-pais txt-provincia txt-ciudad txt-direccion" />
+                                                    render="form-localidades table-inventarios btn-editar-localidad txt-telefono txt-pais txt-provincia txt-ciudad txt-direccion" />
                                         </h:commandLink>
 
                                     </h:column>

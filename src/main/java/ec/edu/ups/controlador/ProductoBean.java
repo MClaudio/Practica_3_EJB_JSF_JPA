@@ -50,6 +50,7 @@ public class ProductoBean implements Serializable {
     private double precio;
     private List<Bodega> bodegas;
     private Bodega bodega;
+    
     private List<Producto> productos;
     private List<String> unidadMedidas;
 
