@@ -93,6 +93,7 @@ public class ProductoBean implements Serializable {
     }
 
     public List<Categoria> getCategorias() {
+        this.categorias = this.categoriaFacade.findAll();
         return categorias;
     }
 

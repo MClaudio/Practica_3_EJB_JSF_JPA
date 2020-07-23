@@ -169,8 +169,7 @@ public class BodegaBean implements Serializable {
         this.pais="";
         this.provincia="";
         this.telefono="";
-        
-        
+            
    }
     
     public void buscarPorNombre() {
@@ -181,18 +180,19 @@ public class BodegaBean implements Serializable {
             //System.out.println("Es nulo... ");
             this.bodegas = this.bodegaFacade.findAll();    
         }
-        System.out.println("Nombre............ " + nombreBodega);
-        nombreBodega= null;
+        
+        //System.out.println("Nombre............ " + nombreBodega);
     }
     public void listar() {
        
          try {
             this.bodegas = bodegaFacade.findAll();
-            System.out.println("Lista categorias" + this.bodegas);
+            //System.out.println("Lista categorias" + this.bodegas);
 
         } catch (Exception e) {
             System.out.println("Error---" + e);
         }
+         nombreBodega = null;
     }
 
 }
