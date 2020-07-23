@@ -93,6 +93,7 @@
                 
                 <c:forEach var="p" items="#{indexBean.productos}">
                     
+                  
                     
                   
                     
@@ -113,7 +114,14 @@
 
                                 <p class="card-text">Categoria: #{p.categoria.nombre}</p>
                                  
+                                
+                               
                                 <p class="card-text">Bodega: </p>
+                                    <c:forEach var="inventario"  items="#{p.inventarios}">
+                                        <p class="card-text"> #{inventario.bodega.nombre} </p>
+                                    </c:forEach>
+                                
+                              
                                 
 
                                 <p class="text-right font-weight-bold h5 text-secondary"> #{p.precio} $</p>
@@ -122,7 +130,7 @@
                             <div class="card-footer text-right">
                                 <h:form>
                                    <h4 class="card-title text-md-left" >Descripcion</h4>
-                                   <h5 class="card-text"> #{p.categoria.descripcion}</h5>
+                                   <p class="card-text"> #{p.categoria.descripcion}</p>
 
                                     
                                 </h:form>
