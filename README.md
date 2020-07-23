@@ -84,3 +84,21 @@ En Jenkins se debe configurar el archivo Maven para luego con la línea de coman
 La siguiente configuración hace que Jenkins pueda escuchar los cambios de push que tenemos en github.
 
 ![image](https://user-images.githubusercontent.com/34308601/88244102-48df3f00-cc58-11ea-852d-204b0ef1cce3.png)
+
+
+CONCLUSIONES: 
+
+La aplicación web se ha creado exitosamente, hemos cumplido con los requerimientos solicitados por nuestro docente, de la misa forma, cada integrante ha trabajado para generar un trabajo en equipo. 
+
+La implementación de JSF se ha implementado correctamente y hemos creado nuestro proyecto con el servidor de glassfish. 
+
+Tambien hemos implementado Angular para la parte publica del cliente, para la gestión de la compra de los productos. 
+
+Finalmente, hemos desplegado nuestro proyecto en la web exitosamente desde una maquina virtual con servidor. 
+
+INTEGRANTES:
+
+Claudio Maldonado
+Christian Mocha
+Jonnathan Ochoa
+Diego Duchimaza
