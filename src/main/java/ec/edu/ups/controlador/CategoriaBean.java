@@ -143,10 +143,9 @@ public class CategoriaBean implements Serializable {
         } else {
             //System.out.println("Es nulo... ");
             this.categorias = this.categoriaFacade.findAll();    
-        }
-        System.out.println("Nombre............ " + nombreCategoria);
-        nombreCategoria= null;
+        } 
     }
+    
     public void listar() {
        
          try {
@@ -156,5 +155,6 @@ public class CategoriaBean implements Serializable {
         } catch (Exception e) {
             System.out.println("Error---" + e);
         }
+        nombreCategoria= null;
     }
 }
