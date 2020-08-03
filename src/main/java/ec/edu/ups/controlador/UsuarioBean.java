@@ -83,6 +83,7 @@ public class UsuarioBean implements Serializable {
     public void cambiarPass(){
         if(usuario.getPassword().equals(oldPass)){
             usuario.setPassword(newPass);
+            usuario.setCambioPassword(true);
             usuarioFacade.edit(usuario);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Datos actualizados", "Se actualizaron sus datos correctamente"));
         }else{

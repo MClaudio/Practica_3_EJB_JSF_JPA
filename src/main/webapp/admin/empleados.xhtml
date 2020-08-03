@@ -12,6 +12,18 @@
 
 
         <div class="breadcrumbs">
+            <c:if test="#{!loginBean.userLogin().cambioPassword}">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Su contraseña es insegura</strong> Cambie su contraseña por defecto. visite
+                    <h:link outcome="micuenta" >
+                        para cambiar su contraseña
+                    </h:link>
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:if>
             <div class="breadcrumbs-inner">
                 <div class="row">
                     <div class="col-sm-4">
@@ -30,14 +42,16 @@
             <div class="animated fadeIn">
                 <div class="row">
 
-                    <div class="col-md-4">
-                        <c:forEach var="e" items="#{empleadosBean.usuarios}">
+
+                    <c:forEach var="e" items="#{empleadosBean.usuarios}">
+                        <div class="col-md-4">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="mx-auto d-block">
                                         <h:graphicImage class="rounded-circle mx-auto d-block" name="img/admin.jpg" alt="Card image cap"/>
 
                                         <h5 class="text-sm-center mt-2 mb-1">#{e.nombre} #{e.apellido}</h5>
+                                        <p class="text-sm-center mt-2">#{e.correo}</p>
                                         <div class="location text-sm-center">
                                             <c:forEach var="l" items="#{e.localidades}">
                                                 <i class="fas fa-map-marker-alt"></i> #{l.pais}, #{l.provincia}, #{l.ciudad}, #{l.direccion}
@@ -52,15 +66,16 @@
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between">
-                                    <strong class="card-title mb-3">Opciones</strong>
+                                    <strong class="card-title mb-3">Cuenta</strong>
                                     <h:form>
                                         <h:commandButton rendered="#{e.activo}" class="btn btn-danger" value="Eliminar" action="#{empleadosBean.eliminar(e)}"/>
                                         <h:commandButton rendered="#{!e.activo}" class="btn btn-warning" value="Activar" action="#{empleadosBean.actiivar(e)}"/>
                                     </h:form>
                                 </div>
                             </div>
-                        </c:forEach>
-                    </div>
+                        </div>
+                    </c:forEach>
+
 
                 </div>
             </div><!-- .animated -->

@@ -12,6 +12,18 @@
     <ui:define name="content">
 
         <div class="breadcrumbs">
+            <c:if test="#{!loginBean.userLogin().cambioPassword}">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Su contraseña es insegura</strong> Cambie su contraseña por defecto. visite
+                    <h:link outcome="micuenta" >
+                        para cambiar su contraseña
+                    </h:link>
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:if>
             <div class="breadcrumbs-inner">
                 <div class="row m-0 d-flex justify-content-between">
                     <div class="col-sm-4">

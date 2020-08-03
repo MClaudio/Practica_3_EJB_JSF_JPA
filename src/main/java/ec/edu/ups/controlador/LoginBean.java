@@ -151,5 +151,10 @@ public class LoginBean implements Serializable {
         } catch (Exception e) {
         }
     }
+    
+    public Usuario userLogin(){
+        Usuario userLogin = (Usuario) Session.getSessionMap().get("usuario");
+        return usuarioFacade.find(userLogin.getCedula());
+    }
 
 }
